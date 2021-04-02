@@ -9,6 +9,10 @@ public class Main {
         //Creando la instancia del servidor.
         Javalin app = Javalin.create(config ->{
             config.addStaticFiles("/publico"); //desde la carpeta de resources
-        });
+        }).start(7000);
+
+        JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
+        
+        
     }
 }
