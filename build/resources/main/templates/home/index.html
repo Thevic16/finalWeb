@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head th:fragment="head">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -35,7 +35,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+  <header id="header" class="fixed-top " th:fragment="header">
     <div class="container d-flex align-items-center">
 
       <h1 class="logo mr-auto"><a href="/">NetBreakers</a></h1>
@@ -50,7 +50,7 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="/inapp" class="get-started-btn scrollto">Formulario</a>
+      <a href="/inapp/" class="get-started-btn scrollto">Formulario</a>
 
     </div>
   </header><!-- End Header -->
