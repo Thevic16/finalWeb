@@ -19,6 +19,7 @@ public void applyRoutes() {
   app.get("/inapp", ctx -> {
     ctx.render("/templates/inApp/main-form.html");
   });
+
 }
 
   
