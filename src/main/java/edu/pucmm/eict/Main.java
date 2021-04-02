@@ -1,6 +1,9 @@
 package edu.pucmm.eict;
 
+import edu.pucmm.eict.controllers.MainController;
 import io.javalin.Javalin;
+import io.javalin.plugin.rendering.JavalinRenderer;
+import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +15,7 @@ public class Main {
         }).start(7000);
 
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
-        
-        
+
+        new MainController(app).applyRoutes();
     }
 }
