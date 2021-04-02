@@ -13,7 +13,11 @@ public class MainController extends BaseController{
 @Override
 public void applyRoutes() {
   app.get("/", ctx -> {
-    ctx.render("/templates/home/main-form.html");
+    ctx.render("/templates/home/index.html");
+  });
+
+  app.get("/inapp", ctx -> {
+    ctx.render("/templates/inApp/main-form.html");
   });
 }
 
