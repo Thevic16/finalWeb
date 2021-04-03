@@ -6,17 +6,56 @@ edu/pucmm/eict/models/Position.java
  edu.pucmm.eict.models.Position
 edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
+<<<<<<< HEAD
 edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
+||||||| e896cd7
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main
+=======
+edu/pucmm/eict/utils/BaseController.java
+ edu.pucmm.eict.utils.BaseController
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main
+>>>>>>> fad0dcd430ee1541e5c17d93b86e8925acb503d2
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
+<<<<<<< HEAD
 edu/pucmm/eict/services/UserServices.java
  edu.pucmm.eict.services.UserServices
+||||||| e896cd7
+edu/pucmm/eict/services/UserServices.java
+ edu.pucmm.eict.services.UserServices
+||||||| c9b74f4
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main
+=======
+>>>>>>> fad0dcd430ee1541e5c17d93b86e8925acb503d2
 edu/pucmm/eict/models/User.java
  edu.pucmm.eict.models.User
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
+<<<<<<< HEAD
 edu/pucmm/eict/Main.java
  edu.pucmm.eict.Main
 edu/pucmm/eict/controllers/MainController.java
  edu.pucmm.eict.controllers.MainController
+||||||| e896cd7
+=======
+edu/pucmm/eict/services/DataBaseConnServices.java
+ edu.pucmm.eict.services.DataBaseConnServices
+edu/pucmm/eict/models/Form.java
+ edu.pucmm.eict.models.Form
+edu/pucmm/eict/services/DatabaseOrmHandler.java
+ edu.pucmm.eict.services.DatabaseOrmHandler
+edu/pucmm/eict/models/User.java
+ edu.pucmm.eict.models.User
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main
+edu/pucmm/eict/controllers/MainController.java
+ edu.pucmm.eict.controllers.MainController
+>>>>>>> 031e4eaa45062a0c7b37c7d88b5d26614ead8a0e
+=======
+edu/pucmm/eict/services/UserServices.java
+ edu.pucmm.eict.services.UserServices
+>>>>>>> fad0dcd430ee1541e5c17d93b86e8925acb503d2
