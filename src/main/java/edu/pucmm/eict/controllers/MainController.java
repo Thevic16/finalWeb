@@ -35,6 +35,14 @@ public class MainController extends BaseController{
           ctx.render("/templates/inApp/list-form.html");
         });
 
+        get("/user-manage", ctx -> {
+          ctx.render("/templates/inApp/user-manage.html");
+        });
+
+        get("/list-user", ctx -> {
+          ctx.render("/templates/inApp/list-user.html");
+        });
+
       });
     });
   }
