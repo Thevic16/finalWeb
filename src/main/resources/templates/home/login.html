@@ -24,7 +24,7 @@
   <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="/vendor/owl.carousel//owl.carousel.min.css" rel="stylesheet">
+  <link href="/vendor/owl.carousel/owl.carousel.min.js" rel="stylesheet">
   <link href="/vendor/aos/aos.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -36,14 +36,14 @@
   <link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" type="text/css" href="/css/util.css">
   <link rel="stylesheet" type="text/css" href="/css/login.css">
-  <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top " th:replace="/templates/home/index.html::header">
+  <header th:replace="/templates/home/index.html::header">
 
   </header><!-- End Header -->
 
@@ -52,18 +52,18 @@
     <section id="hero-modified" class="d-flex align-items-center">
     </section>
     <!-- ======= Login Section ======= -->
-    <section id="login" class="about">
+    <section id="login" class="login">
       <div class="container" data-aos="fade-up">
         <div class="limiter">
           <div class="container-login100">
             <div class="wrap-login100">
-              <div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
+              <div class="login100-form-title" style="background-image: url(/img/bg-01.jpg);">
                 <span class="login100-form-title-1">
                   Iniciar Sesión
                 </span>
               </div>
 
-              <form class="login100-form validate-form">
+              <form class="login100-form validate-form" method="post" action="/validate-login">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                   <span class="label-input100">Usuario</span>
                   <input class="input100" type="text" name="username" placeholder="Ingrese nombre de usuario">
@@ -83,17 +83,11 @@
                       Recuérdame
                     </label>
                   </div>
-
-                  <div>
-                    <a href="#" class="txt1">
-                      ¿No tienes cuenta? Crea una
-                    </a>
-                  </div>
                 </div>
 
-                <div class="container-login100-form-btn">
+                <div class="container-login100-form-btn text-center">
                   <button class="login100-form-btn">
-                    Login
+                    Iniciar Sesión
                   </button>
                 </div>
               </form>

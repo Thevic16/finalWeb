@@ -29,10 +29,10 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Util
 --------------------------------------------------------------*/
-#hero-modified {
-  width: 100%;
-  height: 5vh;
-  background: #37517e;
+
+
+.login {
+  margin-top: 0;
 }
 /*--------------------------------------------------------------
 # Preloader
@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
   font-weight: 500;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
 #header .logo a {
@@ -251,6 +251,10 @@ h1, h2, h3, h4, h5, h6 {
   }
   .nav-menu .drop-down .drop-down > a:after {
     content: "\ea9d";
+  }
+
+  #header .logo {
+    font-size: 15px;
   }
 }
 
@@ -1847,6 +1851,7 @@ section {
   }
 }
 
+
 /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -2615,5 +2620,12 @@ input {
     padding: 40px 30px;
     padding-bottom: 50px;
   }
+}
+
+
+#hero-modified {
+  width: 100%;
+  height: 2vh;
+  background: #37517e;
 }
 
