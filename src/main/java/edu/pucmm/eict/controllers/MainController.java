@@ -24,7 +24,7 @@ public class MainController extends BaseController{
       path("/inapp", () -> {
         before(ctx -> {
           String logged = ctx.sessionAttribute("logged");
-          if (logged == null) ctx.redirect("/login");
+          //if (logged == null) ctx.redirect("/login");
         });
 
         get("/", ctx -> {
@@ -33,6 +33,14 @@ public class MainController extends BaseController{
 
         get("/list-form", ctx -> {
           ctx.render("/templates/inApp/list-form.html");
+        });
+
+        get("/user-manage", ctx -> {
+          ctx.render("/templates/inApp/user-manage.html");
+        });
+
+        get("/list-user", ctx -> {
+          ctx.render("/templates/inApp/list-user.html");
         });
 
       });
