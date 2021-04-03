@@ -90,7 +90,10 @@ public class MainController extends BaseController{
         });
 
         get("/list-form", ctx -> {
-          ctx.render("/templates/inApp/list-form.html");
+          List<Form> forms = FormServices.getInstance().findAll();
+          Map<String, Object> model = new HashMap<>();
+          model.put("forms",forms);
+          ctx.render("/templates/inApp/list-form.html",model);
         });
 
         get("/user-manage", ctx -> {

@@ -8,15 +8,15 @@ edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
 edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
-edu/pucmm/eict/Main.java
- edu.pucmm.eict.Main
+edu/pucmm/eict/services/UserServices.java
+ edu.pucmm.eict.services.UserServices
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
 edu/pucmm/eict/models/User.java
  edu.pucmm.eict.models.User
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
-edu/pucmm/eict/services/UserServices.java
- edu.pucmm.eict.services.UserServices
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main
+edu/pucmm/eict/controllers/MainController.java
+ edu.pucmm.eict.controllers.MainController
