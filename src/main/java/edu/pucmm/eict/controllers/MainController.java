@@ -24,7 +24,7 @@ public class MainController extends BaseController{
       path("/inapp", () -> {
         before(ctx -> {
           String logged = ctx.sessionAttribute("logged");
-          if (logged == null) ctx.redirect("/login");
+          //if (logged == null) ctx.redirect("/login");
         });
 
         get("/", ctx -> {
