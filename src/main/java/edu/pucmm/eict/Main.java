@@ -21,7 +21,7 @@ public class Main {
 
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
         DatabaseSetupServices.startDb();
-        PositionServices.getInstance().create(new Position(34.44, 56.55));
+        //PositionServices.getInstance().create(new Position(34.44, 56.55));
         
         new MainController(app).applyRoutes();
     }

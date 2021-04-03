@@ -1,6 +1,10 @@
 
 package edu.pucmm.eict.controllers;
 
+import edu.pucmm.eict.models.Form;
+import edu.pucmm.eict.models.Position;
+import edu.pucmm.eict.services.FormServices;
+import edu.pucmm.eict.services.PositionServices;
 import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -29,6 +33,20 @@ public class MainController extends BaseController{
 
         get("/", ctx -> {
           ctx.render("/templates/inApp/main-form.html");
+        });
+
+        get("/add-form", ctx -> {
+          String name = ctx.formParam("name");
+          String lastName = ctx.formParam("lasname");
+          String area = ctx.formParam("sector");
+          String nivelEscolar = ctx.formParam("sector");
+          double latitude = ctx.formParam("latitude",Double.class).get();
+          double longitude = ctx.formParam("longitude",Double.class).get();
+
+          PositionServices.getInstance().create(new Position(latitude,longitude));
+          //FormServices.getInstance().create(new Form(name,lastName,area,nivelEscolar,new Position(latitude,longitude), new ));
+          ctx.redirect("/");
+
         });
 
         get("/list-form", ctx -> {
