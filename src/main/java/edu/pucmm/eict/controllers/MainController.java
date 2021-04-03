@@ -10,6 +10,10 @@ import edu.pucmm.eict.models.User;
 import edu.pucmm.eict.services.UserServices;
 import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class MainController extends BaseController{
@@ -48,29 +52,36 @@ public class MainController extends BaseController{
         });
 
         get("/", ctx -> {
-          ctx.render("/templates/inApp/main-form.html");
+          //Looking for user
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
+
+          //creating model
+          Map<String, Object> modelo = new HashMap<>();
+          modelo.put("user", user);
+
+          ctx.render("/templates/inApp/main-form.html",modelo);
         });
 
         post("/add-form", ctx -> {
           String name = ctx.formParam("name");
-          String lastName = ctx.formParam("lasname");
+          String lastName = ctx.formParam("lastname");
           String area = ctx.formParam("sector");
           String nivelEscolar = ctx.formParam("schoolLevel");
           double latitude = ctx.formParam("latitude",Double.class).get();
           double longitude = ctx.formParam("longitude",Double.class).get();
 
           //Looking for user
-          //String username = ctx.sessionAttribute("logged");
-          //User user = UserServices.getInstance().find(username);
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
 
-          //Prueba
-          User user = new User("thevi16","victor","gomez","1234","si");
-          UserServices.getInstance().create(user);
+
 
           Position position = new Position(latitude,longitude);
           PositionServices.getInstance().create(position);
-          FormServices.getInstance().create(new Form(name,lastName,area,nivelEscolar,user,position));
-          ctx.redirect("/");
+          Form form = new Form(name,lastName,area,nivelEscolar,user,position);
+          FormServices.getInstance().create(form);
+          ctx.redirect("/inapp");
 
         });
 

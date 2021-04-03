@@ -97,7 +97,7 @@
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="name">
+              <input class="input--style-5" type="text" name="name" id="name">
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="lasname">
+              <input class="input--style-5" type="text" name="lastname" id="lastname">
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="sector">
+              <input class="input--style-5" type="text" name="sector" id="sector">
             </div>
           </div>
         </div>
@@ -122,13 +122,13 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select name="schoolLevel">
-                  <option disabled="disabled" selected="selected">Seleccione</option>
-                  <option>Básico</option>
-                  <option>Medio</option>
-                  <option>Grado Universitario</option>
-                  <option>Postgrado</option>
-                  <option>Doctorado</option>
+                <select name="schoolLevel" id="schoolLevel" onclick="checkSelected()">
+                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Grado Universitario">Grado Universitario</option>
+                  <option value="Postgrado">Postgrado</option>
+                  <option value="Doctorado">Doctorado</option>
                 </select>
                 <div class="select-dropdown"></div>
               </div>
@@ -139,17 +139,19 @@
           <div class="name">Usuario</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="user">
+              <input class="input--style-5" type="text" name="user" id="user" disabled th:value="${user.userName}">
             </div>
           </div>
         </div>
         <div>
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
-          <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
-          <button class="btn btn--radius-2 btn--blue">Limpiar</button>
+          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled>Enviar</button>
+          <a class="btn btn--radius-2 btn--blue" onclick="clearText() ,checkSelected()">Limpiar</a>
         </div>
       </form>
+
+
     </div>
 
   </main><!-- End #main -->
@@ -213,6 +215,24 @@
         $("#posicionGps").text("No permite el acceso del API GEO");
       }, opcionesGPS);
     });
+
+    function clearText() {
+      document.getElementById("schoolLevel").value = "Seleccione";
+      document.getElementById("sector").value = "";
+      document.getElementById("lastname").value = "";
+      document.getElementById("name").value = "";
+    }
+
+    function checkSelected() {
+      if (document.getElementById("schoolLevel").value != "Seleccione"){
+          document.getElementById("sendButton").disabled = false;
+      }
+      else {
+        document.getElementById("sendButton").disabled = true;
+      }
+    }
+
+
   </script>
 
 </body>
