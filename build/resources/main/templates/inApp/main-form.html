@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -92,7 +92,7 @@
   <main id="main">
     <br>
     <div class="container">
-      <form method="POST">
+      <form method="post" action="/inapp/add-form">
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
@@ -144,6 +144,8 @@
           </div>
         </div>
         <div>
+          <input class="input--style-5" type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5" type="hidden" id="longitude" name="longitude">
           <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
           <button class="btn btn--radius-2 btn--blue">Limpiar</button>
         </div>
@@ -187,6 +189,31 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
+
+  <!--Implementando geolocalizacion-->
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script>
+    var id, cantidad = 0;
+    //Indica las opciones para llamar al GPS.
+    var opcionesGPS = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+
+    $(document).ready(function(){
+      console.log("Ejemplo de Geolocalizacion");
+
+      //Obteniendo la referencia directa.
+      navigator.geolocation.getCurrentPosition(function(geodata){
+        var coordenadas = geodata.coords;
+        document.getElementById("latitude").value = coordenadas.latitude;
+        document.getElementById("longitude").value = coordenadas.longitude;
+      }, function(){
+        $("#posicionGps").text("No permite el acceso del API GEO");
+      }, opcionesGPS);
+    });
+  </script>
 
 </body>
 

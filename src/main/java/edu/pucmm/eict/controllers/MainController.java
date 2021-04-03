@@ -51,16 +51,25 @@ public class MainController extends BaseController{
           ctx.render("/templates/inApp/main-form.html");
         });
 
-        get("/add-form", ctx -> {
+        post("/add-form", ctx -> {
           String name = ctx.formParam("name");
           String lastName = ctx.formParam("lasname");
           String area = ctx.formParam("sector");
-          String nivelEscolar = ctx.formParam("sector");
+          String nivelEscolar = ctx.formParam("schoolLevel");
           double latitude = ctx.formParam("latitude",Double.class).get();
           double longitude = ctx.formParam("longitude",Double.class).get();
 
-          PositionServices.getInstance().create(new Position(latitude,longitude));
-          //FormServices.getInstance().create(new Form(name,lastName,area,nivelEscolar,new Position(latitude,longitude), new ));
+          //Looking for user
+          //String username = ctx.sessionAttribute("logged");
+          //User user = UserServices.getInstance().find(username);
+
+          //Prueba
+          User user = new User("thevi16","victor","gomez","1234","si");
+          UserServices.getInstance().create(user);
+
+          Position position = new Position(latitude,longitude);
+          PositionServices.getInstance().create(position);
+          FormServices.getInstance().create(new Form(name,lastName,area,nivelEscolar,user,position));
           ctx.redirect("/");
 
         });
