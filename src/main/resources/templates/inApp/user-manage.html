@@ -92,7 +92,7 @@
     <main id="main">
         <br>
         <div class="container">
-            <form method="POST">
+            <form method="POST" th:action="'/inapp/user-manage/'+${mode}">
                 <div class="form-row m-b-55">
                     <div class="name">Nombre Completo</div>
                     <div class="value">
@@ -100,14 +100,16 @@
                             <div class="col-lg-6">
                                 <div class="input-group-desc">
                                     <input th:if="${!edit}" class="input--style-5" type="text" name="firstName">
-                                    <input class="input--style-5" type="text" name="firstName" th:if="${edit}">
+                                    <input class="input--style-5" type="text" name="firstName" th:if="${edit}"
+                                        th:value="${user.name}">
                                     <label class="label--desc">Nombre</label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="text" name="lastName" th:if="${!edit}">
-                                    <input class="input--style-5" type="text" name="lastName" th:if="${edit}">
+                                    <input class="input--style-5" type="text" name="lastName" th:if="${edit}"
+                                        th:value="${user.lastName}">
                                     <label class="label--desc">Apellido</label>
                                 </div>
                             </div>
@@ -119,7 +121,8 @@
                     <div class="value">
                         <div class="input-group">
                             <input class="input--style-5" type="text" name="username" th:if="${!edit}">
-                            <input class="input--style-5" type="text" name="username" th:if="${edit}">
+                            <input class="input--style-5" type="text" name="username" th:if="${edit}"
+                                th:value="${user.userName}" disabled>
                         </div>
                     </div>
                 </div>
@@ -129,7 +132,6 @@
                         <div class="input-group">
                             <input class="input--style-5" type="password" name="password" th:if="${!edit}">
                             <input class="input--style-5" type="password" name="password" th:if="${edit}">
-
                         </div>
                     </div>
                 </div>
@@ -151,8 +153,7 @@
                 </div>
                 <div>
                     <button th:if="${!edit}" class="btn btn--radius-2 btn--red" type="submit">Crear</button>
-                    <a th:if="${edit}" th:href="'/inapp/edit-user/'+${user.userName}"
-                        class="btn btn--radius-2 btn--blue">Editar</a>
+                    <button th:if="${edit}" class="btn btn--radius-2 btn--red" type="submit">Editar</button>
                     <a href="/inapp" class="btn btn--radius-2 btn--blue">Cancelar</a>
                 </div>
             </form>

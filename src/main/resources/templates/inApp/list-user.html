@@ -106,11 +106,10 @@
                         <td th:text="${user.lastName}">Gomez</td>
                         <td th:text="${user.userName}">thevic16</td>
                         <td th:text="${user.role}">thevic16</td>
-                        <td><a th:href="'/inapp/edit-user/'+${user.userName}" class="btn btn-primary btn-sm"
-                                role="button" aria-disabled="true">Editar</a>
+                        <td><a th:href="'/inapp/edit-user/'+${user.userName}" class="btn btn-sm btn-primary">Editar</a>
                         </td>
-                        <td><a th:href="'/inapp/delete-user/'+${user.userName}" class="btn btn-primary btn-sm"
-                                role="button" aria-disabled="true">Eliminar</a>
+                        <td><a th:href="'/inapp/delete-user/'+${user.userName}"
+                                class="btn btn-sm btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 </tbody>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -31,7 +31,8 @@
   <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
   <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
   <!-- Font special for pages Formulario -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Formulario -->
   <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
@@ -48,10 +49,10 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+  <header id="header" class="fixed-top " th:fragment="header">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="/inApp">NetBreakers</a></h1>
+      <h1 class="logo mr-auto"><a href="/inapp">NetBreakers</a></h1>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -89,25 +90,62 @@
   </section><!-- End Hero -->
 
   <main id="main">
+    <!--Implementando geolocalizacion-->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script>
+      var id, cantidad = 0;
+      //Indica las opciones para llamar al GPS.
+      var opcionesGPS = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      }
+
+      $(document).ready(function(){
+        console.log("Ejemplo de Geolocalizacion");
+
+        //Obteniendo la referencia directa.
+        navigator.geolocation.getCurrentPosition(function(geodata){
+          var coordenadas = geodata.coords;
+          $("#latitude").text(coordenadas.latitude);
+          $("#longitude").text(coordenadas.longitude);
+        }, function(){
+          $("#posicionGps").text("No permite el acceso del API GEO");
+        }, opcionesGPS);
+
+        //Obteniendo el cambio de referencia.
+        id = navigator.geolocation.watchPosition(function(geodata){
+          var coordenadas = geodata.coords;
+          $("#latitude").text(coordenadas.latitude);
+          $("#longitude").text(coordenadas.longitude);
+          cantidad++;
+          if(cantidad>=5){
+            navigator.geolocation.clearWatch(id);
+            console.log("Finalizando la trama")
+          }
+        },function(error){
+          //recibe un objeto con dos propiedades: code y message.
+          $("#posicionGps2").text("No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message);
+        });
+      });
+    </script>
+
     <br>
     <div class="container">
-      <form method="POST">
-        <div class="form-row m-b-55">
-          <div class="name">Nombre Completo</div>
+      <form method="post" action="/add-form">
+        <div class="form-row">
+          <div class="name">Nombre</div>
           <div class="value">
-            <div class="row row-space">
-              <div class="col-lg-6">
-                <div class="input-group-desc">
-                  <input class="input--style-5" type="text" name="first_name">
-                  <label class="label--desc">Nombre</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="input-group-desc">
-                  <input class="input--style-5" type="text" name="last_name">
-                  <label class="label--desc">Apellido</label>
-                </div>
-              </div>
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="name">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="name">Apellido</div>
+          <div class="value">
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="lasname">
             </div>
           </div>
         </div>
@@ -146,8 +184,10 @@
           </div>
         </div>
         <div>
+          <input class="input--style-5"  type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5"  type="hidden" id="longitude" name="longitude">
           <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
-          <button class="btn btn--radius-2 btn--blue" >Limpiar</button>
+          <button class="btn btn--radius-2 btn--blue">Limpiar</button>
         </div>
       </form>
     </div>

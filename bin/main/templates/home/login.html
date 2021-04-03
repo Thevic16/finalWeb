@@ -47,10 +47,27 @@
 
   </header><!-- End Header -->
 
+  <section id="hero" class="d-flex align-items-center">
 
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+          data-aos="fade-up" data-aos-delay="200">
+          <h1>Ingresa a la App iniciando sesión</h1>
+          <h2>We are team of talented designers making websites with Bootstrap</h2>
+          <div class="d-lg-flex">
+            <a href="#login" class="btn-get-started scrollto">Get Started</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
   <main id="main">
-    <section id="hero-modified" class="d-flex align-items-center">
-    </section>
+
     <!-- ======= Login Section ======= -->
     <section id="login" class="login">
       <div class="container" data-aos="fade-up">
@@ -66,19 +83,19 @@
               <form class="login100-form validate-form" method="post" action="/validate-login">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                   <span class="label-input100">Usuario</span>
-                  <input class="input100" type="text" name="username" placeholder="Ingrese nombre de usuario">
+                  <input class="input100" type="text" name="username" placeholder="Ingrese nombre de usuario" required>
                   <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
                   <span class="label-input100">Contraseña</span>
-                  <input class="input100" type="password" name="pass" placeholder="**************">
+                  <input class="input100" type="password" name="password" placeholder="**************" required>
                   <span class="focus-input100"></span>
                 </div>
 
                 <div class="flex-sb-m w-full p-b-30">
                   <div class="contact100-form-checkbox">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe">
                     <label class="label-checkbox100" for="ckb1">
                       Recuérdame
                     </label>
