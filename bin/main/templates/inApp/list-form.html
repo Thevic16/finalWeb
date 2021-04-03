@@ -40,9 +40,6 @@
     <!-- Template Main CSS File -->
     <link href="/css/style.css" rel="stylesheet">
 
-    <!-- Main CSS Formulario-->
-    <link href="css/main.css" rel="stylesheet" media="all">
-
 </head>
 
 <body>
@@ -51,13 +48,14 @@
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-        <h1 class="logo mr-auto"><a href="/inApp">NetBreakers</a></h1>
+        <h1 class="logo mr-auto"><a href="/inApp/">NetBreakers</a></h1>
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li><a href="/inApp">Formulario</a></li>
-                <li class="active"><a href="#about">Listar Formularios</a></li>
-                <li><a href="#services">Manejo Usuarios</a></li>
+                <li><a href="/inapp/">Formulario</a></li>
+                <li class="active"><a href="/inapp/list-form">Listar Formularios</a></li>
+                <li><a href="/inapp/user-manage">Manejo Usuarios</a></li>
+                <li><a href="/inapp/list-user">Listar Usuarios</a></li>
             </ul>
         </nav><!-- .nav-menu -->
 
@@ -89,39 +87,50 @@
 
 <main id="main">
     <br>
-    <div class="container">
-        <table class="table">
-            <thead class="thead-blue">
+    <div class="container justify-content-center">
+        <table class="table table-striped table-responsive">
+            <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Nivel escolar</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Acción</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+                <th>Victor Gomez</th>
+                <td>Los minas</td>
+                <td>Medio</td>
+                <td>xTryHard</td>
+                <td><a href="#" class="btn btn-primary btn-sm" role="button" aria-disabled="true">Ver mapa</a></td>
             </tr>
             </tbody>
         </table>
-
     </div>
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Mapa</h2>
+        </div>
+
+          <div class="col-lg-5 ">
+
+              <div>
+                <i class="icofont-google-map"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                frameborder="0" style="border:0; width: 100%; height: 390px;" allowfullscreen></iframe>
+          </div>
+
+
+      </div>
 
 </main><!-- End #main -->
 
@@ -139,7 +148,7 @@
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Diseñado por Víctor Gómez y José Rafael
         </div>
     </div>
 </footer><!-- End Footer -->

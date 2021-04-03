@@ -5,6 +5,9 @@ import edu.pucmm.eict.models.Form;
 import edu.pucmm.eict.models.Position;
 import edu.pucmm.eict.services.FormServices;
 import edu.pucmm.eict.services.PositionServices;
+
+import edu.pucmm.eict.models.User;
+import edu.pucmm.eict.services.UserServices;
 import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -20,15 +23,28 @@ public class MainController extends BaseController{
       ctx.render("/templates/home/index.html");
     });
 
-    app.get("login", ctx -> {
+    app.get("/login", ctx -> {
       ctx.render("/templates/home/login.html");
     });
 
+    app.post("/validate-login", ctx -> {
+      String username = ctx.formParam("username");
+      User user = UserServices.getInstance().find(username);
+      
+      if (user.getPassword().equalsIgnoreCase(ctx.formParam("password"))) {
+        ctx.redirect("/inapp");
+        ctx.sessionAttribute("logged", username);
+        ctx.cookie("rememberMe", username);
+      } else {
+        ctx.redirect("/login");
+      }
+      
+    });
     app.routes(() -> {
       path("/inapp", () -> {
         before(ctx -> {
           String logged = ctx.sessionAttribute("logged");
-          //if (logged == null) ctx.redirect("/login");
+          if (logged == null || ctx.cookie("rememberMe") == null) ctx.redirect("/login");
         });
 
         get("/", ctx -> {
@@ -65,6 +81,4 @@ public class MainController extends BaseController{
     });
   }
 
-
-  
 }

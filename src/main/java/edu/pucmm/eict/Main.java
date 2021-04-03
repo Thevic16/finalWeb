@@ -4,8 +4,10 @@ import java.sql.SQLException;
 
 import edu.pucmm.eict.controllers.MainController;
 import edu.pucmm.eict.models.Position;
+import edu.pucmm.eict.models.User;
 import edu.pucmm.eict.services.DatabaseSetupServices;
 import edu.pucmm.eict.services.PositionServices;
+import edu.pucmm.eict.services.UserServices;
 import io.javalin.Javalin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
@@ -22,7 +24,12 @@ public class Main {
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
         DatabaseSetupServices.startDb();
         //PositionServices.getInstance().create(new Position(34.44, 56.55));
-        
+
+        if (UserServices.getInstance().find("admin") == null) {
+            UserServices.getInstance().create(new User("admin", "admin", "admin", "admin", "admin"));
+        }
         new MainController(app).applyRoutes();
+
+
     }
 }
