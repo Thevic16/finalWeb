@@ -23,7 +23,8 @@ public class Main {
 
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
         DatabaseSetupServices.startDb();
-        
+        //PositionServices.getInstance().create(new Position(34.44, 56.55));
+
         if (UserServices.getInstance().find("admin") == null) {
             UserServices.getInstance().create(new User("admin", "admin", "admin", "admin", "admin"));
         }
