@@ -10,11 +10,9 @@ import javax.persistence.*;
 public class User implements Serializable{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private String userName;
   private String name;
   private String lastName;
-  private String userName;
   private String password;
   private String role;
 
@@ -28,14 +26,6 @@ public class User implements Serializable{
     this.userName = userName;
     this.password = password;
     this.role = role;
-  }
-
-  public int getId() {
-    return this.id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   public String getName() {
