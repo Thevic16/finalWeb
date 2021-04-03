@@ -58,6 +58,8 @@ public class MainController extends BaseController{
           ctx.render("/templates/inApp/list-user.html");
         });
 
+        post("/user-manage")
+
       });
     });
   }
