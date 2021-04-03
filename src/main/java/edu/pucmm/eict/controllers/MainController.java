@@ -31,6 +31,10 @@ public class MainController extends BaseController{
           ctx.render("/templates/inApp/main-form.html");
         });
 
+        get("/list-form", ctx -> {
+          ctx.render("/templates/inApp/list-form.html");
+        });
+
       });
     });
   }
