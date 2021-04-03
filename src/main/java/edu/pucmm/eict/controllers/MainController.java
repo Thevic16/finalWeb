@@ -12,6 +12,10 @@ import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MainController extends BaseController{
 
   public MainController(Javalin app) {
@@ -74,11 +78,38 @@ public class MainController extends BaseController{
         });
 
         get("/list-user", ctx -> {
-          ctx.render("/templates/inApp/list-user.html");
+
+          List<User> users = UserServices.getInstance().findAll();
+          Map<String, Object> model = new HashMap<>();
+          model.put("users", users);
+          ctx.render("/templates/inApp/list-user.html", model);
         });
 
-        post("/user-manage")
+        post("/user-manage", ctx -> {
+          String name = ctx.formParam("firstName");
+          String lastName = ctx.formParam("lastName");
+          String username = ctx.formParam("username");
+          String password = ctx.formParam("password");
+          String role = ctx.formParam("role");
 
+          User user = new User(name, lastName, username, password, role);
+          UserServices.getInstance().create(user);
+          ctx.redirect("/inapp/user-manage");
+        });
+
+        get("/delete-user/:username", ctx -> {
+          String username = ctx.pathParam("username");
+          boolean user = UserServices.getInstance().delete(username);
+          ctx.redirect("/inapp/user-manage");
+        });
+
+        get("/edit-user/:username", ctx -> {
+          String username = ctx.pathParam("username");
+          User user = UserServices.getInstance().find(username);
+          Map<String, Object> model = new HashMap<>();
+          model.put("user", user);
+          model.put("editing", true);
+        });
       });
     });
   }

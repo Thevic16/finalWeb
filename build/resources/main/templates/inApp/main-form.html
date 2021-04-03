@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -90,9 +90,49 @@
   </section><!-- End Hero -->
 
   <main id="main">
+    <!--Implementando geolocalizacion-->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script>
+      var id, cantidad = 0;
+      //Indica las opciones para llamar al GPS.
+      var opcionesGPS = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      }
+
+      $(document).ready(function(){
+        console.log("Ejemplo de Geolocalizacion");
+
+        //Obteniendo la referencia directa.
+        navigator.geolocation.getCurrentPosition(function(geodata){
+          var coordenadas = geodata.coords;
+          $("#latitude").text(coordenadas.latitude);
+          $("#longitude").text(coordenadas.longitude);
+        }, function(){
+          $("#posicionGps").text("No permite el acceso del API GEO");
+        }, opcionesGPS);
+
+        //Obteniendo el cambio de referencia.
+        id = navigator.geolocation.watchPosition(function(geodata){
+          var coordenadas = geodata.coords;
+          $("#latitude").text(coordenadas.latitude);
+          $("#longitude").text(coordenadas.longitude);
+          cantidad++;
+          if(cantidad>=5){
+            navigator.geolocation.clearWatch(id);
+            console.log("Finalizando la trama")
+          }
+        },function(error){
+          //recibe un objeto con dos propiedades: code y message.
+          $("#posicionGps2").text("No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message);
+        });
+      });
+    </script>
+
     <br>
     <div class="container">
-      <form method="POST">
+      <form method="post" action="/add-form">
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
@@ -144,6 +184,8 @@
           </div>
         </div>
         <div>
+          <input class="input--style-5"  type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5"  type="hidden" id="longitude" name="longitude">
           <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
           <button class="btn btn--radius-2 btn--blue">Limpiar</button>
         </div>
