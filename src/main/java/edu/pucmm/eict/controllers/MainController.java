@@ -16,6 +16,10 @@ import java.util.Map;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MainController extends BaseController{
 
   public MainController(Javalin app) {
@@ -90,13 +94,58 @@ public class MainController extends BaseController{
         });
 
         get("/user-manage", ctx -> {
-          ctx.render("/templates/inApp/user-manage.html");
+          Map<String, Object> model = new HashMap<>();
+          model.put("edit", false);
+          model.put("mode", "create");
+          ctx.render("/templates/inApp/user-manage.html", model);
         });
 
         get("/list-user", ctx -> {
-          ctx.render("/templates/inApp/list-user.html");
+
+          List<User> users = UserServices.getInstance().findAll();
+          Map<String, Object> model = new HashMap<>();
+          model.put("users", users);
+          ctx.render("/templates/inApp/list-user.html", model);
         });
 
+        post("/user-manage/:mode", ctx -> {
+          String name = ctx.formParam("firstName");
+          String lastName = ctx.formParam("lastName");
+          String username = ctx.formParam("username");
+          String password = ctx.formParam("password");
+          String role = ctx.formParam("role");
+          String mode = ctx.pathParam("mode");
+
+          if (mode.equals("create")) {
+
+            User user = new User(name, lastName, username, password, role);
+            UserServices.getInstance().create(user);
+          } else if (mode.equals("edit")) {
+            User user = UserServices.getInstance().find(username);
+            user.setName(name);
+            user.setLastName(lastName);
+            user.password(password);
+            user.role(role);
+            UserServices.getInstance().update(user);
+          }
+          ctx.redirect("/inapp/user-manage");
+        });
+
+        get("/delete-user/:username", ctx -> {
+          String username = ctx.pathParam("username");
+          boolean user = UserServices.getInstance().delete(username);
+          ctx.redirect("/inapp/user-manage");
+        });
+
+        get("/edit-user/:username", ctx -> {
+          String username = ctx.pathParam("username");
+          User user = UserServices.getInstance().find(username);
+          Map<String, Object> model = new HashMap<>();
+          model.put("user", user);
+          model.put("edit", true);
+          model.put("mode", "edit");
+          ctx.render("/templates/inApp/user-manage.html", model);
+        });
       });
     });
   }

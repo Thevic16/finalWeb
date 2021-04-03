@@ -3,10 +3,8 @@ package edu.pucmm.eict;
 import java.sql.SQLException;
 
 import edu.pucmm.eict.controllers.MainController;
-import edu.pucmm.eict.models.Position;
 import edu.pucmm.eict.models.User;
 import edu.pucmm.eict.services.DatabaseSetupServices;
-import edu.pucmm.eict.services.PositionServices;
 import edu.pucmm.eict.services.UserServices;
 import io.javalin.Javalin;
 import io.javalin.plugin.rendering.JavalinRenderer;
