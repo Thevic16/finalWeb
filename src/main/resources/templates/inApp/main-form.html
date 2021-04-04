@@ -63,7 +63,7 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="/" class="get-started-btn scrollto">Cerrar Sesión</a>
+      <a href="/inapp/logout" class="get-started-btn scrollto">Cerrar Sesión</a>
 
     </div>
   </header><!-- End Header -->
@@ -150,7 +150,8 @@
           <input th:if="${edit}" type="hidden" name="IdForm" th:value="${form.id}">
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
-          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled th:text="${button}"></button>
+          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled
+            th:text="${button}"></button>
           <a class="btn btn--radius-2 btn--blue" onclick="clearText() ,checkSelected()">Limpiar</a>
         </div>
       </form>
@@ -207,15 +208,15 @@
       maximumAge: 0
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
       console.log("Ejemplo de Geolocalizacion");
 
       //Obteniendo la referencia directa.
-      navigator.geolocation.getCurrentPosition(function(geodata){
+      navigator.geolocation.getCurrentPosition(function (geodata) {
         var coordenadas = geodata.coords;
         document.getElementById("latitude").value = coordenadas.latitude;
         document.getElementById("longitude").value = coordenadas.longitude;
-      }, function(){
+      }, function () {
         $("#posicionGps").text("No permite el acceso del API GEO");
       }, opcionesGPS);
     });
@@ -228,15 +229,12 @@
     }
 
     function checkSelected() {
-      if (document.getElementById("schoolLevel").value != "Seleccione"){
-          document.getElementById("sendButton").disabled = false;
-      }
-      else {
+      if (document.getElementById("schoolLevel").value != "Seleccione") {
+        document.getElementById("sendButton").disabled = false;
+      } else {
         document.getElementById("sendButton").disabled = true;
       }
     }
-
-
   </script>
 
 </body>

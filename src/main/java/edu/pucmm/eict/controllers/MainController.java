@@ -48,11 +48,32 @@ public class MainController extends BaseController{
       }
       
     });
+
+    app.before("/inapp/", ctx -> {
+      String logged = ctx.sessionAttribute("logged");
+      String rememberMe = ctx.cookie("rememberMe");
+      System.out.println("rememberMe "+rememberMe);
+      if (logged == null) {
+        
+        if (rememberMe == null) ctx.redirect("/login");
+        else  {
+          ctx.sessionAttribute("logged", rememberMe);
+        }
+      }
+    });
     app.routes(() -> {
       path("/inapp", () -> {
         before(ctx -> {
           String logged = ctx.sessionAttribute("logged");
-          if (logged == null || ctx.cookie("rememberMe") == null) ctx.redirect("/login");
+          String rememberMe = ctx.cookie("rememberMe");
+          System.out.println("rememberMe "+rememberMe);
+          if (logged == null) {
+        
+            if (rememberMe == null) ctx.redirect("/login");
+            else  {
+              ctx.sessionAttribute("logged", rememberMe);
+            }
+          }
         });
 
         get("/", ctx -> {
@@ -210,6 +231,12 @@ public class MainController extends BaseController{
           model.put("edit", true);
           model.put("mode", "edit");
           ctx.render("/templates/inApp/user-manage.html", model);
+        });
+
+        get("/logout", ctx -> {
+          ctx.removeCookie("rememberMe", "/");
+          ctx.sessionAttribute("logged", null);
+          ctx.redirect("/");
         });
       });
     });
