@@ -97,8 +97,8 @@
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="name">
-              <input th:if="${edit}" class="input--style-5" type="text" name="name" th:value="${form.name}">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="name" id="name1">
+              <input th:if="${edit}" class="input--style-5" type="text" name="name" th:value="${form.name}" id="name2">
             </div>
           </div>
         </div>
@@ -106,8 +106,8 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="lastname">
-              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="lastname" id="lastname1">
+              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}" id="lastname2">
             </div>
           </div>
         </div>
@@ -115,8 +115,8 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="sector">
-              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="sector" id="sector1">
+              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}" id="sector2">
             </div>
           </div>
         </div>
@@ -125,7 +125,15 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select name="schoolLevel" id="schoolLevel" onclick="checkSelected()">
+                <select th:if="${!edit}"  name="schoolLevel" id="schoolLevelCreate">
+                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Grado Universitario">Grado Universitario</option>
+                  <option value="Postgrado">Postgrado</option>
+                  <option value="Doctorado">Doctorado</option>
+                </select>
+                <select th:if="${edit}"  name="schoolLevel" id="schoolLevelEdit" onclick="addEvents()">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -150,8 +158,9 @@
           <input th:if="${edit}" type="hidden" name="IdForm" th:value="${form.id}">
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
-          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled th:text="${button}"></button>
-          <a class="btn btn--radius-2 btn--blue" onclick="clearText() ,checkSelected()">Limpiar</a>
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red" type="submit" disabled >Enviar</button>
+          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red" type="submit" disabled >Editar</button>
+          <a href="/inapp/" class="btn btn--radius-2 btn--blue">Cancelar</a>
         </div>
       </form>
 
@@ -220,20 +229,74 @@
       }, opcionesGPS);
     });
 
+    /*
     function clearText() {
       document.getElementById("schoolLevel").value = "Seleccione";
-      document.getElementById("sector").value = "";
-      document.getElementById("lastname").value = "";
-      document.getElementById("name").value = "";
+      document.getElementById("sector1").value = "";
+      document.getElementById("lastname1").value = "";
+      document.getElementById("name1").value = "";
+
+      document.getElementById("sector2").value = "";
+      document.getElementById("lastname2").value = "";
+      document.getElementById("name2").value = "";
+    }
+    */
+    var a = document.getElementById("schoolLevelCreate");
+    var b = document.getElementById("name1");
+    var c = document.getElementById("lastname1");
+    var d = document.getElementById("sector1");
+    a.addEventListener("change",checkButtonCreate);
+    b.addEventListener("change",checkButtonCreate);
+    c.addEventListener("change",checkButtonCreate);
+    d.addEventListener("change",checkButtonCreate);
+
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+
+    function checkButtonCreate() {
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1").value != "" &&
+                document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ){
+          document.getElementById("sendButtonCreate").disabled = false;
+        }
+        else {
+          document.getElementById("sendButtonCreate").disabled = true;
+        }
     }
 
-    function checkSelected() {
-      if (document.getElementById("schoolLevel").value != "Seleccione"){
-          document.getElementById("sendButton").disabled = false;
+    function checkButtonEdit() {
+      console.log(document.getElementById("schoolLevelEdit").value);
+      console.log(document.getElementById("name2").value);
+      console.log(document.getElementById("lastname2").value);
+      console.log(document.getElementById("sector2").value);
+
+      if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value != "" &&
+              document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != ""
+      ){
+        document.getElementById("sendButtonEdit").disabled = false;
       }
       else {
-        document.getElementById("sendButton").disabled = true;
+        document.getElementById("sendButtonEdit").disabled = true;
       }
+    }
+
+    function addEvents(){
+      var e = document.getElementById("schoolLevelEdit");
+      var f = document.getElementById("name2");
+      var g = document.getElementById("lastname2");
+      var h = document.getElementById("sector2");
+
+      console.log(e);
+      console.log(f);
+      console.log(g);
+      console.log(h);
+
+      e.addEventListener("change",checkButtonEdit);
+      f.addEventListener("change",checkButtonEdit);
+      g.addEventListener("change",checkButtonEdit);
+      h.addEventListener("change",checkButtonEdit);
     }
 
 
