@@ -92,12 +92,13 @@
   <main id="main">
     <br>
     <div class="container">
-      <form method="post" action="/inapp/add-form">
+      <form method="post" th:attr="action=${action}">
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="name" id="name">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="name">
+              <input th:if="${edit}" class="input--style-5" type="text" name="name" th:value="${form.name}">
             </div>
           </div>
         </div>
@@ -105,7 +106,8 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="lastname" id="lastname">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="lastname">
+              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}">
             </div>
           </div>
         </div>
@@ -113,7 +115,8 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="sector" id="sector">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="sector">
+              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}">
             </div>
           </div>
         </div>
@@ -144,9 +147,10 @@
           </div>
         </div>
         <div>
+          <input th:if="${edit}" type="hidden" name="IdForm" th:value="${form.id}">
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
-          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled>Enviar</button>
+          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled th:text="${button}"></button>
           <a class="btn btn--radius-2 btn--blue" onclick="clearText() ,checkSelected()">Limpiar</a>
         </div>
       </form>
