@@ -27,7 +27,5 @@ public class Main {
             UserServices.getInstance().create(new User("admin", "admin", "admin", "admin", "admin"));
         }
         new MainController(app).applyRoutes();
-
-
     }
 }

@@ -1,13 +1,19 @@
 
 package edu.pucmm.eict.controllers;
 
+import edu.pucmm.eict.models.Form;
 import edu.pucmm.eict.models.Position;
+import edu.pucmm.eict.services.FormServices;
 import edu.pucmm.eict.services.PositionServices;
 
 import edu.pucmm.eict.models.User;
 import edu.pucmm.eict.services.UserServices;
 import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import java.util.HashMap;
@@ -50,25 +56,104 @@ public class MainController extends BaseController{
         });
 
         get("/", ctx -> {
-          ctx.render("/templates/inApp/main-form.html");
+          //Looking for user
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
+
+          //creating model
+          Map<String, Object> model = new HashMap<>();
+          model.put("user", user);
+          model.put("button","Enviar");
+          model.put("action","/inapp/add-form");
+          model.put("edit", false);
+
+          ctx.render("/templates/inApp/main-form.html",model);
         });
 
-        get("/add-form", ctx -> {
+        get("/edit-form/:idForm", ctx -> {
+          int idForm = ctx.pathParam("idForm",Integer.class).get();
+          Form form = FormServices.getInstance().find(idForm);
+
+          //Looking for user
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
+
+          //creating model
+          Map<String, Object> model = new HashMap<>();
+          model.put("user", user);
+          model.put("button","Editar");
+          model.put("action","/inapp/edit-form");
+          model.put("edit", true);
+          model.put("form", form);
+
+          ctx.render("/templates/inApp/main-form.html",model);
+        });
+
+        post("/add-form", ctx -> {
           String name = ctx.formParam("name");
-          String lastName = ctx.formParam("lasname");
+          String lastName = ctx.formParam("lastname");
           String area = ctx.formParam("sector");
-          String nivelEscolar = ctx.formParam("sector");
+          String nivelEscolar = ctx.formParam("schoolLevel");
           double latitude = ctx.formParam("latitude",Double.class).get();
           double longitude = ctx.formParam("longitude",Double.class).get();
 
-          PositionServices.getInstance().create(new Position(latitude,longitude));
-          //FormServices.getInstance().create(new Form(name,lastName,area,nivelEscolar,new Position(latitude,longitude), new ));
-          ctx.redirect("/");
+          //Looking for user
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
+
+
+
+          Position position = new Position(latitude,longitude);
+          PositionServices.getInstance().create(position);
+          Form form = new Form(name,lastName,area,nivelEscolar,user,position);
+          FormServices.getInstance().create(form);
+          ctx.redirect("/inapp");
 
         });
 
+        post("/edit-form", ctx -> {
+          int id = ctx.formParam("IdForm",Integer.class).get();
+          String name = ctx.formParam("name");
+          String lastName = ctx.formParam("lastname");
+          String area = ctx.formParam("sector");
+          String nivelEscolar = ctx.formParam("schoolLevel");
+          double latitude = ctx.formParam("latitude",Double.class).get();
+          double longitude = ctx.formParam("longitude",Double.class).get();
+
+          //Looking for user
+          String username = ctx.sessionAttribute("logged");
+          User user = UserServices.getInstance().find(username);
+
+
+
+          Position position = new Position(latitude,longitude);
+          PositionServices.getInstance().create(position);
+          //Form form = new Form(name,lastName,area,nivelEscolar,user,position);
+          Form form = FormServices.getInstance().find(id);
+          form.setName(name);
+          form.setLastName(lastName);
+          form.setArea(area);
+          form.setNivelEscolar(nivelEscolar);
+          form.setPosition(position);
+          form.setUser(user);
+
+          FormServices.getInstance().update(form);
+          ctx.redirect("/inapp");
+
+        });
+
+        get("/delete-form/:idForm", ctx -> {
+          int idForm = ctx.pathParam("idForm",Integer.class).get();
+          boolean form = FormServices.getInstance().delete(idForm);
+          ctx.redirect("/inapp/list-form");
+        });
+
         get("/list-form", ctx -> {
-          ctx.render("/templates/inApp/list-form.html");
+          List<Form> forms = FormServices.getInstance().findAll();
+          Map<String, Object> model = new HashMap<>();
+          model.put("forms",forms);
+
+          ctx.render("/templates/inApp/list-form.html",model);
         });
 
         get("/user-manage", ctx -> {

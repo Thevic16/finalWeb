@@ -90,54 +90,15 @@
   </section><!-- End Hero -->
 
   <main id="main">
-    <!--Implementando geolocalizacion-->
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script>
-      var id, cantidad = 0;
-      //Indica las opciones para llamar al GPS.
-      var opcionesGPS = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      }
-
-      $(document).ready(function(){
-        console.log("Ejemplo de Geolocalizacion");
-
-        //Obteniendo la referencia directa.
-        navigator.geolocation.getCurrentPosition(function(geodata){
-          var coordenadas = geodata.coords;
-          $("#latitude").text(coordenadas.latitude);
-          $("#longitude").text(coordenadas.longitude);
-        }, function(){
-          $("#posicionGps").text("No permite el acceso del API GEO");
-        }, opcionesGPS);
-
-        //Obteniendo el cambio de referencia.
-        id = navigator.geolocation.watchPosition(function(geodata){
-          var coordenadas = geodata.coords;
-          $("#latitude").text(coordenadas.latitude);
-          $("#longitude").text(coordenadas.longitude);
-          cantidad++;
-          if(cantidad>=5){
-            navigator.geolocation.clearWatch(id);
-            console.log("Finalizando la trama")
-          }
-        },function(error){
-          //recibe un objeto con dos propiedades: code y message.
-          $("#posicionGps2").text("No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message);
-        });
-      });
-    </script>
-
     <br>
     <div class="container">
-      <form method="post" action="/add-form">
+      <form method="post" th:attr="action=${action}">
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="name">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="name">
+              <input th:if="${edit}" class="input--style-5" type="text" name="name" th:value="${form.name}">
             </div>
           </div>
         </div>
@@ -145,7 +106,8 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="lasname">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="lastname">
+              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}">
             </div>
           </div>
         </div>
@@ -153,7 +115,8 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="sector">
+              <input th:if="${!edit}" class="input--style-5" type="text" name="sector">
+              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}">
             </div>
           </div>
         </div>
@@ -162,13 +125,13 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select name="schoolLevel">
-                  <option disabled="disabled" selected="selected">Seleccione</option>
-                  <option>Básico</option>
-                  <option>Medio</option>
-                  <option>Grado Universitario</option>
-                  <option>Postgrado</option>
-                  <option>Doctorado</option>
+                <select name="schoolLevel" id="schoolLevel" onclick="checkSelected()">
+                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Grado Universitario">Grado Universitario</option>
+                  <option value="Postgrado">Postgrado</option>
+                  <option value="Doctorado">Doctorado</option>
                 </select>
                 <div class="select-dropdown"></div>
               </div>
@@ -179,17 +142,20 @@
           <div class="name">Usuario</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="user">
+              <input class="input--style-5" type="text" name="user" id="user" disabled th:value="${user.userName}">
             </div>
           </div>
         </div>
         <div>
-          <input class="input--style-5"  type="hidden" id="latitude" name="latitude">
-          <input class="input--style-5"  type="hidden" id="longitude" name="longitude">
-          <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
-          <button class="btn btn--radius-2 btn--blue">Limpiar</button>
+          <input th:if="${edit}" type="hidden" name="IdForm" th:value="${form.id}">
+          <input class="input--style-5" type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5" type="hidden" id="longitude" name="longitude">
+          <button id="sendButton" class="btn btn--radius-2 btn--red" type="submit" disabled th:text="${button}"></button>
+          <a class="btn btn--radius-2 btn--blue" onclick="clearText() ,checkSelected()">Limpiar</a>
         </div>
       </form>
+
+
     </div>
 
   </main><!-- End #main -->
@@ -229,6 +195,49 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
+
+  <!--Implementando geolocalizacion-->
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script>
+    var id, cantidad = 0;
+    //Indica las opciones para llamar al GPS.
+    var opcionesGPS = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+
+    $(document).ready(function(){
+      console.log("Ejemplo de Geolocalizacion");
+
+      //Obteniendo la referencia directa.
+      navigator.geolocation.getCurrentPosition(function(geodata){
+        var coordenadas = geodata.coords;
+        document.getElementById("latitude").value = coordenadas.latitude;
+        document.getElementById("longitude").value = coordenadas.longitude;
+      }, function(){
+        $("#posicionGps").text("No permite el acceso del API GEO");
+      }, opcionesGPS);
+    });
+
+    function clearText() {
+      document.getElementById("schoolLevel").value = "Seleccione";
+      document.getElementById("sector").value = "";
+      document.getElementById("lastname").value = "";
+      document.getElementById("name").value = "";
+    }
+
+    function checkSelected() {
+      if (document.getElementById("schoolLevel").value != "Seleccione"){
+          document.getElementById("sendButton").disabled = false;
+      }
+      else {
+        document.getElementById("sendButton").disabled = true;
+      }
+    }
+
+
+  </script>
 
 </body>
 

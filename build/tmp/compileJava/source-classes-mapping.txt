@@ -10,10 +10,10 @@ edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
 edu/pucmm/eict/services/UserServices.java
  edu.pucmm.eict.services.UserServices
-edu/pucmm/eict/models/User.java
- edu.pucmm.eict.models.User
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
+edu/pucmm/eict/models/User.java
+ edu.pucmm.eict.models.User
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
 edu/pucmm/eict/Main.java
