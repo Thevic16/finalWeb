@@ -93,6 +93,8 @@ public class MainController extends BaseController{
           String password = ctx.formParam("password");
           String role = ctx.formParam("role");
           String mode = ctx.pathParam("mode");
+          System.out.println("Username: "+username);
+          System.out.println("Name: "+name);
 
           if (mode.equals("create")) {
 
