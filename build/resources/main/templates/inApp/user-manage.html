@@ -63,7 +63,7 @@
                 </ul>
             </nav><!-- .nav-menu -->
 
-            <a href="/" class="get-started-btn scrollto">Cerrar Sesión</a>
+            <a href="/inapp/logout" class="get-started-btn scrollto">Cerrar Sesión</a>
 
         </div>
     </header><!-- End Header -->
@@ -92,7 +92,7 @@
     <main id="main">
         <br>
         <div class="container">
-            <form method="POST" th:action="'/inapp/user-manage/'+${mode}">
+            <form method="post" th:action="'/inapp/user-manage/'+${mode}">
                 <div class="form-row m-b-55">
                     <div class="name">Nombre Completo</div>
                     <div class="value">
@@ -122,7 +122,7 @@
                         <div class="input-group">
                             <input class="input--style-5" type="text" name="username" th:if="${!edit}">
                             <input class="input--style-5" type="text" name="username" th:if="${edit}"
-                                th:value="${user.userName}" disabled>
+                                th:value="${user.userName}" readonly>
                         </div>
                     </div>
                 </div>
@@ -131,11 +131,12 @@
                     <div class="value">
                         <div class="input-group">
                             <input class="input--style-5" type="password" name="password" th:if="${!edit}">
-                            <input class="input--style-5" type="password" name="password" th:if="${edit}">
+                            <input class="input--style-5" type="password" name="password" th:if="${edit}"
+                                th:value="${user.password}">
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
+                <div class=" form-row">
                     <div class="name">Rol</div>
                     <div class="value">
                         <div class="input-group">
