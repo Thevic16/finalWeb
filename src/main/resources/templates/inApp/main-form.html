@@ -43,7 +43,45 @@
 
   <!-- Main CSS Formulario-->
   <link href="css/main.css" rel="stylesheet" media="all">
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
+  <script>
+    window.onload = () => {
+      class Form {
+
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+          this.name = name;
+          this.lastName = lastName;
+          this.area = area;
+          this.schoolLevel = schoolLevel;
+          this.latitude = latitude;
+          this.longitude = longitude;
+          this.user = user;
+        }
+      }
+
+      const indexedDB = new Dexie('dbparcial2');
+      indexedDB.version(1).stores({
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user'
+      });
+      console.log('here');
+
+      async function addForm() {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+
+        await indexedDB.forms.add(form);
+      }
+
+      document.getElementById("sendButtonCreate").addEventListener("click", addForm);
+    }
+  </script>
 </head>
 
 <body>
@@ -107,7 +145,8 @@
           <div class="value">
             <div class="input-group">
               <input th:if="${!edit}" class="input--style-5" type="text" name="lastname" id="lastname1">
-              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}" id="lastname2">
+              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}"
+                id="lastname2">
             </div>
           </div>
         </div>
@@ -116,7 +155,8 @@
           <div class="value">
             <div class="input-group">
               <input th:if="${!edit}" class="input--style-5" type="text" name="sector" id="sector1">
-              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}" id="sector2">
+              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}"
+                id="sector2">
             </div>
           </div>
         </div>
@@ -125,7 +165,7 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select th:if="${!edit}"  name="schoolLevel" id="schoolLevelCreate">
+                <select th:if="${!edit}" name="schoolLevel" id="schoolLevelCreate">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -133,7 +173,7 @@
                   <option value="Postgrado">Postgrado</option>
                   <option value="Doctorado">Doctorado</option>
                 </select>
-                <select th:if="${edit}"  name="schoolLevel" id="schoolLevelEdit" onclick="addEvents()">
+                <select th:if="${edit}" name="schoolLevel" id="schoolLevelEdit" onclick="addEvents()">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -159,8 +199,10 @@
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red" type="submit" disabled >Enviar</button>
-          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red" type="submit" disabled >Editar</button>
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red" type="submit"
+            disabled>Enviar</button>
+          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red" type="submit"
+            disabled>Editar</button>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue">Cancelar</a>
 
         </div>
@@ -209,10 +251,7 @@
 
   <!--Implementando geolocalizacion-->
   <script src="/js/jquery-3.2.1.min.js"></script>
-  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-  <script type="module" src="/js/database.js"></script>
-  <script type="module" src="/js/form.model.js"></script>
-  <script type="module" src="/js/index.js"></script>
+  <!-- <script type="module" src="/js/form.model.js"></script> -->
 
   <script>
     var id, cantidad = 0;
@@ -240,10 +279,10 @@
     var b = document.getElementById("name1");
     var c = document.getElementById("lastname1");
     var d = document.getElementById("sector1");
-    a.addEventListener("change",checkButtonCreate);
-    b.addEventListener("change",checkButtonCreate);
-    c.addEventListener("change",checkButtonCreate);
-    d.addEventListener("change",checkButtonCreate);
+    a.addEventListener("change", checkButtonCreate);
+    b.addEventListener("change", checkButtonCreate);
+    c.addEventListener("change", checkButtonCreate);
+    d.addEventListener("change", checkButtonCreate);
 
     //console.log(a);
     //console.log(b);
@@ -251,14 +290,14 @@
     //console.log(d);
 
     function checkButtonCreate() {
-        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1").value != "" &&
-                document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
-        ){
-          document.getElementById("sendButtonCreate").disabled = false;
-        }
-        else {
-          document.getElementById("sendButtonCreate").disabled = true;
-        }
+      if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+        .value != "" &&
+        document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+      ) {
+        document.getElementById("sendButtonCreate").disabled = false;
+      } else {
+        document.getElementById("sendButtonCreate").disabled = true;
+      }
     }
 
     function checkButtonEdit() {
@@ -267,17 +306,17 @@
       //console.log(document.getElementById("lastname2").value);
       //console.log(document.getElementById("sector2").value);
 
-      if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value != "" &&
-              document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != ""
-      ){
+      if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value !=
+        "" &&
+        document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != ""
+      ) {
         document.getElementById("sendButtonEdit").disabled = false;
-      }
-      else {
+      } else {
         document.getElementById("sendButtonEdit").disabled = true;
       }
     }
 
-    function addEvents(){
+    function addEvents() {
       var e = document.getElementById("schoolLevelEdit");
       var f = document.getElementById("name2");
       var g = document.getElementById("lastname2");
@@ -288,12 +327,11 @@
       //console.log(g);
       //console.log(h);
 
-      e.addEventListener("change",checkButtonEdit);
-      f.addEventListener("change",checkButtonEdit);
-      g.addEventListener("change",checkButtonEdit);
-      h.addEventListener("change",checkButtonEdit);
+      e.addEventListener("change", checkButtonEdit);
+      f.addEventListener("change", checkButtonEdit);
+      g.addEventListener("change", checkButtonEdit);
+      h.addEventListener("change", checkButtonEdit);
     }
-
   </script>
 
 </body>
