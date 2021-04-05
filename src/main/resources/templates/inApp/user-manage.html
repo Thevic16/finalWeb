@@ -99,16 +99,16 @@
                         <div class="row row-space">
                             <div class="col-lg-6">
                                 <div class="input-group-desc">
-                                    <input th:if="${!edit}" class="input--style-5" type="text" name="firstName">
-                                    <input class="input--style-5" type="text" name="firstName" th:if="${edit}"
+                                    <input th:if="${!edit}" class="input--style-5" type="text" name="firstName" id="firstNameCreate">
+                                    <input class="input--style-5" type="text" name="firstName" th:if="${edit}" id="firstNameEdit"
                                         th:value="${user.name}">
                                     <label class="label--desc">Nombre</label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="input-group-desc">
-                                    <input class="input--style-5" type="text" name="lastName" th:if="${!edit}">
-                                    <input class="input--style-5" type="text" name="lastName" th:if="${edit}"
+                                    <input class="input--style-5" type="text" name="lastName" id="lastNameCreate" th:if="${!edit}">
+                                    <input class="input--style-5" type="text" name="lastName" id="lastNameEdit" th:if="${edit}"
                                         th:value="${user.lastName}">
                                     <label class="label--desc">Apellido</label>
                                 </div>
@@ -120,8 +120,8 @@
                     <div class="name">Usuario</div>
                     <div class="value">
                         <div class="input-group">
-                            <input class="input--style-5" type="text" name="username" th:if="${!edit}">
-                            <input class="input--style-5" type="text" name="username" th:if="${edit}"
+                            <input class="input--style-5" type="text" name="username" id="usernameCreate" th:if="${!edit}">
+                            <input class="input--style-5" type="text" name="username" id="usernameEdit" th:if="${edit}"
                                 th:value="${user.userName}" readonly>
                         </div>
                     </div>
@@ -130,8 +130,8 @@
                     <div class="name">Contraseña</div>
                     <div class="value">
                         <div class="input-group">
-                            <input class="input--style-5" type="password" name="password" th:if="${!edit}">
-                            <input class="input--style-5" type="password" name="password" th:if="${edit}"
+                            <input class="input--style-5" type="password" name="password" id="passwordCreate" th:if="${!edit}">
+                            <input class="input--style-5" type="password" name="password" id="passwordEdit" th:if="${edit}"
                                 th:value="${user.password}">
                         </div>
                     </div>
@@ -141,20 +141,25 @@
                     <div class="value">
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="role">
+                                <select name="role" id="roleCreate" th:if="${!edit}">
                                     <option disabled="disabled" selected="selected">Seleccione</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
                                 </select>
-                                <div class="select-dropdown"></div>
+                                <select name="role" id="roleEdit" th:if="${edit}" onclick="addEvents()">
+                                    <option disabled="disabled" selected="selected">Seleccione</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button th:if="${!edit}" class="btn btn--radius-2 btn--red" type="submit">Crear</button>
-                    <button th:if="${edit}" class="btn btn--radius-2 btn--red" type="submit">Editar</button>
+                    <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red" type="submit" disabled>Crear</button>
+                    <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red" type="submit" disabled>Editar</button>
                     <a href="/inapp" class="btn btn--radius-2 btn--blue">Cancelar</a>
                 </div>
             </form>
@@ -197,6 +202,62 @@
 
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>
+
+    <script>
+        var roleCreate = document.getElementById("roleCreate");
+        var passwordCreate = document.getElementById("passwordCreate");
+        var usernameCreate = document.getElementById("usernameCreate");
+        var lastNameCreate = document.getElementById("lastNameCreate");
+        var firstNameCreate = document.getElementById("firstNameCreate");
+        roleCreate.addEventListener("change",checkButtonCreate);
+        passwordCreate.addEventListener("change",checkButtonCreate);
+        usernameCreate.addEventListener("change",checkButtonCreate);
+        lastNameCreate.addEventListener("change",checkButtonCreate);
+        firstNameCreate.addEventListener("change",checkButtonCreate);
+
+
+        function checkButtonCreate() {
+            if (document.getElementById("roleCreate").value != "Seleccione" && document.getElementById("passwordCreate").value != "" &&
+                document.getElementById("usernameCreate").value != "" && document.getElementById("lastNameCreate").value != "" &&
+                document.getElementById("firstNameCreate").value != ""
+            ){
+                document.getElementById("sendButtonCreate").disabled = false;
+            }
+            else {
+                document.getElementById("sendButtonCreate").disabled = true;
+            }
+        }
+
+        function checkButtonEdit() {
+            //console.log("Ejecutando checkButtonEdit");
+            //console.log(document.getElementById("lastNameEdit").value);
+
+            if (document.getElementById("roleEdit").value != "Seleccione" && document.getElementById("passwordEdit").value != "" &&
+                document.getElementById("usernameEdit").value != "" && document.getElementById("lastNameEdit").value != "" &&
+                document.getElementById("firstNameEdit").value
+            ){
+                document.getElementById("sendButtonEdit").disabled = false;
+            }
+            else {
+                document.getElementById("sendButtonEdit").disabled = true;
+            }
+        }
+
+        function addEvents(){
+            var roleEdit = document.getElementById("roleEdit");
+            var passwordEdit = document.getElementById("passwordEdit");
+            var usernameEdit = document.getElementById("usernameEdit");
+            var lastNameEdit = document.getElementById("lastNameEdit");
+            var firstNameEdit = document.getElementById("firstNameEdit");
+
+            roleEdit.addEventListener("change",checkButtonEdit);
+            passwordEdit.addEventListener("change",checkButtonEdit);
+            usernameEdit.addEventListener("change",checkButtonEdit);
+            lastNameEdit.addEventListener("change",checkButtonEdit);
+            firstNameEdit.addEventListener("change",checkButtonEdit);
+        }
+
+    </script>
 
 </body>
 

@@ -84,7 +84,6 @@ public class MainController extends BaseController{
           //creating model
           Map<String, Object> model = new HashMap<>();
           model.put("user", user);
-          model.put("button","Enviar");
           model.put("action","/inapp/add-form");
           model.put("edit", false);
 
@@ -102,7 +101,6 @@ public class MainController extends BaseController{
           //creating model
           Map<String, Object> model = new HashMap<>();
           model.put("user", user);
-          model.put("button","Editar");
           model.put("action","/inapp/edit-form");
           model.put("edit", true);
           model.put("form", form);
