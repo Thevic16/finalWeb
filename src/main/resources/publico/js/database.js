@@ -31,7 +31,7 @@
 // const indexedDB = new IndexedDB();
 // export default indexedDB;
 
-import Dexie from '/Users/jralmonte/node_modules/dexie/dist/dexie';
+import Dexie from 'dexie';
 
 const indexedDB = new Dexie('dbparcial2');
 indexedDB.version(1).stores({
