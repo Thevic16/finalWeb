@@ -133,7 +133,7 @@
                   <option value="Postgrado">Postgrado</option>
                   <option value="Doctorado">Doctorado</option>
                 </select>
-                <select th:if="${edit}"  name="schoolLevel" id="schoolLevelEdit" onclick="addEvents()">
+                <select th:if="${edit}"  name="schoolLevel" id="schoolLevelEdit">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -231,21 +231,30 @@
       }, opcionesGPS);
     });
 
-    var a = document.getElementById("schoolLevelCreate");
-    var b = document.getElementById("name1");
-    var c = document.getElementById("lastname1");
-    var d = document.getElementById("sector1");
-    a.addEventListener("change",checkButtonCreate);
-    b.addEventListener("change",checkButtonCreate);
-    c.addEventListener("change",checkButtonCreate);
-    d.addEventListener("change",checkButtonCreate);
+    window.onload=function() {
+      if(document.getElementById("schoolLevelCreate") != null){
+        var a = document.getElementById("schoolLevelCreate");
+        var b = document.getElementById("name1");
+        var c = document.getElementById("lastname1");
+        var d = document.getElementById("sector1");
+        a.addEventListener("change",checkButtonCreate);
+        b.addEventListener("change",checkButtonCreate);
+        c.addEventListener("change",checkButtonCreate);
+        d.addEventListener("change",checkButtonCreate);
+      }
 
-    //console.log(a);
-    //console.log(b);
-    //console.log(c);
-    //console.log(d);
+      if(document.getElementById("schoolLevelEdit") != null){
+        var e = document.getElementById("schoolLevelEdit");
+        var f = document.getElementById("name2");
+        var g = document.getElementById("lastname2");
+        var h = document.getElementById("sector2");
+        e.addEventListener("change",checkButtonEdit);
+        f.addEventListener("change",checkButtonEdit);
+        g.addEventListener("change",checkButtonEdit);
+        h.addEventListener("change",checkButtonEdit);
+      }
 
-    function checkButtonCreate() {
+      function checkButtonCreate() {
         if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1").value != "" &&
                 document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
         ){
@@ -254,39 +263,24 @@
         else {
           document.getElementById("sendButtonCreate").disabled = true;
         }
-    }
-
-    function checkButtonEdit() {
-      //console.log(document.getElementById("schoolLevelEdit").value);
-      //console.log(document.getElementById("name2").value);
-      //console.log(document.getElementById("lastname2").value);
-      //console.log(document.getElementById("sector2").value);
-
-      if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value != "" &&
-              document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != ""
-      ){
-        document.getElementById("sendButtonEdit").disabled = false;
       }
-      else {
-        document.getElementById("sendButtonEdit").disabled = true;
+
+      function checkButtonEdit() {
+        //console.log(document.getElementById("schoolLevelEdit").value);
+        //console.log(document.getElementById("name2").value);
+        //console.log(document.getElementById("lastname2").value);
+        //console.log(document.getElementById("sector2").value);
+
+        if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value != "" &&
+                document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != ""
+        ){
+          document.getElementById("sendButtonEdit").disabled = false;
+        }
+        else {
+          document.getElementById("sendButtonEdit").disabled = true;
+        }
       }
-    }
 
-    function addEvents(){
-      var e = document.getElementById("schoolLevelEdit");
-      var f = document.getElementById("name2");
-      var g = document.getElementById("lastname2");
-      var h = document.getElementById("sector2");
-
-      //console.log(e);
-      //console.log(f);
-      //console.log(g);
-      //console.log(h);
-
-      e.addEventListener("change",checkButtonEdit);
-      f.addEventListener("change",checkButtonEdit);
-      g.addEventListener("change",checkButtonEdit);
-      h.addEventListener("change",checkButtonEdit);
     }
 
   </script>

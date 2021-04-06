@@ -147,7 +147,7 @@
                                     <option>2</option>
                                     <option>3</option>
                                 </select>
-                                <select name="role" id="roleEdit" th:if="${edit}" onclick="addEvents()">
+                                <select name="role" id="roleEdit" th:if="${edit}" >
                                     <option disabled="disabled" selected="selected">Seleccione</option>
                                     <option>1</option>
                                     <option>2</option>
@@ -204,59 +204,62 @@
     <script src="/js/main.js"></script>
 
     <script>
-        var roleCreate = document.getElementById("roleCreate");
-        var passwordCreate = document.getElementById("passwordCreate");
-        var usernameCreate = document.getElementById("usernameCreate");
-        var lastNameCreate = document.getElementById("lastNameCreate");
-        var firstNameCreate = document.getElementById("firstNameCreate");
-        roleCreate.addEventListener("change",checkButtonCreate);
-        passwordCreate.addEventListener("change",checkButtonCreate);
-        usernameCreate.addEventListener("change",checkButtonCreate);
-        lastNameCreate.addEventListener("change",checkButtonCreate);
-        firstNameCreate.addEventListener("change",checkButtonCreate);
+        window.onload=function() {
+
+            if(document.getElementById("roleCreate") != null){
+                var roleCreate = document.getElementById("roleCreate");
+                var passwordCreate = document.getElementById("passwordCreate");
+                var usernameCreate = document.getElementById("usernameCreate");
+                var lastNameCreate = document.getElementById("lastNameCreate");
+                var firstNameCreate = document.getElementById("firstNameCreate");
 
 
-        function checkButtonCreate() {
-            if (document.getElementById("roleCreate").value != "Seleccione" && document.getElementById("passwordCreate").value != "" &&
-                document.getElementById("usernameCreate").value != "" && document.getElementById("lastNameCreate").value != "" &&
-                document.getElementById("firstNameCreate").value != ""
-            ){
-                document.getElementById("sendButtonCreate").disabled = false;
+                roleCreate.addEventListener("change", checkButtonCreate);
+                passwordCreate.addEventListener("change", checkButtonCreate);
+                usernameCreate.addEventListener("change", checkButtonCreate);
+                lastNameCreate.addEventListener("change", checkButtonCreate);
+                firstNameCreate.addEventListener("change", checkButtonCreate);
             }
-            else {
-                document.getElementById("sendButtonCreate").disabled = true;
+
+            if(document.getElementById("roleEdit") != null){
+                var roleEdit = document.getElementById("roleEdit");
+                var passwordEdit = document.getElementById("passwordEdit");
+                var usernameEdit = document.getElementById("usernameEdit");
+                var lastNameEdit = document.getElementById("lastNameEdit");
+                var firstNameEdit = document.getElementById("firstNameEdit");
+
+                roleEdit.addEventListener("change", checkButtonEdit);
+                passwordEdit.addEventListener("change", checkButtonEdit);
+                usernameEdit.addEventListener("change", checkButtonEdit);
+                lastNameEdit.addEventListener("change", checkButtonEdit);
+                firstNameEdit.addEventListener("change", checkButtonEdit);
+            }
+
+            function checkButtonCreate() {
+                if (document.getElementById("roleCreate").value != "Seleccione" && document.getElementById("passwordCreate").value != "" &&
+                    document.getElementById("usernameCreate").value != "" && document.getElementById("lastNameCreate").value != "" &&
+                    document.getElementById("firstNameCreate").value != ""
+                ) {
+                    document.getElementById("sendButtonCreate").disabled = false;
+                } else {
+                    document.getElementById("sendButtonCreate").disabled = true;
+                }
+            }
+
+            function checkButtonEdit() {
+                //console.log("Ejecutando checkButtonEdit");
+                //console.log(document.getElementById("lastNameEdit").value);
+
+                if (document.getElementById("roleEdit").value != "Seleccione" && document.getElementById("passwordEdit").value != "" &&
+                    document.getElementById("usernameEdit").value != "" && document.getElementById("lastNameEdit").value != "" &&
+                    document.getElementById("firstNameEdit").value
+                ) {
+                    document.getElementById("sendButtonEdit").disabled = false;
+                } else {
+                    document.getElementById("sendButtonEdit").disabled = true;
+                }
             }
         }
-
-        function checkButtonEdit() {
-            //console.log("Ejecutando checkButtonEdit");
-            //console.log(document.getElementById("lastNameEdit").value);
-
-            if (document.getElementById("roleEdit").value != "Seleccione" && document.getElementById("passwordEdit").value != "" &&
-                document.getElementById("usernameEdit").value != "" && document.getElementById("lastNameEdit").value != "" &&
-                document.getElementById("firstNameEdit").value
-            ){
-                document.getElementById("sendButtonEdit").disabled = false;
-            }
-            else {
-                document.getElementById("sendButtonEdit").disabled = true;
-            }
-        }
-
-        function addEvents(){
-            var roleEdit = document.getElementById("roleEdit");
-            var passwordEdit = document.getElementById("passwordEdit");
-            var usernameEdit = document.getElementById("usernameEdit");
-            var lastNameEdit = document.getElementById("lastNameEdit");
-            var firstNameEdit = document.getElementById("firstNameEdit");
-
-            roleEdit.addEventListener("change",checkButtonEdit);
-            passwordEdit.addEventListener("change",checkButtonEdit);
-            usernameEdit.addEventListener("change",checkButtonEdit);
-            lastNameEdit.addEventListener("change",checkButtonEdit);
-            firstNameEdit.addEventListener("change",checkButtonEdit);
-        }
-
     </script>
 
 </body>
