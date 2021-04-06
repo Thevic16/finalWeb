@@ -137,22 +137,19 @@
                     </div>
                 </div>
                 <div class=" form-row">
-                    <div class="name">Rol</div>
+                    <div class="name">Roles</div>
                     <div class="value">
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="role" id="roleCreate" th:if="${!edit}">
-                                    <option disabled="disabled" selected="selected">Seleccione</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>
-                                <select name="role" id="roleEdit" th:if="${edit}" >
-                                    <option disabled="disabled" selected="selected">Seleccione</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>
+                                <input type="checkbox" id="roleAdminCreate" name="roleAdmin" value="admin" th:if="${!edit}">
+                                <label for="roleAdminCreate" th:if="${!edit}"> Administrador</label><br>
+                                <input type="checkbox" id="rolePollsterCreate" name="rolePollster" value="pollster" th:if="${!edit}">
+                                <label for="rolePollsterCreate" th:if="${!edit}">Encuestador</label><br>
+
+                                <input type="checkbox" id="roleAdminEdit" name="roleAdmin" value="admin" th:if="${edit}">
+                                <label for="roleAdminEdit" th:if="${edit}"> Administrador</label><br>
+                                <input type="checkbox" id="rolePollsterEdit" name="rolePollster" value="pollster" th:if="${edit}">
+                                <label for="rolePollsterEdit" th:if="${edit}">Encuestador</label><br>
                             </div>
                         </div>
                     </div>
@@ -206,29 +203,33 @@
     <script>
         window.onload=function() {
 
-            if(document.getElementById("roleCreate") != null){
-                var roleCreate = document.getElementById("roleCreate");
+            if(document.getElementById("roleAdminCreate") != null){
+                var roleAdminCreate = document.getElementById("roleAdminCreate");
+                var rolePollsterCreate = document.getElementById("rolePollsterCreate");
                 var passwordCreate = document.getElementById("passwordCreate");
                 var usernameCreate = document.getElementById("usernameCreate");
                 var lastNameCreate = document.getElementById("lastNameCreate");
                 var firstNameCreate = document.getElementById("firstNameCreate");
 
 
-                roleCreate.addEventListener("change", checkButtonCreate);
+                roleAdminCreate.addEventListener("change", checkButtonCreate);
+                rolePollsterCreate.addEventListener("change", checkButtonCreate);
                 passwordCreate.addEventListener("change", checkButtonCreate);
                 usernameCreate.addEventListener("change", checkButtonCreate);
                 lastNameCreate.addEventListener("change", checkButtonCreate);
                 firstNameCreate.addEventListener("change", checkButtonCreate);
             }
 
-            if(document.getElementById("roleEdit") != null){
-                var roleEdit = document.getElementById("roleEdit");
+            if(document.getElementById("roleAdminEdit") != null){
+                var roleAdminEdit = document.getElementById("roleAdminEdit");
+                var rolePollsterEdit = document.getElementById("rolePollsterEdit");
                 var passwordEdit = document.getElementById("passwordEdit");
                 var usernameEdit = document.getElementById("usernameEdit");
                 var lastNameEdit = document.getElementById("lastNameEdit");
                 var firstNameEdit = document.getElementById("firstNameEdit");
 
-                roleEdit.addEventListener("change", checkButtonEdit);
+                roleAdminEdit.addEventListener("change", checkButtonEdit);
+                rolePollsterEdit.addEventListener("change", checkButtonEdit);
                 passwordEdit.addEventListener("change", checkButtonEdit);
                 usernameEdit.addEventListener("change", checkButtonEdit);
                 lastNameEdit.addEventListener("change", checkButtonEdit);
@@ -236,9 +237,10 @@
             }
 
             function checkButtonCreate() {
-                if (document.getElementById("roleCreate").value != "Seleccione" && document.getElementById("passwordCreate").value != "" &&
+                if (document.getElementById("passwordCreate").value != "" &&
                     document.getElementById("usernameCreate").value != "" && document.getElementById("lastNameCreate").value != "" &&
-                    document.getElementById("firstNameCreate").value != ""
+                    document.getElementById("firstNameCreate").value != "" && (document.getElementById("roleAdminCreate").checked ||
+                        document.getElementById("rolePollsterCreate").checked)
                 ) {
                     document.getElementById("sendButtonCreate").disabled = false;
                 } else {
@@ -250,9 +252,10 @@
                 //console.log("Ejecutando checkButtonEdit");
                 //console.log(document.getElementById("lastNameEdit").value);
 
-                if (document.getElementById("roleEdit").value != "Seleccione" && document.getElementById("passwordEdit").value != "" &&
+                if (document.getElementById("passwordEdit").value != "" &&
                     document.getElementById("usernameEdit").value != "" && document.getElementById("lastNameEdit").value != "" &&
-                    document.getElementById("firstNameEdit").value
+                    document.getElementById("firstNameEdit").value && (document.getElementById("roleAdminEdit").checked ||
+                        document.getElementById("rolePollsterEdit").checked)
                 ) {
                     document.getElementById("sendButtonEdit").disabled = false;
                 } else {

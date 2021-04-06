@@ -1,8 +1,9 @@
 package edu.pucmm.eict.models;
 
-import java.util.Objects;
+import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
+
 
 @SuppressWarnings("serial")
 @Entity
@@ -14,18 +15,23 @@ public class User implements Serializable{
   private String name;
   private String lastName;
   private String password;
-  private String role;
+  private Boolean rolAdmin;
+  private Boolean rolPollster;
+  private String roles; //This is to print in list-user
+
 
   public User() {
     
   }
 
-  public User(String name, String lastName, String userName, String password, String role) {
+  public User(String name, String lastName, String userName, String password) {
     this.name = name;
     this.lastName = lastName;
     this.userName = userName;
     this.password = password;
-    this.role = role;
+    this.rolAdmin = false;
+    this.rolPollster = false;
+    this.roles = " ";
   }
 
   public String getName() {
@@ -60,12 +66,20 @@ public class User implements Serializable{
     this.password = password;
   }
 
-  public String getRole() {
-    return this.role;
+  public Boolean getRolAdmin() {
+    return rolAdmin;
   }
 
-  public void setRole(String role) {
-    this.role = role;
+  public void setRolAdmin(Boolean rolAdmin) {
+    this.rolAdmin = rolAdmin;
+  }
+
+  public Boolean getRolPollster() {
+    return rolPollster;
+  }
+
+  public void setRolPollster(Boolean rolPollster) {
+    this.rolPollster = rolPollster;
   }
 
   public User name(String name) {
@@ -88,25 +102,23 @@ public class User implements Serializable{
     return this;
   }
 
-  public User role(String role) {
-    this.role = role;
-    return this;
+
+  public String getRoles() {
+    String roles = "";
+    if(rolAdmin){
+      roles = roles + " Administrador";
+    }
+    if(rolPollster){
+      roles = roles + " Encuestador";
+    }
+
+    this.roles = roles;
+
+    return roles;
   }
 
-  @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof User)) {
-            return false;
-        }
-        User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(role, user.role);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, lastName, userName, password, role);
+  public void setRoles(String roles) {
+    this.roles = roles;
   }
 
   @Override
@@ -116,7 +128,6 @@ public class User implements Serializable{
       ", lastName='" + getLastName() + "'" +
       ", userName='" + getUserName() + "'" +
       ", password='" + getPassword() + "'" +
-      ", role='" + getRole() + "'" +
       "}";
   }
 

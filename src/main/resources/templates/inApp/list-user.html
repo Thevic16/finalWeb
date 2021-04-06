@@ -95,7 +95,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Usuario</th>
-                        <th scope="col">Rol</th>
+                        <th scope="col">Roles</th>
                         <th scope="col">Acción 1</th>
                         <th scope="col">Acción 2</th>
                     </tr>
@@ -105,7 +105,7 @@
                         <th th:text="${user.name}">Victor Gomez</th>
                         <td th:text="${user.lastName}">Gomez</td>
                         <td th:text="${user.userName}">thevic16</td>
-                        <td th:text="${user.role}">thevic16</td>
+                        <td th:text="${user.roles}" >No disponible</td>
                         <td><a th:href="'/inapp/edit-user/'+${user.userName}" class="btn btn-sm btn-primary">Editar</a>
                         </td>
                         <td><a th:href="'/inapp/delete-user/'+${user.userName}"
