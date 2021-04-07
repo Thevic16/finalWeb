@@ -24,7 +24,10 @@ public class Main {
         //PositionServices.getInstance().create(new Position(34.44, 56.55));
 
         if (UserServices.getInstance().find("admin") == null) {
-            UserServices.getInstance().create(new User("admin", "admin", "admin", "admin", "admin"));
+            User user = new User("admin", "admin", "admin", "admin");
+            user.setRolPollster(true);
+            user.setRolAdmin(true);
+            UserServices.getInstance().create(user);
         }
         new MainController(app).applyRoutes();
     }
