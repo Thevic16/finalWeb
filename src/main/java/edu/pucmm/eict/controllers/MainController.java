@@ -187,6 +187,7 @@ public class MainController extends BaseController{
           ctx.redirect("/inapp/list-form");
         },roles(MyRole.ADMIN,MyRole.POLLSTER));
 
+
         get("/list-form", ctx -> {
           List<Form> forms = FormServices.getInstance().findAll();
           Map<String, Object> model = new HashMap<>();

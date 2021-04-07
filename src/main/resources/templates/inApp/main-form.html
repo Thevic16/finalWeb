@@ -43,45 +43,9 @@
 
   <!-- Main CSS Formulario-->
   <link href="css/main.css" rel="stylesheet" media="all">
-  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
-  <script>
-    window.onload = () => {
-      class Form {
 
-        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
-          this.name = name;
-          this.lastName = lastName;
-          this.area = area;
-          this.schoolLevel = schoolLevel;
-          this.latitude = latitude;
-          this.longitude = longitude;
-          this.user = user;
-        }
-      }
 
-      const indexedDB = new Dexie('dbparcial2');
-      indexedDB.version(1).stores({
-        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user'
-      });
-      console.log('here');
-
-      async function addForm() {
-        let name = document.getElementById("name1").value;
-        let lastName = document.getElementById("lastname1").value;
-        let sector = document.getElementById("sector1").value;
-        let schoolLevel = document.getElementById("schoolLevelCreate").value;
-        let user = document.getElementById("user").value;
-        let latitude = document.getElementById("latitude").value;
-        let longitude = document.getElementById("longitude").value;
-        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
-
-        await indexedDB.forms.add(form);
-      }
-
-      document.getElementById("sendButtonCreate").addEventListener("click", addForm);
-    }
-  </script>
 </head>
 
 <body>
@@ -130,7 +94,7 @@
   <main id="main">
     <br>
     <div class="container">
-      <form method="post" th:attr="action=${action}">
+      <form>
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
@@ -173,7 +137,7 @@
                   <option value="Postgrado">Postgrado</option>
                   <option value="Doctorado">Doctorado</option>
                 </select>
-                <select th:if="${edit}"  name="schoolLevel" id="schoolLevelEdit">
+                <select th:if="${edit}" name="schoolLevel" id="schoolLevelEdit">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -199,11 +163,11 @@
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red" type="submit"
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" type="submit"
             disabled>Enviar</button>
-          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red" type="submit"
+          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red text-white"
             disabled>Editar</button>
-          <a href="/inapp/" class="btn btn--radius-2 btn--blue">Cancelar</a>
+          <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
         </div>
       </form>
@@ -246,12 +210,14 @@
   <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/vendor/aos/aos.js"></script>
 
+  <!-- <script type="module" src="/js/database.js"></script> -->
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
 
   <!--Implementando geolocalizacion-->
-  <script src="/js/jquery-3.2.1.min.js"></script>
+  <!-- <script src="/js/jquery-3.2.1.min.js"></script> -->
   <!-- <script type="module" src="/js/form.model.js"></script> -->
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
   <script>
     var id, cantidad = 0;
@@ -276,8 +242,8 @@
     });
 
 
-    window.onload=function() {
-
+    window.onload = function () {
+      console.log("siii");
       if (document.getElementById("schoolLevelCreate") != null) {
         var a = document.getElementById("schoolLevelCreate");
         var b = document.getElementById("name1");
@@ -301,8 +267,9 @@
       }
 
       function checkButtonCreate() {
-        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1").value != "" &&
-                document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+          .value != "" &&
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
         ) {
           document.getElementById("sendButtonCreate").disabled = false;
         } else {
@@ -312,16 +279,52 @@
 
 
       function checkButtonEdit() {
-        if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2").value != "" &&
-                document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != "") {
+        if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2")
+          .value != "" &&
+          document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != "") {
           document.getElementById("sendButtonEdit").disabled = false;
         } else {
           document.getElementById("sendButtonEdit").disabled = true;
         }
       }
 
-    }
+      class Form {
 
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+          this.name = name;
+          this.lastName = lastName;
+          this.area = area;
+          this.schoolLevel = schoolLevel;
+          this.latitude = latitude;
+          this.longitude = longitude;
+          this.user = user;
+          this.status = false;
+        }
+      }
+
+      const indexedDB = new Dexie('dbparcial2');
+      indexedDB.version(1).stores({
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+      });
+      console.log('here');
+
+      async function addForm() {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+
+        await indexedDB.forms.add(form);
+        console.log("form created");
+      }
+
+      document.getElementById("sendButtonCreate").addEventListener("click", addForm);
+
+    }
   </script>
 
 </body>

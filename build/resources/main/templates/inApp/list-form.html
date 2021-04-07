@@ -106,22 +106,7 @@
                         <th scope="col">Estado (Servidor)</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="form : ${forms}">
-                        <th th:text="${form.name}">Victor</th>
-                        <th th:text="${form.lastName}">lastName</th>
-                        <td th:text="${form.area}">Los minas</td>
-                        <td th:text="${form.nivelEscolar}">Medio</td>
-                        <td th:text="${form.user.userName}">xTryHard</td>
-                        <td><a class="btn btn-primary btn-sm" role="button" th:onclick="'showMap('+${form.id}+')'">Ver
-                                mapa</a></td>
-                        <td><a th:href="'/inapp/edit-form/'+${form.id}" class="btn btn-sm btn-primary">Editar</a></td>
-                        <td><a th:href="'/inapp/delete-form/'+${form.id}" class="btn btn-sm btn-danger">Eliminar</a>
-                        <td>No Enviado</td>
-
-                            <input type="hidden" th:name="${form.id}" th:value="${form.position.latitude}">
-                            <input type="hidden" th:name="${form.id}" th:value="${form.position.longitude}">
-                    </tr>
+                <tbody id="bodyForms">
                 </tbody>
             </table>
         </div>
@@ -178,20 +163,80 @@
 
     <!-- Template Main JS File -->
     <script src="/js/main.js"></script>
-
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
     <script>
-        function showMap(name) {
-            let arr = document.getElementsByName(name);
-            let latitude = arr[0].value;
-            let longitud = arr[1].value;
+        window.onload = () => {
 
-            console.log(arr);
-            console.log(latitude);
-            console.log(longitud);
+            const indexedDB = new Dexie('dbparcial2');
+            indexedDB.version(1).stores({
+                forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+            });
+            indexedDB.open().catch((err) => console.log(err));
 
-            document.getElementById("map").src = "https://maps.google.com/maps?q=" + latitude + ", " + longitud +
-                "&z=15&output=embed";
+            function showMap(name) {
+                let arr = document.getElementsByName(name);
+                let latitude = arr[0].value;
+                let longitud = arr[1].value;
+
+                console.log(arr);
+                console.log(latitude);
+                console.log(longitud);
+
+                document.getElementById("map").src = "https://maps.google.com/maps?q=" + latitude + ", " +
+                    longitud +
+                    "&z=15&output=embed";
+            }
+
+            async function listForms() {
+
+                const forms = await indexedDB.forms.toArray();
+                fillTable(forms);
+
+
+            }
+
+            async function deleteForm(id) {
+                await indexedDB.forms.delete(parseInt(id));
+                window.location.reload();
+            }
+
+            function fillTable(forms) {
+
+                const body = document.getElementById("bodyForms");
+
+                forms.forEach((form, index) => {
+                    const tr = document.createElement('tr');
+                    let tds = '';
+                    tds += `
+                        <td>${form.name}</td>
+                        <td>${form.lastName}</td>
+                        <td>${form.area}</td>
+                        <td>${form.schoolLevel}</td>
+                        <td>${form.user}</td>
+                        <td><button id="btnMap-${form.id}" class="btn btn-primary btn-sm">Mapa</button></td>
+                        <td><a class="btn btn-warning btn-sm">Editar</a></td>
+                        <td><a id="btnDel-${form.id}" class="btn btn-danger btn-sm" data-id="${form.id}">Eliminar</a></td>
+                        <td>${(form.status ? "ENVIADO" : "NO ENVIADO")}</td>
+                        <input type="hidden" value="${form.id}">
+                        <input name=${form.id} type="hidden" value="${form.latitude}">
+                        <input name=${form.id} type="hidden" value="${form.longitude}">\n
+                    `
+                    tr.innerHTML = tds;
+                    body.appendChild(tr);
+                });
+                forms.forEach((form, index) => {
+                    document.getElementById(`btnMap-${form.id}`).addEventListener('click', () => {
+                        showMap(form.id)
+                    });
+                    const btnDel = document.getElementById(`btnDel-${form.id}`);
+                    btnDel.addEventListener('click', () => {
+                        deleteForm(btnDel.dataset.id);
+                    });
+                });
+            }
+
+            listForms();
         }
     </script>
 

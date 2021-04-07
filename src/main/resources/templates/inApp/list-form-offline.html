@@ -41,6 +41,7 @@
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -111,11 +112,11 @@
             <td th:text="${form.user.userName}">xTryHard</td>
             <td><a class="btn btn-primary btn-sm" role="button" th:onclick="'showMap('+${form.id}+')'">Ver
                 mapa</a></td>
-            <td><a th:href="'/inapp/edit-form/'+${form.id}" class="btn btn-sm btn-primary">Editar</a></td>
-            <td><a th:href="'/inapp/delete-form/'+${form.id}" class="btn btn-sm btn-danger">Eliminar</a>
+            <td><a id="btnEdit" class="btn btn-sm btn-primary">Editar</a></td>
+            <td><a id="btnDelete" class="btn btn-sm btn-danger">Eliminar</a>
 
-              <input type="hidden" th:name="${form.id}" th:value="${form.position.latitude}">
-              <input type="hidden" th:name="${form.id}" th:value="${form.position.longitude}">
+              <input type="hidden">
+              <input type="hidden">
           </tr>
         </tbody>
       </table>
