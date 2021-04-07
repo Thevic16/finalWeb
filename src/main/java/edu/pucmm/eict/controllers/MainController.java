@@ -110,23 +110,31 @@ public class MainController extends BaseController{
           ctx.render("/templates/inApp/main-form.html",model);
         },roles(MyRole.ADMIN,MyRole.POLLSTER));
 
-        get("/edit-form/:idForm", ctx -> {
-          int idForm = ctx.pathParam("idForm",Integer.class).get();
-          Form form = FormServices.getInstance().find(idForm);
-
-          //Looking for user
-          String username = ctx.sessionAttribute("logged");
-          User user = UserServices.getInstance().find(username);
-
-          //creating model
+        get("/edit-form/:idform", ctx -> {
+          int idform = ctx.pathParam("idform", Integer.class).get();
           Map<String, Object> model = new HashMap<>();
-          model.put("user", user);
-          model.put("action","/inapp/edit-form");
           model.put("edit", true);
-          model.put("form", form);
-
+          model.put("formId", idform);
           ctx.render("/templates/inApp/main-form.html",model);
-        },roles(MyRole.ADMIN,MyRole.POLLSTER));
+        }, roles(MyRole.ADMIN,MyRole.POLLSTER));
+
+        // get("/edit-form/:idForm", ctx -> {
+        //   int idForm = ctx.pathParam("idForm",Integer.class).get();
+        //   Form form = FormServices.getInstance().find(idForm);
+
+        //   //Looking for user
+        //   String username = ctx.sessionAttribute("logged");
+        //   User user = UserServices.getInstance().find(username);
+
+        //   //creating model
+        //   Map<String, Object> model = new HashMap<>();
+        //   model.put("user", user);
+        //   model.put("action","/inapp/edit-form");
+        //   model.put("edit", true);
+        //   model.put("form", form);
+
+        //   ctx.render("/templates/inApp/main-form.html",model);
+        // },roles(MyRole.ADMIN,MyRole.POLLSTER));
 
         post("/add-form", ctx -> {
           String name = ctx.formParam("name");

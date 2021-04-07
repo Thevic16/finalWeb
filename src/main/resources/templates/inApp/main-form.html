@@ -99,8 +99,7 @@
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="name" id="name1">
-              <input th:if="${edit}" class="input--style-5" type="text" name="name" th:value="${form.name}" id="name2">
+              <input class="input--style-5" type="text" name="name" id="name1">
             </div>
           </div>
         </div>
@@ -108,9 +107,7 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="lastname" id="lastname1">
-              <input th:if="${edit}" class="input--style-5" type="text" name="lastname" th:value="${form.lastName}"
-                id="lastname2">
+              <input class="input--style-5" type="text" name="lastname" id="lastname1">
             </div>
           </div>
         </div>
@@ -118,9 +115,7 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input th:if="${!edit}" class="input--style-5" type="text" name="sector" id="sector1">
-              <input th:if="${edit}" class="input--style-5" type="text" name="sector" th:value="${form.area}"
-                id="sector2">
+              <input class="input--style-5" type="text" name="sector" id="sector1">
             </div>
           </div>
         </div>
@@ -129,15 +124,7 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select th:if="${!edit}" name="schoolLevel" id="schoolLevelCreate">
-                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
-                  <option value="Básico">Básico</option>
-                  <option value="Medio">Medio</option>
-                  <option value="Grado Universitario">Grado Universitario</option>
-                  <option value="Postgrado">Postgrado</option>
-                  <option value="Doctorado">Doctorado</option>
-                </select>
-                <select th:if="${edit}" name="schoolLevel" id="schoolLevelEdit">
+                <select name="schoolLevel" id="schoolLevelCreate">
                   <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
                   <option value="Básico">Básico</option>
                   <option value="Medio">Medio</option>
@@ -154,19 +141,19 @@
           <div class="name">Usuario</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="user" id="user" disabled th:value="${user.userName}">
+              <input class="input--style-5" type="text" name="user" id="user" disabled>
             </div>
           </div>
         </div>
         <div>
-          <input th:if="${edit}" type="hidden" name="IdForm" th:value="${form.id}">
+          <input id="formId" th:if="${edit}" type="hidden" name="IdForm" th:value="${formId}">
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
           <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" type="submit"
             disabled>Enviar</button>
-          <button th:if="${edit}" id="sendButtonEdit" class="btn btn--radius-2 btn--red text-white"
-            disabled>Editar</button>
+          <a href="/inapp/list-form" role="button" th:if="${edit}" id="sendButtonEdit"
+            class="btn btn--radius-2 btn--red text-white" disabled>Editar</a>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
         </div>
@@ -243,6 +230,8 @@
 
 
     window.onload = function () {
+
+
       console.log("siii");
       if (document.getElementById("schoolLevelCreate") != null) {
         var a = document.getElementById("schoolLevelCreate");
@@ -279,9 +268,10 @@
 
 
       function checkButtonEdit() {
-        if (document.getElementById("schoolLevelEdit").value != "Seleccione" && document.getElementById("name2")
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
           .value != "" &&
-          document.getElementById("lastname2").value != "" && document.getElementById("sector2").value != "") {
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ) {
           document.getElementById("sendButtonEdit").disabled = false;
         } else {
           document.getElementById("sendButtonEdit").disabled = true;
@@ -308,7 +298,7 @@
       });
       console.log('here');
 
-      async function addForm() {
+      async function addEditForm(edit) {
         let name = document.getElementById("name1").value;
         let lastName = document.getElementById("lastname1").value;
         let sector = document.getElementById("sector1").value;
@@ -316,14 +306,66 @@
         let user = document.getElementById("user").value;
         let latitude = document.getElementById("latitude").value;
         let longitude = document.getElementById("longitude").value;
-        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
 
-        await indexedDB.forms.add(form);
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        if (!edit) {
+
+          await indexedDB.forms.add(form);
+        } else if (edit) {
+          const id = parseInt(document.getElementById("formEdit").value);
+          await indexedDB.forms.put(form, id);
+          document.getElementById("name1").value = "";
+          document.getElementById("lastname1").value = "";
+          document.getElementById("sector1").value = "";
+          document.getElementById("user").value = "";
+          document.getElementById("latitude").value = "";
+          document.getElementById("longitude").value = "";
+          document.getElementById("schoolLevelCreate").options[0].setAttribute("selected", "selected");
+        }
+
         console.log("form created");
       }
 
-      document.getElementById("sendButtonCreate").addEventListener("click", addForm);
+      if (document.getElementById("sendButtonCreate") != null) {
+        document.getElementById("sendButtonCreate").addEventListener("click", () => {
+          addEditForm(false)
+        });
+      }
 
+      async function loadEditFields() {
+        if (document.getElementById("formId") != null) {
+          const formId = parseInt(document.getElementById("formId").value);
+
+          const form = await indexedDB.forms.get(formId)
+          document.getElementById("name1").value = form.name;
+          document.getElementById("lastname1").value = form.lastName;
+          document.getElementById("sector1").value = form.area;
+          document.getElementById("user").value = form.user;
+          document.getElementById("latitude").value = form.latitude;
+          document.getElementById("longitude").value = form.longitude;
+
+          Array.from(document.getElementById("schoolLevelCreate").options).forEach((element) => {
+            if (element.value === form.schoolLevel) {
+              element.setAttribute("selected", "selected");
+            }
+          });
+
+          var a = document.getElementById("schoolLevelCreate");
+          var b = document.getElementById("name1");
+          var c = document.getElementById("lastname1");
+          var d = document.getElementById("sector1");
+          a.addEventListener("change", checkButtonEdit);
+          b.addEventListener("keyup", checkButtonEdit);
+          c.addEventListener("keyup", checkButtonEdit);
+          d.addEventListener("keyup", checkButtonEdit);
+          checkButtonEdit();
+        }
+      }
+
+      loadEditFields();
+      document.getElementById("sendButtonEdit").addEventListener("click", () => {
+        addEditForm(true);
+      });
     }
   </script>
 

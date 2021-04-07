@@ -215,7 +215,7 @@
                         <td>${form.schoolLevel}</td>
                         <td>${form.user}</td>
                         <td><button id="btnMap-${form.id}" class="btn btn-primary btn-sm">Mapa</button></td>
-                        <td><a class="btn btn-warning btn-sm">Editar</a></td>
+                        <td><a class="btn btn-warning btn-sm" href="/inapp/edit-form/${form.id}">Editar</a></td>
                         <td><a id="btnDel-${form.id}" class="btn btn-danger btn-sm" data-id="${form.id}">Eliminar</a></td>
                         <td>${(form.status ? "ENVIADO" : "NO ENVIADO")}</td>
                         <input type="hidden" value="${form.id}">
