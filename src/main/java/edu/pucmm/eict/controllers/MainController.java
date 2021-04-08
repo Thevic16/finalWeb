@@ -81,6 +81,10 @@ public class MainController extends BaseController{
       }
     });
 
+    app.after("/inApp/offline.appcache", ctx -> {
+      ctx.contentType("text/cache-manifest");
+    });
+    
     app.routes(() -> {
       path("/inapp", () -> {
         before(ctx -> {

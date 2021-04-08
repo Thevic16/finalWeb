@@ -328,7 +328,12 @@
         let longitude = document.getElementById("longitude").value;
 
         const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
-        await indexedDB.forms.add(form, id);
+        console.log(form);
+        indexedDB.forms.update(id, form).then((result) => {
+          if (result) alert("SIIII");
+        }).catch((err) => {
+          if (err) alert("NOOOOOO");
+        });
 
       }
 
@@ -340,7 +345,8 @@
 
       if (document.getElementById("sendButtonEdit") != null) {
         document.getElementById("sendButtonEdit").addEventListener("click", () => {
-          const id = parseInt(document.getElementById("formId"));
+          const id = parseInt(document.getElementById("formId").value);
+          console.log(id);
           editForm(id);
         });
       }
