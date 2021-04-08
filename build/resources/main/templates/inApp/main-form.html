@@ -329,11 +329,7 @@
 
         const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
         console.log(form);
-        indexedDB.forms.update(id, form).then((result) => {
-          if (result) alert("SIIII");
-        }).catch((err) => {
-          if (err) alert("NOOOOOO");
-        });
+        indexedDB.forms.update(id, form).then((result) => {}).catch((err) => {});
 
       }
 
