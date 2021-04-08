@@ -154,13 +154,13 @@
 
           <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
             disabled>Enviar</button>
-          <a href="/inapp/list-form" role="button" th:if="${edit}" id="sendButtonEdit"
-            class="btn btn--radius-2 btn--red text-white" disabled>Editar</a>
+          <button form="sendEditForm" role="button" th:if="${edit}" id="sendButtonEdit"
+            class="btn btn--radius-2 btn--red text-white" disabled>Editar</button>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
         </div>
       </form>
-
+      <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
 
     </div>
 
@@ -298,6 +298,7 @@
       indexedDB.version(1).stores({
         forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
       });
+      indexedDB.open().catch((err) => console.log("error: " + err));
 
       async function addEditForm() {
         let name = document.getElementById("name1").value;
@@ -312,6 +313,7 @@
         // if (!edit) {
         await indexedDB.forms.add(form);
         console.log("form created");
+        window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);
         //   await indexedDB.forms.put(form, id);
@@ -364,6 +366,7 @@
               element.setAttribute("selected", "selected");
             }
           });
+          checkButtonEdit();
         }
       }
 
