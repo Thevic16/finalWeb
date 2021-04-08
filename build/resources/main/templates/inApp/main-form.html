@@ -298,6 +298,7 @@
       indexedDB.version(1).stores({
         forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
       });
+      indexedDB.open().catch((err) => console.log("error: " + err));
 
       async function addEditForm() {
         let name = document.getElementById("name1").value;
