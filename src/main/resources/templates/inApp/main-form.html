@@ -154,13 +154,13 @@
 
           <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
             disabled>Enviar</button>
-          <a href="/inapp/list-form" role="button" th:if="${edit}" id="sendButtonEdit"
-            class="btn btn--radius-2 btn--red text-white" disabled>Editar</a>
+          <button form="sendEditForm" role="button" th:if="${edit}" id="sendButtonEdit"
+            class="btn btn--radius-2 btn--red text-white" disabled>Editar</button>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
         </div>
       </form>
-
+      <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
 
     </div>
 
@@ -366,6 +366,7 @@
               element.setAttribute("selected", "selected");
             }
           });
+          checkButtonEdit();
         }
       }
 
