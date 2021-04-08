@@ -2234,9 +2234,9 @@ h6 {
 }
 
 /* ==========================================================================
-   #BUTTON
+#BUTTON
    ========================================================================== */
-.btn {
+/* .btn {
   display: inline-block;
   line-height: 50px;
   padding: 0 50px;
@@ -2250,7 +2250,7 @@ h6 {
   font-weight: 700;
   color: #fff;
   font-family: inherit;
-}
+} */
 
 .btn--radius {
   -webkit-border-radius: 3px;

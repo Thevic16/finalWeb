@@ -30,12 +30,12 @@
 // }
 // const indexedDB = new IndexedDB();
 // export default indexedDB;
-
-import Dexie from 'dexie';
-
+import Dexie from '../../../../../node_modules/dexie/dist/dexie'
 const indexedDB = new Dexie('dbparcial2');
 indexedDB.version(1).stores({
   forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user'
 });
+
+console.log(indexedDB);
 
 export default indexedDB
