@@ -152,7 +152,7 @@
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" type="submit"
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
             disabled>Enviar</button>
           <a href="/inapp/list-form" role="button" th:if="${edit}" id="sendButtonEdit"
             class="btn btn--radius-2 btn--red text-white" disabled>Editar</a>
@@ -313,6 +313,7 @@
         // if (!edit) {
         await indexedDB.forms.add(form);
         console.log("form created");
+        window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);
         //   await indexedDB.forms.put(form, id);
