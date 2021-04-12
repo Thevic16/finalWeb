@@ -4,35 +4,16 @@ edu/pucmm/eict/models/Position.java
  edu.pucmm.eict.models.Position
 edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
-<<<<<<< HEAD
-||||||| e2f42d2
-edu/pucmm/eict/Main.java
- edu.pucmm.eict.Main
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-=======
-edu/pucmm/eict/services/UserServices.java
- edu.pucmm.eict.services.UserServices
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
->>>>>>> 40d65fa3108d3f39e3971071a41c1881834817fd
 edu/pucmm/eict/models/User.java
  edu.pucmm.eict.models.User
 edu/pucmm/eict/models/MyRole.java
  edu.pucmm.eict.models.MyRole
-<<<<<<< HEAD
 edu/pucmm/eict/models/FormJson.java
  edu.pucmm.eict.models.FormJson
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
-||||||| e2f42d2
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
-=======
->>>>>>> 40d65fa3108d3f39e3971071a41c1881834817fd
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
-<<<<<<< HEAD
 edu/pucmm/eict/services/UserServices.java
  edu.pucmm.eict.services.UserServices
 edu/pucmm/eict/services/FormServices.java
@@ -43,12 +24,3 @@ edu/pucmm/eict/Main.java
  edu.pucmm.eict.Main
 edu/pucmm/eict/controllers/MainController.java
  edu.pucmm.eict.controllers.MainController
-||||||| e2f42d2
-edu/pucmm/eict/services/UserServices.java
- edu.pucmm.eict.services.UserServices
-=======
-edu/pucmm/eict/Main.java
- edu.pucmm.eict.Main
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
->>>>>>> 40d65fa3108d3f39e3971071a41c1881834817fd

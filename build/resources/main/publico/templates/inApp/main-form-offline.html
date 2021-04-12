@@ -15,8 +15,8 @@
 
   <!-- Google Fonts -->
   <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-          rel="stylesheet">
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
   <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
   <!-- Font special for pages Formulario -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
-        rel="stylesheet">
+    rel="stylesheet">
 
   <!-- Vendor CSS Formulario -->
   <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
@@ -50,318 +50,321 @@
 
 <body>
 
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top " th:fragment="header">
-  <div class="container d-flex align-items-center">
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top " th:fragment="header">
+    <div class="container d-flex align-items-center">
 
-    <h1 class="logo mr-auto"><a href="/inapp">NetBreakers</a></h1>
+      <h1 class="logo mr-auto"><a href="/inapp">NetBreakers</a></h1>
 
-  </div>
-</header><!-- End Header -->
-
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
-
-  <div class="container">
-    <div class="row">
-      <div class="d-flex flex-column justify-content-center">
-        <h1>Formulario Encuesta (Sin conexión)</h1>
-        <h2>Somos un equipo de analistas e ingenieros de los datos que aplican el método científico a los resultados
-          de tus encuesta</h2>
     </div>
-  </div>
+  </header><!-- End Header -->
 
-</section><!-- End Hero -->
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
 
-<main id="main">
-  <br>
-  <div class="container">
-    <form>
-      <div class="form-row">
-        <div class="name">Nombre</div>
-        <div class="value">
-          <div class="input-group">
-            <input class="input--style-5" type="text" name="name" id="name1">
-          </div>
+    <div class="container">
+      <div class="row">
+        <div class="d-flex flex-column justify-content-center">
+          <h1>Formulario Encuesta (Sin conexión)</h1>
+          <h2>Somos un equipo de analistas e ingenieros de los datos que aplican el método científico a los resultados
+            de tus encuesta</h2>
         </div>
       </div>
-      <div class="form-row">
-        <div class="name">Apellido</div>
-        <div class="value">
-          <div class="input-group">
-            <input class="input--style-5" type="text" name="lastname" id="lastname1">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="name">Sector</div>
-        <div class="value">
-          <div class="input-group">
-            <input class="input--style-5" type="text" name="sector" id="sector1">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="name">Nivel Escolar</div>
-        <div class="value">
-          <div class="input-group">
-            <div class="rs-select2 js-select-simple select--no-search">
-              <select name="schoolLevel" id="schoolLevelCreate">
-                <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
-                <option value="Básico">Básico</option>
-                <option value="Medio">Medio</option>
-                <option value="Grado Universitario">Grado Universitario</option>
-                <option value="Postgrado">Postgrado</option>
-                <option value="Doctorado">Doctorado</option>
-              </select>
-              <div class="select-dropdown"></div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <br>
+    <div class="container">
+      <form>
+        <div class="form-row">
+          <div class="name">Nombre</div>
+          <div class="value">
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="name" id="name1">
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="name">Usuario</div>
-        <div class="value">
-          <div class="input-group">
-            <input class="input--style-5" type="text" name="user" id="user" disabled>
-            <script>
-              console.log("Antes del local storange");
-              //Local storange
-              miStorage = window.localStorage;
-              var user = localStorage.getItem('user');
-              console.log("user");
-              console.log(user);
-              document.getElementById("user").value = user;
-            </script>
+        <div class="form-row">
+          <div class="name">Apellido</div>
+          <div class="value">
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="lastname" id="lastname1">
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <input id="formId" th:if="${edit}" type="hidden" name="IdForm" th:value="${formId}">
-        <input class="input--style-5" type="hidden" id="latitude" name="latitude">
-        <input class="input--style-5" type="hidden" id="longitude" name="longitude">
+        <div class="form-row">
+          <div class="name">Sector</div>
+          <div class="value">
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="sector" id="sector1">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="name">Nivel Escolar</div>
+          <div class="value">
+            <div class="input-group">
+              <div class="rs-select2 js-select-simple select--no-search">
+                <select name="schoolLevel" id="schoolLevelCreate">
+                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Grado Universitario">Grado Universitario</option>
+                  <option value="Postgrado">Postgrado</option>
+                  <option value="Doctorado">Doctorado</option>
+                </select>
+                <div class="select-dropdown"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="name">Usuario</div>
+          <div class="value">
+            <div class="input-group">
+              <input class="input--style-5" type="text" name="user" id="user" disabled>
+              <script>
+                console.log("Antes del local storange");
+                //Local storange
+                miStorage = window.localStorage;
+                var user = localStorage.getItem('user');
+                console.log("user");
+                console.log(user);
+                document.getElementById("user").value = user;
+              </script>
+            </div>
+          </div>
+        </div>
+        <div>
+          <input id="formId" th:if="${edit}" type="hidden" name="IdForm" th:value="${formId}">
+          <input class="input--style-5" type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-        <button id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
-                disabled>Enviar</button>
-        <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
+          <button id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" disabled>Enviar</button>
+          <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
-      </div>
-    </form>
-    <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
+        </div>
+      </form>
+      <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
 
-  </div>
-
-</main><!-- End #main -->
-
-<br>
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-
-  <div class="container footer-bottom clearfix">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NetBreakers</span></strong>. Todos los derechos reservados 2021
     </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-      Diseñado por Víctor Gómez y José Rafael
+
+  </main><!-- End #main -->
+
+  <br>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>NetBreakers</span></strong>. Todos los derechos reservados 2021
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+        Diseñado por Víctor Gómez y José Rafael
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <div id="preloader"></div>
+
+  <div class="modal">
+    <div class="modal-content modal-danger">
+      <span class="close-button">×</span>
+      <h1>Hello, I am a modal!</h1>
     </div>
   </div>
-</footer><!-- End Footer -->
+  <!-- Vendor JS Files -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+  <script src="/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/venobox/venobox.min.js"></script>
+  <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/vendor/aos/aos.js"></script>
 
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-<div id="preloader"></div>
+  <!-- <script type="module" src="/js/database.js"></script> -->
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
 
-<!-- Vendor JS Files -->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="/vendor/php-email-form/validate.js"></script>
-<script src="/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/vendor/venobox/venobox.min.js"></script>
-<script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="/vendor/aos/aos.js"></script>
+  <!--Implementando geolocalizacion-->
+  <!-- <script src="/js/jquery-3.2.1.min.js"></script> -->
+  <!-- <script type="module" src="/js/form.model.js"></script> -->
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
-<!-- <script type="module" src="/js/database.js"></script> -->
-<!-- Template Main JS File -->
-<script src="/js/main.js"></script>
-
-<!--Implementando geolocalizacion-->
-<!-- <script src="/js/jquery-3.2.1.min.js"></script> -->
-<!-- <script type="module" src="/js/form.model.js"></script> -->
-<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-
-<script>
-
-  var id, cantidad = 0;
-  //Indica las opciones para llamar al GPS.
-  var opcionesGPS = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  }
-
-  $(document).ready(function () {
-    console.log("Ejemplo de Geolocalizacion");
-
-    //Obteniendo la referencia directa.
-    navigator.geolocation.getCurrentPosition(function (geodata) {
-      var coordenadas = geodata.coords;
-      document.getElementById("latitude").value = coordenadas.latitude;
-      document.getElementById("longitude").value = coordenadas.longitude;
-    }, function () {
-      $("#posicionGps").text("No permite el acceso del API GEO");
-    }, opcionesGPS);
-  });
-
-
-  window.onload = function () {
-
-    if (document.getElementById("sendButtonCreate") != null) {
-      var a = document.getElementById("schoolLevelCreate");
-      var b = document.getElementById("name1");
-      var c = document.getElementById("lastname1");
-      var d = document.getElementById("sector1");
-      a.addEventListener("change", checkButtonCreate);
-      b.addEventListener("keyup", checkButtonCreate);
-      c.addEventListener("keyup", checkButtonCreate);
-      d.addEventListener("keyup", checkButtonCreate);
+  <script>
+    var id, cantidad = 0;
+    //Indica las opciones para llamar al GPS.
+    var opcionesGPS = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
     }
 
-    if (document.getElementById("sendButtonEdit") != null) {
-      var e = document.getElementById("schoolLevelCreate");
-      var f = document.getElementById("name1");
-      var g = document.getElementById("lastname1");
-      var h = document.getElementById("sector1");
-      e.addEventListener("change", checkButtonEdit);
-      f.addEventListener("keyup", checkButtonEdit);
-      g.addEventListener("keyup", checkButtonEdit);
-      h.addEventListener("keyup", checkButtonEdit);
-    }
+    $(document).ready(function () {
+      console.log("Ejemplo de Geolocalizacion");
 
-    function checkButtonCreate() {
-      if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
-                      .value != "" &&
-              document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
-      ) {
-        document.getElementById("sendButtonCreate").disabled = false;
-      } else {
-        document.getElementById("sendButtonCreate").disabled = true;
-      }
-    }
-
-    function checkButtonEdit() {
-      if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
-                      .value != "" &&
-              document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
-      ) {
-
-        document.getElementById("sendButtonEdit").disabled = false;
-        console.log("WEYyyyyyyyyy");
-      } else {
-        document.getElementById("sendButtonEdit").disabled = true;
-        console.log("WEYyyyyyyyyy True");
-
-      }
-    }
-
-    class Form {
-      constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
-        this.name = name;
-        this.lastName = lastName;
-        this.area = area;
-        this.schoolLevel = schoolLevel;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.user = user;
-        this.status = false;
-      }
-    }
-
-    const indexedDB = new Dexie('dbparcial2');
-    indexedDB.version(1).stores({
-      forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+      //Obteniendo la referencia directa.
+      navigator.geolocation.getCurrentPosition(function (geodata) {
+        var coordenadas = geodata.coords;
+        document.getElementById("latitude").value = coordenadas.latitude;
+        document.getElementById("longitude").value = coordenadas.longitude;
+      }, function () {
+        $("#posicionGps").text("No permite el acceso del API GEO");
+      }, opcionesGPS);
     });
-    indexedDB.open().catch((err) => console.log("error: " + err));
 
-    async function addEditForm() {
-      let name = document.getElementById("name1").value;
-      let lastName = document.getElementById("lastname1").value;
-      let sector = document.getElementById("sector1").value;
-      let schoolLevel = document.getElementById("schoolLevelCreate").value;
-      let user = document.getElementById("user").value;
-      let latitude = document.getElementById("latitude").value;
-      let longitude = document.getElementById("longitude").value;
 
-      const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
-      // if (!edit) {
-      await indexedDB.forms.add(form);
-      console.log("form created");
-      window.location.reload();
-      // } else if (edit) {
-      //   const id = parseInt(document.getElementById("formEdit").value);
-      //   await indexedDB.forms.put(form, id);
-      // }
-    }
+    window.onload = function () {
 
-    async function editForm(id) {
-      let name = document.getElementById("name1").value;
-      let lastName = document.getElementById("lastname1").value;
-      let sector = document.getElementById("sector1").value;
-      let schoolLevel = document.getElementById("schoolLevelCreate").value;
-      let user = document.getElementById("user").value;
-      let latitude = document.getElementById("latitude").value;
-      let longitude = document.getElementById("longitude").value;
-
-      const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
-      console.log(form);
-      indexedDB.forms.update(id, form).then((result) => {}).catch((err) => {});
-
-    }
-
-    if (document.getElementById("sendButtonCreate") != null) {
-      document.getElementById("sendButtonCreate").addEventListener("click", () => {
-        addEditForm();
-      });
-    }
-
-    if (document.getElementById("sendButtonEdit") != null) {
-      document.getElementById("sendButtonEdit").addEventListener("click", () => {
-        const id = parseInt(document.getElementById("formId").value);
-        console.log(id);
-        editForm(id);
-      });
-    }
-
-    async function loadEditFields() {
-      if (document.getElementById("formId") != null) {
-        const formId = parseInt(document.getElementById("formId").value);
-
-        const form = await indexedDB.forms.get(formId)
-        document.getElementById("name1").value = form.name;
-        document.getElementById("lastname1").value = form.lastName;
-        document.getElementById("sector1").value = form.area;
-        document.getElementById("user").value = form.user;
-        document.getElementById("latitude").value = form.latitude;
-        document.getElementById("longitude").value = form.longitude;
-
-        Array.from(document.getElementById("schoolLevelCreate").options).forEach((element) => {
-          if (element.value === form.schoolLevel) {
-            element.setAttribute("selected", "selected");
-          }
-        });
-        checkButtonEdit();
+      if (document.getElementById("sendButtonCreate") != null) {
+        var a = document.getElementById("schoolLevelCreate");
+        var b = document.getElementById("name1");
+        var c = document.getElementById("lastname1");
+        var d = document.getElementById("sector1");
+        a.addEventListener("change", checkButtonCreate);
+        b.addEventListener("keyup", checkButtonCreate);
+        c.addEventListener("keyup", checkButtonCreate);
+        d.addEventListener("keyup", checkButtonCreate);
       }
+
+      if (document.getElementById("sendButtonEdit") != null) {
+        var e = document.getElementById("schoolLevelCreate");
+        var f = document.getElementById("name1");
+        var g = document.getElementById("lastname1");
+        var h = document.getElementById("sector1");
+        e.addEventListener("change", checkButtonEdit);
+        f.addEventListener("keyup", checkButtonEdit);
+        g.addEventListener("keyup", checkButtonEdit);
+        h.addEventListener("keyup", checkButtonEdit);
+      }
+
+      function checkButtonCreate() {
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+          .value != "" &&
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ) {
+          document.getElementById("sendButtonCreate").disabled = false;
+        } else {
+          document.getElementById("sendButtonCreate").disabled = true;
+        }
+      }
+
+      function checkButtonEdit() {
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+          .value != "" &&
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ) {
+
+          document.getElementById("sendButtonEdit").disabled = false;
+          console.log("WEYyyyyyyyyy");
+        } else {
+          document.getElementById("sendButtonEdit").disabled = true;
+          console.log("WEYyyyyyyyyy True");
+
+        }
+      }
+
+      class Form {
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+          this.name = name;
+          this.lastName = lastName;
+          this.area = area;
+          this.schoolLevel = schoolLevel;
+          this.latitude = latitude;
+          this.longitude = longitude;
+          this.user = user;
+          this.status = false;
+        }
+      }
+
+      const indexedDB = new Dexie('dbparcial2');
+      indexedDB.version(1).stores({
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+      });
+      indexedDB.open().catch((err) => console.log("error: " + err));
+
+      async function addEditForm() {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        // if (!edit) {
+        const result = await indexedDB.forms.add(form);
+        console.log("form created: " + result);
+        window.location.reload();
+        // } else if (edit) {
+        //   const id = parseInt(document.getElementById("formEdit").value);
+        //   await indexedDB.forms.put(form, id);
+        // }
+      }
+
+      async function editForm(id) {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        console.log(form);
+        indexedDB.forms.update(id, form).then((result) => {}).catch((err) => {});
+
+      }
+
+      if (document.getElementById("sendButtonCreate") != null) {
+        document.getElementById("sendButtonCreate").addEventListener("click", () => {
+          addEditForm();
+        });
+      }
+
+      if (document.getElementById("sendButtonEdit") != null) {
+        document.getElementById("sendButtonEdit").addEventListener("click", () => {
+          const id = parseInt(document.getElementById("formId").value);
+          console.log(id);
+          editForm(id);
+        });
+      }
+
+      async function loadEditFields() {
+        if (document.getElementById("formId") != null) {
+          const formId = parseInt(document.getElementById("formId").value);
+
+          const form = await indexedDB.forms.get(formId)
+          document.getElementById("name1").value = form.name;
+          document.getElementById("lastname1").value = form.lastName;
+          document.getElementById("sector1").value = form.area;
+          document.getElementById("user").value = form.user;
+          document.getElementById("latitude").value = form.latitude;
+          document.getElementById("longitude").value = form.longitude;
+
+          Array.from(document.getElementById("schoolLevelCreate").options).forEach((element) => {
+            if (element.value === form.schoolLevel) {
+              element.setAttribute("selected", "selected");
+            }
+          });
+          checkButtonEdit();
+        }
+      }
+
+      loadEditFields();
     }
-
-    loadEditFields();
-  }
-
-</script>
+  </script>
 
 </body>
 

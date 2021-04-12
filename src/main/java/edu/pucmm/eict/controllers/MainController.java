@@ -23,13 +23,9 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.core.security.SecurityUtil.roles;
 
 import java.util.List;
-<<<<<<< HEAD
 
 
-||||||| e2f42d2
 import java.util.Map;
-=======
->>>>>>> 40d65fa3108d3f39e3971071a41c1881834817fd
 
 public class MainController extends BaseController{
 
@@ -313,7 +309,12 @@ public class MainController extends BaseController{
             FormJson[] forms = json.fromJson(ctx.message(), FormJson[].class);
             for (FormJson form : forms) {
               System.out.println("FORMID:"+form.getId());
-              Position position = new Position(Double.parseDouble(form.getLatitude()), Double.parseDouble(form.getLongitude()));
+              Position position = null;
+              if (form.getLatitude() != null && form.getLongitude() != null) {
+                position = new Position(Double.parseDouble(form.getLatitude()), Double.parseDouble(form.getLongitude()));
+              } else {
+                position = new Position(0,0);
+              }
               PositionServices.getInstance().create(position);
 
               User user = UserServices.getInstance().find(form.getUser());

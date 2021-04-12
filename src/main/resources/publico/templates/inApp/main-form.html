@@ -186,6 +186,8 @@
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
   <div id="preloader"></div>
 
+
+
   <!-- Vendor JS Files -->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -230,6 +232,13 @@
 
 
     window.onload = function () {
+
+      $('#myModal').modal('toggle');
+
+      function setMessage(message, modalClass) {
+        document.querySelector(".modal-content").classList.add(modalClass);
+        document.getElementById("message").innerText = message;
+      }
 
       if (document.getElementById("sendButtonCreate") != null) {
         var a = document.getElementById("schoolLevelCreate");
@@ -309,8 +318,8 @@
 
         const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
         // if (!edit) {
-        await indexedDB.forms.add(form);
-        console.log("form created");
+        const result = await indexedDB.forms.add(form);
+        console.log("form created: " + result);
         window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);
@@ -372,11 +381,13 @@
     }
 
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/js/serviceworkers.js', {scope: '/'}).then(function(registration) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/js/serviceworkers.js', {
+          scope: '/'
+        }).then(function (registration) {
           // Notificando el registro del service workwe
           console.log('Registrando el servicio en el ambiente: ', registration.scope);
-        }, function(err) {
+        }, function (err) {
           console.log('Service Worker falló el registro: ', err);
         });
       });
@@ -384,7 +395,7 @@
 
     //Local storange
     miStorage = window.localStorage;
-    localStorage.setItem('user',document.getElementById("user").value);
+    localStorage.setItem('user', document.getElementById("user").value);
     console.log(localStorage.getItem('user'));
   </script>
 
