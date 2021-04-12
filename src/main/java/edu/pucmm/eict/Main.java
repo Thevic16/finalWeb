@@ -19,6 +19,12 @@ public class Main {
             config.addStaticFiles("/publico"); //desde la carpeta de resources
         }).start(7000);
 
+        //Filtro para enviar el header de validación
+        app.after(ctx -> {
+            //System.out.println("Enviando el header de seguridad para el Service Worker");
+            ctx.header("Service-Worker-Allowed", "/");
+        });
+
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
         DatabaseSetupServices.startDb();
         //PositionServices.getInstance().create(new Position(34.44, 56.55));

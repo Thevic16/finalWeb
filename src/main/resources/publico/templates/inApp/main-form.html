@@ -24,7 +24,7 @@
   <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="/vendor/owl.carousel//owl.carousel.min.css" rel="stylesheet">
+  <link href="/vendor/owl.carousel/owl.carousel.min.css" rel="stylesheet">
   <link href="/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Icons font CSS - Formulario-->
@@ -369,8 +369,23 @@
       }
 
       loadEditFields();
-
     }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/js/serviceworkers.js', {scope: '/'}).then(function(registration) {
+          // Notificando el registro del service workwe
+          console.log('Registrando el servicio en el ambiente: ', registration.scope);
+        }, function(err) {
+          console.log('Service Worker falló el registro: ', err);
+        });
+      });
+    }
+
+    //Local storange
+    miStorage = window.localStorage;
+    localStorage.setItem('user',document.getElementById("user").value);
+    console.log(localStorage.getItem('user'));
   </script>
 
 </body>
