@@ -19,9 +19,7 @@ import java.util.Map;
 import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.core.security.SecurityUtil.roles;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainController extends BaseController{
 
@@ -36,17 +34,17 @@ public class MainController extends BaseController{
       if (permittedRoles.contains(userRole.get("DEFAULT")) || permittedRoles.contains(userRole.get("ADMIN")) || permittedRoles.contains(userRole.get("POLLSTER")) ) {
         handler.handle(ctx);
       } else {
-        ctx.render("/templates/inApp/unauthorized.html");
+        ctx.render("/publico/templates/inApp/unauthorized.html");
       }
     });
 
     app.get("/", ctx -> {
-      ctx.render("/templates/home/index.html");
+      ctx.render("/publico/templates/home/index.html");
 
     },roles(MyRole.DEFAULT));
 
     app.get("/login", ctx -> {
-      ctx.render("/templates/home/login.html");
+      ctx.render("/publico/templates/home/login.html");
     },roles(MyRole.DEFAULT));
 
     app.post("/validate-login", ctx -> {
@@ -74,7 +72,9 @@ public class MainController extends BaseController{
       System.out.println("rememberMe "+rememberMe);
       if (logged == null) {
         
-        if (rememberMe == null) ctx.redirect("/login");
+        if (rememberMe == null) {
+          ctx.redirect("/login");
+        }
         else  {
           ctx.sessionAttribute("logged", rememberMe);
         }
@@ -93,7 +93,9 @@ public class MainController extends BaseController{
           System.out.println("rememberMe "+rememberMe);
           if (logged == null) {
         
-            if (rememberMe == null) ctx.redirect("/login");
+            if (rememberMe == null) {
+              ctx.redirect("/login");
+            }
             else  {
               ctx.sessionAttribute("logged", rememberMe);
             }
@@ -111,7 +113,7 @@ public class MainController extends BaseController{
           model.put("action","/inapp/add-form");
           model.put("edit", false);
 
-          ctx.render("/templates/inApp/main-form.html",model);
+          ctx.render("/publico/templates/inApp/main-form.html",model);
         },roles(MyRole.ADMIN,MyRole.POLLSTER));
 
         get("/edit-form/:idform", ctx -> {
@@ -119,7 +121,7 @@ public class MainController extends BaseController{
           Map<String, Object> model = new HashMap<>();
           model.put("edit", true);
           model.put("formId", idform);
-          ctx.render("/templates/inApp/main-form.html",model);
+          ctx.render("/publico/templates/inApp/main-form.html",model);
         }, roles(MyRole.ADMIN,MyRole.POLLSTER));
 
         // get("/edit-form/:idForm", ctx -> {
@@ -205,14 +207,14 @@ public class MainController extends BaseController{
           Map<String, Object> model = new HashMap<>();
           model.put("forms",forms);
 
-          ctx.render("/templates/inApp/list-form.html",model);
+          ctx.render("/publico/templates/inApp/list-form.html",model);
         },roles(MyRole.ADMIN,MyRole.POLLSTER));
 
         get("/user-manage", ctx -> {
           Map<String, Object> model = new HashMap<>();
           model.put("edit", false);
           model.put("mode", "create");
-          ctx.render("/templates/inApp/user-manage.html", model);
+          ctx.render("/publico/templates/inApp/user-manage.html", model);
         },roles(MyRole.ADMIN));
 
         get("/list-user", ctx -> {
@@ -220,7 +222,7 @@ public class MainController extends BaseController{
           List<User> users = UserServices.getInstance().findAll();
           Map<String, Object> model = new HashMap<>();
           model.put("users", users);
-          ctx.render("/templates/inApp/list-user.html", model);
+          ctx.render("/publico/templates/inApp/list-user.html", model);
         },roles(MyRole.ADMIN));
 
         post("/user-manage/:mode", ctx -> {
@@ -277,7 +279,7 @@ public class MainController extends BaseController{
           model.put("user", user);
           model.put("edit", true);
           model.put("mode", "edit");
-          ctx.render("/templates/inApp/user-manage.html", model);
+          ctx.render("/publico/templates/inApp/user-manage.html", model);
         },roles(MyRole.ADMIN));
 
         get("/logout", ctx -> {
