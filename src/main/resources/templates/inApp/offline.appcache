@@ -5,10 +5,12 @@ CACHE MANIFEST
 #Trama que indica que 
 CACHE:
 /inApp/main-form.html
+/inApp/list-form.html
 
 NETWORK:
 /home/index.html
 /home/login.html
 
 FALLBACK:
-/inApp /inApp/main-form.html
+/inApp/ /inApp/main-form.html
+/inApp/list-form /inApp/list-form.html
