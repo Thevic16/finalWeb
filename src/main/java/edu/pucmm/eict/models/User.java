@@ -1,6 +1,5 @@
 package edu.pucmm.eict.models;
 
-import java.util.*;
 import java.io.Serializable;
 import javax.persistence.*;
 

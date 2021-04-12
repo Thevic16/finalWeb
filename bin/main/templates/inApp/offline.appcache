@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# v12 - Para obligar al cambio bueno mantener una versión.
+# Esto es un comentario.
+
+#Trama que indica que 
+CACHE:
+/inApp/main-form.html
+/inApp/list-form.html
+
+NETWORK:
+/home/index.html
+/home/login.html
+
+FALLBACK:
+/inApp/ /inApp/main-form.html
+/inApp/list-form /inApp/list-form.html

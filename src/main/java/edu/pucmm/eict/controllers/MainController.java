@@ -2,6 +2,7 @@
 package edu.pucmm.eict.controllers;
 
 import edu.pucmm.eict.models.Form;
+import edu.pucmm.eict.models.FormJson;
 import edu.pucmm.eict.models.MyRole;
 import edu.pucmm.eict.models.Position;
 import edu.pucmm.eict.services.FormServices;
@@ -16,12 +17,14 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.core.security.SecurityUtil.roles;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+
 
 public class MainController extends BaseController{
 
@@ -285,6 +288,40 @@ public class MainController extends BaseController{
           ctx.sessionAttribute("logged", null);
           ctx.redirect("/");
         },roles(MyRole.ADMIN,MyRole.POLLSTER));
+
+
+        ws("/push-forms", ws -> {
+          ws.onConnect(ctx -> {
+            System.out.println("Session: "+ctx.getSessionId());
+          });
+          ws.onMessage(ctx -> {
+
+            Gson json = new Gson();
+            System.out.println("Message: "+ctx.message());
+            System.out.println("Tipo: "+ctx.message().getClass());
+
+
+            FormJson[] forms = json.fromJson(ctx.message(), FormJson[].class);
+            for (FormJson form : forms) {
+              System.out.println("FORMID:"+form.getId());
+              Position position = new Position(Double.parseDouble(form.getLatitude()), Double.parseDouble(form.getLongitude()));
+              PositionServices.getInstance().create(position);
+
+              User user = UserServices.getInstance().find(form.getUser());
+
+              Form formToSet = new Form(form.getName(), form.getLastName(), form.getArea(), form.getSchoolLevel(), user, position);
+
+              FormServices.getInstance().create(formToSet);
+            }
+          });
+          ws.onClose(ctx -> {
+            System.out.println("Closing: "+ctx.getSessionId());
+          });
+          ws.onError(ctx -> {
+            System.out.println("Error");
+          });
+        }, roles(MyRole.ADMIN,MyRole.POLLSTER));
+          
       });
     });
   }
@@ -294,7 +331,7 @@ public class MainController extends BaseController{
 
     /*
     if(username != null){
-       user = UserServices.getInstance().find(username);
+      user = UserServices.getInstance().find(username);
     }
 
      */

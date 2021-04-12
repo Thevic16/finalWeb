@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" manifest="/inApp/offline.appcache" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -44,6 +44,8 @@
   <!-- Main CSS Formulario-->
   <link href="css/main.css" rel="stylesheet" media="all">
 
+
+
 </head>
 
 <body>
@@ -63,7 +65,7 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="/" class="get-started-btn scrollto">Cerrar Sesión</a>
+      <a href="/inapp/logout" class="get-started-btn scrollto">Cerrar Sesión</a>
 
     </div>
   </header><!-- End Header -->
@@ -76,10 +78,8 @@
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
           data-aos="fade-up" data-aos-delay="200">
           <h1>Formulario Encuesta</h1>
-          <h2>We are team of talented designers making websites with Bootstrap</h2>
-          <div class="d-lg-flex">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
-          </div>
+          <h2>Somos un equipo de analistas e ingenieros de los datos que aplican el método científico a los resultados
+            de tus encuesta</h2>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
           <img src="/img/hero-img.png" class="img-fluid animated" alt="">
@@ -90,54 +90,14 @@
   </section><!-- End Hero -->
 
   <main id="main">
-    <!--Implementando geolocalizacion-->
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script>
-      var id, cantidad = 0;
-      //Indica las opciones para llamar al GPS.
-      var opcionesGPS = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      }
-
-      $(document).ready(function(){
-        console.log("Ejemplo de Geolocalizacion");
-
-        //Obteniendo la referencia directa.
-        navigator.geolocation.getCurrentPosition(function(geodata){
-          var coordenadas = geodata.coords;
-          $("#latitude").text(coordenadas.latitude);
-          $("#longitude").text(coordenadas.longitude);
-        }, function(){
-          $("#posicionGps").text("No permite el acceso del API GEO");
-        }, opcionesGPS);
-
-        //Obteniendo el cambio de referencia.
-        id = navigator.geolocation.watchPosition(function(geodata){
-          var coordenadas = geodata.coords;
-          $("#latitude").text(coordenadas.latitude);
-          $("#longitude").text(coordenadas.longitude);
-          cantidad++;
-          if(cantidad>=5){
-            navigator.geolocation.clearWatch(id);
-            console.log("Finalizando la trama")
-          }
-        },function(error){
-          //recibe un objeto con dos propiedades: code y message.
-          $("#posicionGps2").text("No permite el acceso del API GEO. Codigo: "+error.code+", mensaje: "+error.message);
-        });
-      });
-    </script>
-
     <br>
     <div class="container">
-      <form method="post" action="/add-form">
+      <form>
         <div class="form-row">
           <div class="name">Nombre</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="name">
+              <input class="input--style-5" type="text" name="name" id="name1">
             </div>
           </div>
         </div>
@@ -145,7 +105,7 @@
           <div class="name">Apellido</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="lasname">
+              <input class="input--style-5" type="text" name="lastname" id="lastname1">
             </div>
           </div>
         </div>
@@ -153,7 +113,7 @@
           <div class="name">Sector</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="sector">
+              <input class="input--style-5" type="text" name="sector" id="sector1">
             </div>
           </div>
         </div>
@@ -162,13 +122,13 @@
           <div class="value">
             <div class="input-group">
               <div class="rs-select2 js-select-simple select--no-search">
-                <select name="schoolLevel">
-                  <option disabled="disabled" selected="selected">Seleccione</option>
-                  <option>Básico</option>
-                  <option>Medio</option>
-                  <option>Grado Universitario</option>
-                  <option>Postgrado</option>
-                  <option>Doctorado</option>
+                <select name="schoolLevel" id="schoolLevelCreate">
+                  <option disabled="disabled" selected="selected" value="Seleccione">Seleccione</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Grado Universitario">Grado Universitario</option>
+                  <option value="Postgrado">Postgrado</option>
+                  <option value="Doctorado">Doctorado</option>
                 </select>
                 <div class="select-dropdown"></div>
               </div>
@@ -179,17 +139,27 @@
           <div class="name">Usuario</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="user">
+              <input th:if="${edit}" class="input--style-5" type="text" name="user" id="user" disabled>
+              <input th:if="${!edit}" class="input--style-5" type="text" name="user" id="user"
+                th:value="${user.userName}" disabled>
             </div>
           </div>
         </div>
         <div>
-          <input class="input--style-5"  type="hidden" id="latitude" name="latitude">
-          <input class="input--style-5"  type="hidden" id="longitude" name="longitude">
-          <button class="btn btn--radius-2 btn--red" type="submit">Enviar</button>
-          <button class="btn btn--radius-2 btn--blue">Limpiar</button>
+          <input id="formId" th:if="${edit}" type="hidden" name="IdForm" th:value="${formId}">
+          <input class="input--style-5" type="hidden" id="latitude" name="latitude">
+          <input class="input--style-5" type="hidden" id="longitude" name="longitude">
+
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
+            disabled>Enviar</button>
+          <button form="sendEditForm" role="button" th:if="${edit}" id="sendButtonEdit"
+            class="btn btn--radius-2 btn--red text-white" disabled>Editar</button>
+          <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
+
         </div>
       </form>
+      <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
+
     </div>
 
   </main><!-- End #main -->
@@ -201,7 +171,7 @@
 
     <div class="container footer-bottom clearfix">
       <div class="copyright">
-        &copy; Copyright <strong><span>NetBreakers</span></strong>. All Rights Reserved 2021
+        &copy; Copyright <strong><span>NetBreakers</span></strong>. Todos los derechos reservados 2021
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
@@ -227,8 +197,181 @@
   <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/vendor/aos/aos.js"></script>
 
+  <!-- <script type="module" src="/js/database.js"></script> -->
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
+
+  <!--Implementando geolocalizacion-->
+  <!-- <script src="/js/jquery-3.2.1.min.js"></script> -->
+  <!-- <script type="module" src="/js/form.model.js"></script> -->
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+  <script>
+    var id, cantidad = 0;
+    //Indica las opciones para llamar al GPS.
+    var opcionesGPS = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+
+    $(document).ready(function () {
+      console.log("Ejemplo de Geolocalizacion");
+
+      //Obteniendo la referencia directa.
+      navigator.geolocation.getCurrentPosition(function (geodata) {
+        var coordenadas = geodata.coords;
+        document.getElementById("latitude").value = coordenadas.latitude;
+        document.getElementById("longitude").value = coordenadas.longitude;
+      }, function () {
+        $("#posicionGps").text("No permite el acceso del API GEO");
+      }, opcionesGPS);
+    });
+
+
+    window.onload = function () {
+
+      if (document.getElementById("sendButtonCreate") != null) {
+        var a = document.getElementById("schoolLevelCreate");
+        var b = document.getElementById("name1");
+        var c = document.getElementById("lastname1");
+        var d = document.getElementById("sector1");
+        a.addEventListener("change", checkButtonCreate);
+        b.addEventListener("keyup", checkButtonCreate);
+        c.addEventListener("keyup", checkButtonCreate);
+        d.addEventListener("keyup", checkButtonCreate);
+      }
+
+      if (document.getElementById("sendButtonEdit") != null) {
+        var e = document.getElementById("schoolLevelCreate");
+        var f = document.getElementById("name1");
+        var g = document.getElementById("lastname1");
+        var h = document.getElementById("sector1");
+        e.addEventListener("change", checkButtonEdit);
+        f.addEventListener("keyup", checkButtonEdit);
+        g.addEventListener("keyup", checkButtonEdit);
+        h.addEventListener("keyup", checkButtonEdit);
+      }
+
+      function checkButtonCreate() {
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+          .value != "" &&
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ) {
+          document.getElementById("sendButtonCreate").disabled = false;
+        } else {
+          document.getElementById("sendButtonCreate").disabled = true;
+        }
+      }
+
+      function checkButtonEdit() {
+        if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
+          .value != "" &&
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+        ) {
+
+          document.getElementById("sendButtonEdit").disabled = false;
+          console.log("WEYyyyyyyyyy");
+        } else {
+          document.getElementById("sendButtonEdit").disabled = true;
+          console.log("WEYyyyyyyyyy True");
+
+        }
+      }
+
+      class Form {
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+          this.name = name;
+          this.lastName = lastName;
+          this.area = area;
+          this.schoolLevel = schoolLevel;
+          this.latitude = latitude;
+          this.longitude = longitude;
+          this.user = user;
+          this.status = false;
+        }
+      }
+
+      const indexedDB = new Dexie('dbparcial2');
+      indexedDB.version(1).stores({
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+      });
+      indexedDB.open().catch((err) => console.log("error: " + err));
+
+      async function addEditForm() {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        // if (!edit) {
+        await indexedDB.forms.add(form);
+        console.log("form created");
+        window.location.reload();
+        // } else if (edit) {
+        //   const id = parseInt(document.getElementById("formEdit").value);
+        //   await indexedDB.forms.put(form, id);
+        // }
+      }
+
+      async function editForm(id) {
+        let name = document.getElementById("name1").value;
+        let lastName = document.getElementById("lastname1").value;
+        let sector = document.getElementById("sector1").value;
+        let schoolLevel = document.getElementById("schoolLevelCreate").value;
+        let user = document.getElementById("user").value;
+        let latitude = document.getElementById("latitude").value;
+        let longitude = document.getElementById("longitude").value;
+
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        console.log(form);
+        indexedDB.forms.update(id, form).then((result) => {}).catch((err) => {});
+
+      }
+
+      if (document.getElementById("sendButtonCreate") != null) {
+        document.getElementById("sendButtonCreate").addEventListener("click", () => {
+          addEditForm();
+        });
+      }
+
+      if (document.getElementById("sendButtonEdit") != null) {
+        document.getElementById("sendButtonEdit").addEventListener("click", () => {
+          const id = parseInt(document.getElementById("formId").value);
+          console.log(id);
+          editForm(id);
+        });
+      }
+
+      async function loadEditFields() {
+        if (document.getElementById("formId") != null) {
+          const formId = parseInt(document.getElementById("formId").value);
+
+          const form = await indexedDB.forms.get(formId)
+          document.getElementById("name1").value = form.name;
+          document.getElementById("lastname1").value = form.lastName;
+          document.getElementById("sector1").value = form.area;
+          document.getElementById("user").value = form.user;
+          document.getElementById("latitude").value = form.latitude;
+          document.getElementById("longitude").value = form.longitude;
+
+          Array.from(document.getElementById("schoolLevelCreate").options).forEach((element) => {
+            if (element.value === form.schoolLevel) {
+              element.setAttribute("selected", "selected");
+            }
+          });
+          checkButtonEdit();
+        }
+      }
+
+      loadEditFields();
+
+    }
+  </script>
 
 </body>
 

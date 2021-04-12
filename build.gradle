@@ -23,6 +23,8 @@ dependencies {
         //JPA HIBERNATE
     implementation 'org.hibernate:hibernate-core:5.4.17.Final'
     implementation 'org.hibernate:hibernate-entitymanager:5.4.17.Final'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }
 
 test {
