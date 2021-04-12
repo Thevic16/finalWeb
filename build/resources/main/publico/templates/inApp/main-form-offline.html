@@ -303,9 +303,9 @@
 
         const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
         // if (!edit) {
-        const result = await indexedDB.forms.add(form);
-        console.log("form created: " + result);
-        window.location.reload();
+        await indexedDB.forms.add(form);
+        console.log("Insertado");
+        //window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);
         //   await indexedDB.forms.put(form, id);
