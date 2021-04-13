@@ -141,7 +141,8 @@
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-          <button id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" disabled>Enviar</button>
+          <button id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
+            disabled>Enviar</button>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
         </div>
@@ -290,7 +291,8 @@
       indexedDB.version(1).stores({
         forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
       });
-      indexedDB.open().catch((err) => console.log("error: " + err));
+      indexedDB.open().then(("ABIERTO")).catch((err) => console.log("error: " + err));
+
 
       async function addEditForm() {
         let name = document.getElementById("name1").value;
