@@ -12,9 +12,18 @@ if ('undefined' === typeof window) {
 
     switch (option) {
       case 'GET':
-        indexedDB.forms.toArray().then((e) => {
-          console.log(e);
-          postMessage(e);
+        let filteredForms = []
+        indexedDB.forms.toArray().then((forms) => {
+          forms.forEach((form, index) => {
+            if (!form.status) {
+              console.log(form);
+              filteredForms.push(form);
+              form.status = true;
+              indexedDB.forms.update(form.id, form);
+            }
+          });
+          console.log(forms);
+          postMessage(filteredForms);
         });
     }
   }

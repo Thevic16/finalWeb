@@ -1,9 +1,9 @@
 let ws;
 const worker = new Worker("/js/webworker.js");
 
-worker.postMessage("GET");
+
 worker.onmessage = (data) => {
-  console.log("datos" + data.data);
+  console.log(data.data);
   ws.send(JSON.stringify(data.data));
 }
 
@@ -30,4 +30,6 @@ setInterval(checkConnection, 3000);
 document.addEventListener("DOMContentLoaded", connectSocket);
 
 const btnSendToServer = document.getElementById("btnSync");
-btnSendToServer.addEventListener("click", worker);
+btnSendToServer.addEventListener("click", () => {
+  worker.postMessage('GET');
+});

@@ -54,7 +54,18 @@
   <header id="header" class="fixed-top " th:fragment="header">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href=".">NetBreakers</a></h1>
+      <h1 class="logo mr-auto"><a href="/inapp">NetBreakers</a></h1>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/inapp">Formulario</a></li>
+          <li><a href="/inapp/list-form">Listar Formularios</a></li>
+          <li><a href="/inapp/user-manage">Manejo Usuarios</a></li>
+          <li><a href="/inapp/list-user">Listar Usuarios</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="/inapp/logout" class="get-started-btn scrollto">Cerrar Sesión</a>
 
     </div>
   </header><!-- End Header -->
@@ -64,12 +75,17 @@
 
     <div class="container">
       <div class="row">
-        <div class="d-flex flex-column justify-content-center">
-          <h1>Formulario Encuesta (Sin conexión)</h1>
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+          data-aos="fade-up" data-aos-delay="200">
+          <h1>Formulario Encuesta</h1>
           <h2>Somos un equipo de analistas e ingenieros de los datos que aplican el método científico a los resultados
             de tus encuesta</h2>
         </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
       </div>
+    </div>
 
   </section><!-- End Hero -->
 
@@ -123,16 +139,9 @@
           <div class="name">Usuario</div>
           <div class="value">
             <div class="input-group">
-              <input class="input--style-5" type="text" name="user" id="user" disabled>
-              <script>
-                console.log("Antes del local storange");
-                //Local storange
-                miStorage = window.localStorage;
-                var user = localStorage.getItem('user');
-                console.log("user");
-                console.log(user);
-                document.getElementById("user").value = user;
-              </script>
+              <input th:if="${edit}" class="input--style-5" type="text" name="user" id="user" disabled>
+              <input th:if="${!edit}" class="input--style-5" type="text" name="user" id="user"
+                th:value="${user.userName}" disabled>
             </div>
           </div>
         </div>
@@ -141,10 +150,13 @@
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
           <input class="input--style-5" type="hidden" id="longitude" name="longitude">
 
-          <button id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white" disabled>Enviar</button>
+          <button th:if="${!edit}" id="sendButtonCreate" class="btn btn--radius-2 btn--red text-white"
+            disabled>Enviar</button>
+          <button form="sendEditForm" role="button" th:if="${edit}" id="sendButtonEdit"
+            class="btn btn--radius-2 btn--red text-white" disabled>Editar</button>
           <a href="/inapp/" class="btn btn--radius-2 btn--blue text-white">Cancelar</a>
 
-          </di v>
+        </div>
       </form>
       <form id="sendEditForm" method="GET" action="/inapp/list-form"> </form>
 
@@ -174,12 +186,8 @@
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
   <div id="preloader"></div>
 
-  <div class="modal">
-    <div class="modal-content modal-danger">
-      <span class="close-button">×</span>
-      <h1>Hello, I am a modal!</h1>
-    </div>
-  </div>
+
+
   <!-- Vendor JS Files -->
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -224,6 +232,13 @@
 
 
     window.onload = function () {
+
+      $('#myModal').modal('toggle');
+
+      function setMessage(message, modalClass) {
+        document.querySelector(".modal-content").classList.add(modalClass);
+        document.getElementById("message").innerText = message;
+      }
 
       if (document.getElementById("sendButtonCreate") != null) {
         var a = document.getElementById("schoolLevelCreate");
@@ -290,8 +305,7 @@
       indexedDB.version(1).stores({
         forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
       });
-      indexedDB.open().then(("ABIERTO")).catch((err) => console.log("error: " + err));
-
+      indexedDB.open().catch((err) => console.log("error: " + err));
 
       async function addEditForm() {
         let name = document.getElementById("name1").value;
@@ -304,8 +318,8 @@
 
         const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
         // if (!edit) {
-        await indexedDB.forms.add(form);
-        console.log("Insertado");
+        const result = await indexedDB.forms.add(form);
+        console.log("form created: " + result);
         window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);
@@ -365,6 +379,24 @@
 
       loadEditFields();
     }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/js/serviceworkers.js', {
+          scope: '/'
+        }).then(function (registration) {
+          // Notificando el registro del service workwe
+          console.log('Registrando el servicio en el ambiente: ', registration.scope);
+        }, function (err) {
+          console.log('Service Worker falló el registro: ', err);
+        });
+      });
+    }
+
+    //Local storange
+    miStorage = window.localStorage;
+    localStorage.setItem('user', document.getElementById("user").value);
+    console.log(localStorage.getItem('user'));
   </script>
 
 </body>
