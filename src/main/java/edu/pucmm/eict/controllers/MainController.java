@@ -301,6 +301,8 @@ public class MainController extends BaseController{
           ws.onConnect(ctx -> {
             System.out.println("Session: "+ctx.getSessionId());
           });
+
+
           ws.onMessage(ctx -> {
 
             Gson json = new Gson();
@@ -325,6 +327,10 @@ public class MainController extends BaseController{
 
               FormServices.getInstance().create(formToSet);
             }
+            String formsJson = new Gson().toJson(FormServices.getInstance().findAll());
+            ctx.send(formsJson);
+            System.out.println(formsJson);
+            //ctx.send("Prueba 2");
           });
           ws.onClose(ctx -> {
             System.out.println("Closing: "+ctx.getSessionId());
