@@ -26,6 +26,9 @@ dependencies {
     implementation 'org.hibernate:hibernate-entitymanager:5.4.17.Final'
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //Procesamiento JSON.
+    compile "com.fasterxml.jackson.core:jackson-databind:2.10.1"
+
 }
 
 test {
