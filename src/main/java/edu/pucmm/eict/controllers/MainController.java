@@ -297,12 +297,13 @@ public class MainController extends BaseController{
         get("/hypo", ctx -> {
           ctx.render("/publico/templates/inApp/main-form-offline.html");
         }, roles(MyRole.ADMIN, MyRole.POLLSTER));
+      
         ws("/push-forms", ws -> {
           ws.onConnect(ctx -> {
             System.out.println("Session: "+ctx.getSessionId());
           });
 
-
+          
           ws.onMessage(ctx -> {
 
             Gson json = new Gson();

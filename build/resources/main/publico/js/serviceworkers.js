@@ -26,21 +26,21 @@ var urlsToCache = [
     '/vendor/venobox/venobox.css',
     '/vendor/aos/aos.css',
     '/css/style.css',
-    '/vendor/jquery/jquery.min.js'
+    '/vendor/jquery/jquery.js'
 ];
 //ruta para fallback.
 var fallback = "/templates/inApp/main-form-offline.html"
 
 //representa el evento cuando se esta instalando el services workers.
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
     console.log('Instalando el Services Worker');
     // Utilizando las promesas para agregar los elementos definidos
     event.waitUntil(
         caches.open(CACHE_NAME) //Utilizando el api Cache definido en la variable.
-            .then(function(cache) {
-                console.log('Cache abierto');
-                return cache.addAll(urlsToCache); //agregando todos los elementos del cache.
-            })
+        .then(function (cache) {
+            console.log('Cache abierto');
+            return cache.addAll(urlsToCache); //agregando todos los elementos del cache.
+        })
     );
 });
 
@@ -51,8 +51,8 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', evt => {
     console.log('Activando el services worker -  Limpiando el cache no utilizado');
     evt.waitUntil(
-        caches.keys().then(function(keyList) { //Recupera todos los cache activos.
-            return Promise.all(keyList.map(function(key) {
+        caches.keys().then(function (keyList) { //Recupera todos los cache activos.
+            return Promise.all(keyList.map(function (key) {
                 if (CACHE_NAME.indexOf(key) === -1) { //si no es el cache por defecto borramos los elementos.
                     return caches.delete(key); //borramos los elementos guardados.
                 }
@@ -67,12 +67,12 @@ self.addEventListener('activate', evt => {
  */
 self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request).then(response=>{
+        caches.match(event.request).then(response => {
             console.log(event);
             //si existe retornamos la petición desde el cache, de lo contrario (retorna undefined) dejamos pasar la solicitud al servidor,
             // lo hacemos con la función fetch pasando un objeto de petición.
             return response || fetch(event.request);
-        }).catch(function (){ //En caso de tener un problema con la red, se mostrará el caso
+        }).catch(function () { //En caso de tener un problema con la red, se mostrará el caso
             return caches.match(fallback);
         })
     );
