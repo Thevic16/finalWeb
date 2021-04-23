@@ -5,16 +5,16 @@ const worker = new Worker("/js/webworker.js");
 worker.onmessage = (data) => {
   console.log(data.data);
   ws.send(JSON.stringify(data.data));
-/*
-  ws.onmessage = (data) => { //Telling the worker to delete the data in IndexDB and then create forms with the new information.
-    console.log("Received Data: " + data.data);
-    //worker.postMessage(['UPDATE',data.data]); //sending forms to worker for process
-  }*/
+  /*
+    ws.onmessage = (data) => { //Telling the worker to delete the data in IndexDB and then create forms with the new information.
+      console.log("Received Data: " + data.data);
+      //worker.postMessage(['UPDATE',data.data]); //sending forms to worker for process
+    }*/
 }
 
 function connectSocket() {
   ws = new WebSocket("ws://localhost:7000/inapp/push-forms");
-
+  console.log(ws.bufferedAmount);
   ws.onopen = (e) => {
     console.log("Conncted: " + this.readyState);
   }
@@ -23,7 +23,7 @@ function connectSocket() {
   }
   ws.onmessage = (data) => { //Telling the worker to delete the data in IndexDB and then create forms with the new information.
     console.log("Received Data: " + data.data);
-    worker.postMessage(['UPDATE',data.data]); //sending forms to worker for process
+    worker.postMessage(['UPDATE', data.data]); //sending forms to worker for process
   }
 }
 
@@ -42,4 +42,3 @@ const btnSendToServer = document.getElementById("btnSync");
 btnSendToServer.addEventListener("click", () => {
   worker.postMessage(['GET']);
 });
-
