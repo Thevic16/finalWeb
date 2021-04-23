@@ -2,6 +2,7 @@ package edu.pucmm.eict;
 
 import java.sql.SQLException;
 
+import edu.pucmm.eict.controllers.ApiRestController;
 import edu.pucmm.eict.controllers.MainController;
 import edu.pucmm.eict.controllers.SoapController;
 import edu.pucmm.eict.models.User;
@@ -43,5 +44,6 @@ public class Main {
         }
         
         new MainController(app).applyRoutes();
+        new ApiRestController(app).applyRoutes();
     }
 }
