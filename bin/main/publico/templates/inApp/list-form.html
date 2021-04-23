@@ -171,7 +171,7 @@
 
             const indexedDB = new Dexie('dbparcial2');
             indexedDB.version(1).stores({
-                forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+                forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status,photo'
             });
             indexedDB.open().catch((err) => console.log(err));
 

@@ -2,25 +2,31 @@ edu/pucmm/eict/services/PositionServices.java
  edu.pucmm.eict.services.PositionServices
 edu/pucmm/eict/models/Position.java
  edu.pucmm.eict.models.Position
+edu/pucmm/eict/controllers/SoapController.java
+ edu.pucmm.eict.controllers.SoapController
 edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
 edu/pucmm/eict/models/User.java
  edu.pucmm.eict.models.User
 edu/pucmm/eict/models/MyRole.java
  edu.pucmm.eict.models.MyRole
+edu/pucmm/eict/models/FormJson.java
+ edu.pucmm.eict.models.FormJson
+edu/pucmm/eict/controllers/MainController.java
+ edu.pucmm.eict.controllers.MainController
+edu/pucmm/eict/models/Form.java
+ edu.pucmm.eict.models.Form
+edu/pucmm/eict/services/UserServices.java
+ edu.pucmm.eict.services.UserServices
+edu/pucmm/eict/services/FormServices.java
+ edu.pucmm.eict.services.FormServices
+edu/pucmm/eict/services/soap/FormWebService.java
+ edu.pucmm.eict.services.soap.FormWebService
 edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
-edu/pucmm/eict/services/UserServices.java
- edu.pucmm.eict.services.UserServices
-edu/pucmm/eict/models/Form.java
- edu.pucmm.eict.models.Form
-edu/pucmm/eict/models/FormJson.java
- edu.pucmm.eict.models.FormJson
-edu/pucmm/eict/services/FormServices.java
- edu.pucmm.eict.services.FormServices
+edu/pucmm/eict/models/FormSoap.java
+ edu.pucmm.eict.models.FormSoap
 edu/pucmm/eict/Main.java
  edu.pucmm.eict.Main
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
