@@ -19,7 +19,11 @@ public class Main {
         //Creando la instancia del servidor.
         Javalin app = Javalin.create(config ->{
             config.addStaticFiles("/publico"); //desde la carpeta de resources
+            
             config.enableCorsForAllOrigins();
+            config.wsFactoryConfig(factory -> {
+                factory.getPolicy().setMaxTextMessageSize(1024*1024);
+            });
 
         });
 

@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "FORMS")
@@ -20,20 +22,23 @@ public class Form implements Serializable {
   private User user;
   @OneToOne
   private Position position;
-  private String photoBase64;
+  @Column(length = 16777216)
+  private String photo;
 
 
   public Form() {
   }
 
-  public Form(String name, String lastName, String area, String nivelEscolar, User user, Position position, String photoBase64) {
+  
+
+  public Form(String name, String lastName, String area, String nivelEscolar, User user, Position position, String photo) {
     this.name = name;
     this.lastName = lastName;
     this.area = area;
     this.nivelEscolar = nivelEscolar;
     this.user = user;
     this.position = position;
-    this.photoBase64 = photoBase64;
+    this.photo = photo;
   }
 
   public int getId() {
@@ -92,6 +97,19 @@ public class Form implements Serializable {
     this.position = position;
   }
 
+  public String getPhoto() {
+    return this.photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public Form id(int id) {
+    this.id = id;
+    return this;
+  }
+
   public Form name(String name) {
     this.name = name;
     return this;
@@ -122,12 +140,9 @@ public class Form implements Serializable {
     return this;
   }
 
-  public String getPhotoBase64() {
-    return this.photoBase64;
-  }
-
-  public void setPhotoBase64(String photoBase64) {
-    this.photoBase64 = photoBase64;
+  public Form photo(String photo) {
+    this.photo = photo;
+    return this;
   }
 
   @Override
@@ -138,26 +153,26 @@ public class Form implements Serializable {
             return false;
         }
         Form form = (Form) o;
-        return Objects.equals(name, form.name) && Objects.equals(lastName, form.lastName) && Objects.equals(area, form.area) && Objects.equals(nivelEscolar, form.nivelEscolar) && Objects.equals(user, form.user) && Objects.equals(position, form.position);
+        return id == form.id && Objects.equals(name, form.name) && Objects.equals(lastName, form.lastName) && Objects.equals(area, form.area) && Objects.equals(nivelEscolar, form.nivelEscolar) && Objects.equals(user, form.user) && Objects.equals(position, form.position) && Objects.equals(photo, form.photo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, lastName, area, nivelEscolar, user, position);
+    return Objects.hash(id, name, lastName, area, nivelEscolar, user, position, photo);
   }
 
   @Override
   public String toString() {
     return "{" +
-      " name='" + getName() + "'" +
+      " id='" + getId() + "'" +
+      ", name='" + getName() + "'" +
       ", lastName='" + getLastName() + "'" +
       ", area='" + getArea() + "'" +
       ", nivelEscolar='" + getNivelEscolar() + "'" +
       ", user='" + getUser() + "'" +
       ", position='" + getPosition() + "'" +
-      ", photo='" + getPhotoBase64() + "'" +
+      ", photo='" + getPhoto() + "'" +
       "}";
   }
-
 
 }

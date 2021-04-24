@@ -45,6 +45,8 @@
   <link href="css/main.css" rel="stylesheet" media="all">
 
 
+  <script src="https://kit.fontawesome.com/156ff56ddf.js" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -117,6 +119,22 @@
             </div>
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="name">Foto</div>
+          <div class="value">
+            <div class="input-group">
+              <a id="test" href="#" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn--radius-2 btn--blue text-white"><i class="fas fa-camera"></i></a>
+
+              <div class="col-md-8">
+                <input th:if="${!edit}" class="input--style-5" type="text" name="photob64" id="photob64"
+                  placeholder="Photo URI" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="form-row">
           <div class="name">Usuario</div>
           <div class="value">
@@ -172,18 +190,42 @@
   <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
   <div id="preloader"></div>
 
-  <div class="modal">
-    <div class="modal-content modal-danger">
-      <span class="close-button">×</span>
-      <h1>Hello, I am a modal!</h1>
+  <div class="center">
+    <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+            <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <video id="camera" style="max-width: 100%;
+            height: auto;" autoplay playsinline></video>
+            <img id="imgtest" src="" alt="" style="display: none;">
+            <canvas id="canvas" class="d-none"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button id="retake" type="button" class="btn btn-info" style="display:none;">Retomar</button>
+            <button id="savePic" type="button" class="btn btn-success" style="display:none;">Guardar</button>
+
+            <button id="photo" type="button" class="btn btn-primary">Tomar foto</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Vendor JS Files -->
   <!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
+  <audio id="snapSound" src="/audio/snap.wav" preload="auto"></audio>
+  <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
+  <!-- Vendor JS Files -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
   </script>
@@ -259,7 +301,8 @@
       function checkButtonCreate() {
         if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
           .value != "" &&
-          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != "" &&
+          document.getElementById("photob64").value != ""
         ) {
           document.getElementById("sendButtonCreate").disabled = false;
         } else {
@@ -270,7 +313,8 @@
       function checkButtonEdit() {
         if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
           .value != "" &&
-          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != "" &&
+          document.getElementById("photob64").value != ""
         ) {
 
           document.getElementById("sendButtonEdit").disabled = false;
@@ -283,7 +327,7 @@
       }
 
       class Form {
-        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user, photo) {
           this.name = name;
           this.lastName = lastName;
           this.area = area;
@@ -292,12 +336,13 @@
           this.longitude = longitude;
           this.user = user;
           this.status = false;
+          this.photo = photo;
         }
       }
 
       const indexedDB = new Dexie('dbparcial2');
       indexedDB.version(1).stores({
-        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status,photo'
       });
       indexedDB.open().then(("ABIERTO")).catch((err) => console.log("error: " + err));
 
@@ -310,8 +355,9 @@
         let user = document.getElementById("user").value;
         let latitude = document.getElementById("latitude").value;
         let longitude = document.getElementById("longitude").value;
+        let photo = document.getElementById("photob64").value;
 
-        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user, photo);
         // if (!edit) {
         await indexedDB.forms.add(form);
         console.log("Insertado");
@@ -373,6 +419,79 @@
       }
 
       loadEditFields();
+
+      const webcamElement = document.getElementById('camera');
+      const canvasElement = document.getElementById('canvas');
+      const snapSoundElement = document.getElementById('snapSound');
+
+
+      const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+
+      document.getElementById('test').addEventListener('click', () => {
+
+        webcam.start()
+          .then(result => {
+            console.log("webcam started");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+      let picBase64 = '';
+      document.getElementById('photo').addEventListener('click', () => {
+
+        picBase64 = webcam.snap();
+        document.getElementById('photo').style.display = 'none';
+        document.getElementById('retake').style.display = 'inline-block';
+        document.getElementById('savePic').style.display = 'inline-block';
+
+        document.getElementById('imgtest').setAttribute('src', picBase64);
+        webcamElement.style.display = 'none'
+        document.getElementById('imgtest').style.display = 'block'
+        console.log(picBase64);
+      });
+
+      document.getElementById('close').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('close2').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('retake').addEventListener('click', () => {
+        document.getElementById('imgtest').style.display = 'none'
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+
+      });
+
+      document.getElementById('savePic').addEventListener('click', () => {
+        $("#exampleModal").modal('hide');
+        document.getElementById('imgtest').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        document.getElementById('photob64').value = '';
+        document.getElementById('photob64').value = picBase64;
+        checkButtonCreate();
+        webcam.stop();
+      });
+
     }
   </script>
 

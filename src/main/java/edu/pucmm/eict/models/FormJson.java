@@ -12,13 +12,14 @@ public class FormJson {
   private String user;
   private boolean status;
   private String id;
-  private String photoBase64;
+  private String photo;
 
 
   public FormJson() {
   }
 
-  public FormJson(String name, String lastName, String area, String schoolLevel, String latitude, String longitude, String user, boolean status, String id, String photoBase64) {
+
+  public FormJson(String name, String lastName, String area, String schoolLevel, String latitude, String longitude, String user, boolean status, String id, String photo) {
     this.name = name;
     this.lastName = lastName;
     this.area = area;
@@ -28,7 +29,7 @@ public class FormJson {
     this.user = user;
     this.status = status;
     this.id = id;
-    this.photoBase64 = photoBase64;
+    this.photo = photo;
   }
 
   public String getName() {
@@ -107,6 +108,14 @@ public class FormJson {
     this.id = id;
   }
 
+  public String getPhoto() {
+    return this.photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
   public FormJson name(String name) {
     this.name = name;
     return this;
@@ -152,12 +161,9 @@ public class FormJson {
     return this;
   }
 
-  public String getPhotoBase64() {
-    return this.photoBase64;
-  }
-
-  public void setPhotoBase64(String photoBase64) {
-    this.photoBase64 = photoBase64;
+  public FormJson photo(String photo) {
+    this.photo = photo;
+    return this;
   }
 
   @Override
@@ -168,12 +174,12 @@ public class FormJson {
             return false;
         }
         FormJson formJson = (FormJson) o;
-        return Objects.equals(name, formJson.name) && Objects.equals(lastName, formJson.lastName) && Objects.equals(area, formJson.area) && Objects.equals(schoolLevel, formJson.schoolLevel) && Objects.equals(latitude, formJson.latitude) && Objects.equals(longitude, formJson.longitude) && Objects.equals(user, formJson.user) && status == formJson.status && Objects.equals(id, formJson.id);
+        return Objects.equals(name, formJson.name) && Objects.equals(lastName, formJson.lastName) && Objects.equals(area, formJson.area) && Objects.equals(schoolLevel, formJson.schoolLevel) && Objects.equals(latitude, formJson.latitude) && Objects.equals(longitude, formJson.longitude) && Objects.equals(user, formJson.user) && status == formJson.status && Objects.equals(id, formJson.id) && Objects.equals(photo, formJson.photo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, lastName, area, schoolLevel, latitude, longitude, user, status, id);
+    return Objects.hash(name, lastName, area, schoolLevel, latitude, longitude, user, status, id, photo);
   }
 
   @Override
@@ -188,9 +194,8 @@ public class FormJson {
       ", user='" + getUser() + "'" +
       ", status='" + isStatus() + "'" +
       ", id='" + getId() + "'" +
-      ", photo='" + getPhotoBase64() + "'" +
+      ", photo='" + getPhoto() + "'" +
       "}";
   }
-
-
+  
 }

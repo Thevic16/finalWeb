@@ -26,7 +26,8 @@ var urlsToCache = [
     '/vendor/venobox/venobox.css',
     '/vendor/aos/aos.css',
     '/css/style.css',
-    '/vendor/jquery/jquery.js'
+    '/vendor/jquery/jquery.js',
+    '/js/webcam-easy.min.js'
 ];
 //ruta para fallback.
 var fallback = "/templates/inApp/main-form-offline.html"

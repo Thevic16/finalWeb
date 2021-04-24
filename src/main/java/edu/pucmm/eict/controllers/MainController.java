@@ -313,8 +313,6 @@ public class MainController extends BaseController{
 
             FormJson[] forms = json.fromJson(ctx.message(), FormJson[].class);
             for (FormJson form : forms) {
-              System.out.println("FORMID:"+form.getId());
-              System.out.println("FORM PHOTO: "+form.getPhotoBase64());
               Position position = null;
               if (form.getLatitude() != null && form.getLongitude() != null) {
                 position = new Position(Double.parseDouble(form.getLatitude()), Double.parseDouble(form.getLongitude()));
@@ -325,13 +323,13 @@ public class MainController extends BaseController{
 
               User user = UserServices.getInstance().find(form.getUser());
 
-              Form formToSet = new Form(form.getName(), form.getLastName(), form.getArea(), form.getSchoolLevel(), user, position, form.getPhotoBase64());
+              Form formToSet = new Form(form.getName(), form.getLastName(), form.getArea(), form.getSchoolLevel(), user, position, form.getPhoto());
 
               FormServices.getInstance().create(formToSet);
             }
+            System.out.println(FormServices.getInstance().findAll().get(0).getPhoto());
             String formsJson = new Gson().toJson(FormServices.getInstance().findAll());
             ctx.send(formsJson);
-            System.out.println(formsJson);
             //ctx.send("Prueba 2");
           });
           ws.onClose(ctx -> {
