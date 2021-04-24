@@ -1,5 +1,3 @@
-edu/pucmm/eict/models/Photo.java
- edu.pucmm.eict.models.Photo
 edu/pucmm/eict/models/FormApi.java
  edu.pucmm.eict.models.FormApi
 edu/pucmm/eict/services/PositionServices.java
