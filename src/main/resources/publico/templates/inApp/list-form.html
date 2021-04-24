@@ -99,6 +99,7 @@
                         <th scope="col">Sector</th>
                         <th scope="col">Nivel escolar</th>
                         <th scope="col">Usuario</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Acción 1</th>
                         <th scope="col">Acción 2</th>
                         <th scope="col">Acción 3</th>
@@ -149,6 +150,29 @@
     <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
     <div id="preloader"></div>
 
+    <div class="center">
+        <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Foto</h5>
+                        <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="imgtest" src="" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Vendor JS Files -->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -171,7 +195,7 @@
 
             const indexedDB = new Dexie('dbparcial2');
             indexedDB.version(1).stores({
-                forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+                forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status,photo'
             });
             indexedDB.open().catch((err) => console.log(err));
 
@@ -215,6 +239,7 @@
                         <td>${form.area}</td>
                         <td>${form.schoolLevel}</td>
                         <td>${form.user}</td>
+                        <td><button id="btnPhoto-${form.id}" class="btn btn-success btn-sm">Foto</button></td>
                         <td><button id="btnMap-${form.id}" class="btn btn-primary btn-sm">Mapa</button></td>
                         <td><a class="btn btn-warning btn-sm" href="/inapp/edit-form/${form.id}">Editar</a></td>
                         <td><a id="btnDel-${form.id}" class="btn btn-danger btn-sm" data-id="${form.id}">Eliminar</a></td>
@@ -233,6 +258,12 @@
                     const btnDel = document.getElementById(`btnDel-${form.id}`);
                     btnDel.addEventListener('click', () => {
                         deleteForm(btnDel.dataset.id);
+                    });
+
+                    const btnFoto = document.getElementById(`btnPhoto-${form.id}`);
+                    btnFoto.addEventListener('click', () => {
+                        document.getElementById('imgtest').setAttribute('src', form.photo);
+                        $("#exampleModal").modal('show');
                     });
                 });
             }

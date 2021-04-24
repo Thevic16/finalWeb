@@ -12,12 +12,13 @@ public class FormJson {
   private String user;
   private boolean status;
   private String id;
+  private String photoBase64;
 
 
   public FormJson() {
   }
 
-  public FormJson(String name, String lastName, String area, String schoolLevel, String latitude, String longitude, String user, boolean status, String id) {
+  public FormJson(String name, String lastName, String area, String schoolLevel, String latitude, String longitude, String user, boolean status, String id, String photoBase64) {
     this.name = name;
     this.lastName = lastName;
     this.area = area;
@@ -27,6 +28,7 @@ public class FormJson {
     this.user = user;
     this.status = status;
     this.id = id;
+    this.photoBase64 = photoBase64;
   }
 
   public String getName() {
@@ -150,6 +152,14 @@ public class FormJson {
     return this;
   }
 
+  public String getPhotoBase64() {
+    return this.photoBase64;
+  }
+
+  public void setPhotoBase64(String photoBase64) {
+    this.photoBase64 = photoBase64;
+  }
+
   @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -178,6 +188,7 @@ public class FormJson {
       ", user='" + getUser() + "'" +
       ", status='" + isStatus() + "'" +
       ", id='" + getId() + "'" +
+      ", photo='" + getPhotoBase64() + "'" +
       "}";
   }
 

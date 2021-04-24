@@ -20,18 +20,20 @@ public class Form implements Serializable {
   private User user;
   @OneToOne
   private Position position;
+  private String photoBase64;
 
 
   public Form() {
   }
 
-  public Form(String name, String lastName, String area, String nivelEscolar, User user, Position position) {
+  public Form(String name, String lastName, String area, String nivelEscolar, User user, Position position, String photoBase64) {
     this.name = name;
     this.lastName = lastName;
     this.area = area;
     this.nivelEscolar = nivelEscolar;
     this.user = user;
     this.position = position;
+    this.photoBase64 = photoBase64;
   }
 
   public int getId() {
@@ -120,6 +122,14 @@ public class Form implements Serializable {
     return this;
   }
 
+  public String getPhotoBase64() {
+    return this.photoBase64;
+  }
+
+  public void setPhotoBase64(String photoBase64) {
+    this.photoBase64 = photoBase64;
+  }
+
   @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -145,6 +155,7 @@ public class Form implements Serializable {
       ", nivelEscolar='" + getNivelEscolar() + "'" +
       ", user='" + getUser() + "'" +
       ", position='" + getPosition() + "'" +
+      ", photo='" + getPhotoBase64() + "'" +
       "}";
   }
 

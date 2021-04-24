@@ -19,36 +19,42 @@
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" -->
+  <!-- integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
   <link href="/vendor/icofont/icofont.min.css" rel="stylesheet">
   <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="/vendor/owl.carousel/owl.carousel.min.css" rel="stylesheet">
+  <!-- <link href="/vendor/owl.carousel/owl.carousel.min.css" rel="stylesheet"> -->
   <link href="/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Icons font CSS - Formulario-->
-  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <!-- <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all"> -->
   <!-- Font special for pages Formulario -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
     rel="stylesheet">
 
   <!-- Vendor CSS Formulario -->
   <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-  <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+  <!-- <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all"> -->
 
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
   <!-- Main CSS Formulario-->
-  <link href="css/main.css" rel="stylesheet" media="all">
+  <!-- <link href="css/main.css" rel="stylesheet" media="all"> -->
 
+  <script src="https://kit.fontawesome.com/156ff56ddf.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 
 </head>
 
 <body>
+
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top " th:fragment="header">
@@ -90,6 +96,25 @@
   </section><!-- End Hero -->
 
   <main id="main">
+    <!-- Modal -->
+
+    <a href="#modal-one" class="btn btn-big">Modal!</a>
+    <div class="modal" id="modal-one" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h2>Modal in CSS?</h2>
+          <a href="#" class="btn-close" aria-hidden="true">×</a>
+        </div>
+        <div class="modal-body">
+          <p>One modal example here! :D</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn">Nice!</a>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal -->
+
     <br>
     <div class="container">
       <form>
@@ -135,6 +160,24 @@
             </div>
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="name">Foto</div>
+          <div class="value">
+            <div class="input-group">
+              <a id="test" href="#" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn--radius-2 btn--blue text-white"><i class="fas fa-camera"></i></a>
+
+              <div class="col-md-8">
+                <input th:if="${edit}" class="input--style-5" type="text" name="photob64" id="photob64" disabled
+                  placeholder="Photo URI">
+                <input th:if="${!edit}" class="input--style-5" type="text" name="photob64" id="photob64"
+                  placeholder="Photo URI" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="form-row">
           <div class="name">Usuario</div>
           <div class="value">
@@ -145,6 +188,7 @@
             </div>
           </div>
         </div>
+
         <div>
           <input id="formId" th:if="${edit}" type="hidden" name="IdForm" th:value="${formId}">
           <input class="input--style-5" type="hidden" id="latitude" name="latitude">
@@ -188,17 +232,69 @@
 
 
 
+
+  <!-- Modal -->
+
+  <div class="center">
+    <div class="modal show-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Photo</h5>
+            <button id="close2" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <video id="camera" style="max-width: 100%;
+            height: auto;" autoplay playsinline></video>
+            <img id="imgtest" src="" alt="" style="display: none;">
+            <canvas id="canvas" class="d-none"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button id="retake" type="button" class="btn btn-info" style="display:none;">Retomar</button>
+            <button id="savePic" type="button" class="btn btn-success" style="display:none;">Guardar</button>
+
+            <button id="photo" type="button" class="btn btn-primary">Tomar foto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="snapSound" src="audio/snap.wav" preload="auto"></audio>
+
+
+
   <!-- Vendor JS Files -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  <!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
+  <!-- <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
   <script src="/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="/vendor/php-email-form/validate.js"></script>
   <script src="/vendor/waypoints/jquery.waypoints.min.js"></script>
   <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="/vendor/venobox/venobox.min.js"></script>
   <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="/vendor/aos/aos.js"></script>
-
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script> -->
   <!-- <script type="module" src="/js/database.js"></script> -->
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
@@ -228,6 +324,7 @@
       }, function () {
         $("#posicionGps").text("No permite el acceso del API GEO");
       }, opcionesGPS);
+
     });
 
 
@@ -265,7 +362,8 @@
       function checkButtonCreate() {
         if (document.getElementById("schoolLevelCreate").value != "Seleccione" && document.getElementById("name1")
           .value != "" &&
-          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != ""
+          document.getElementById("lastname1").value != "" && document.getElementById("sector1").value != "" &&
+          document.getElementById('photob64').value != ""
         ) {
           document.getElementById("sendButtonCreate").disabled = false;
         } else {
@@ -289,7 +387,7 @@
       }
 
       class Form {
-        constructor(name, lastName, area, schoolLevel, latitude, longitude, user) {
+        constructor(name, lastName, area, schoolLevel, latitude, longitude, user, photo) {
           this.name = name;
           this.lastName = lastName;
           this.area = area;
@@ -297,13 +395,14 @@
           this.latitude = latitude;
           this.longitude = longitude;
           this.user = user;
+          this.photo = photo;
           this.status = false;
         }
       }
 
       const indexedDB = new Dexie('dbparcial2');
       indexedDB.version(1).stores({
-        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status'
+        forms: '++id,name,lastname,area,schoollevel,longitude,latitude,user,status,photo'
       });
       indexedDB.open().catch((err) => console.log("error: " + err));
 
@@ -315,8 +414,8 @@
         let user = document.getElementById("user").value;
         let latitude = document.getElementById("latitude").value;
         let longitude = document.getElementById("longitude").value;
-
-        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user);
+        let photo = document.getElementById("photob64").value;
+        const form = new Form(name, lastName, sector, schoolLevel, latitude, longitude, user, photo);
         // if (!edit) {
         const result = await indexedDB.forms.add(form);
         console.log("form created: " + result);
@@ -378,6 +477,82 @@
       }
 
       loadEditFields();
+
+      const webcamElement = document.getElementById('camera');
+      const canvasElement = document.getElementById('canvas');
+      const snapSoundElement = document.getElementById('snapSound');
+
+
+      const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+
+      document.getElementById('test').addEventListener('click', () => {
+
+        webcam.start()
+          .then(result => {
+            console.log("webcam started");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+      let picBase64 = '';
+      document.getElementById('photo').addEventListener('click', () => {
+
+        picBase64 = webcam.snap();
+        document.getElementById('photo').style.display = 'none';
+        document.getElementById('retake').style.display = 'inline-block';
+        document.getElementById('savePic').style.display = 'inline-block';
+
+        document.getElementById('imgtest').setAttribute('src', picBase64);
+        webcamElement.style.display = 'none'
+        document.getElementById('imgtest').style.display = 'block'
+        console.log(picBase64);
+      });
+
+      document.getElementById('close').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('close2').addEventListener('click', () => {
+        webcam.stop();
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('imgtest').style.display = 'none'
+      });
+
+      document.getElementById('retake').addEventListener('click', () => {
+        document.getElementById('imgtest').style.display = 'none'
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+
+      });
+
+      document.getElementById('savePic').addEventListener('click', () => {
+        $("#exampleModal").modal('hide');
+        document.getElementById('imgtest').style.display = 'none';
+        webcamElement.style.display = 'block'
+        document.getElementById('photo').style.display = 'inline-block';
+        document.getElementById('retake').style.display = 'none';
+        document.getElementById('savePic').style.display = 'none';
+        document.getElementById('photob64').value = '';
+        document.getElementById('photob64').value = picBase64;
+        checkButtonCreate();
+        webcam.stop();
+      });
+
+      document.addEventListener('click', (e) => {
+        console.log(e);
+      });
     }
 
     if ('serviceWorker' in navigator) {

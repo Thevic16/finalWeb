@@ -13,6 +13,7 @@ import edu.pucmm.eict.services.UserServices;
 import edu.pucmm.eict.utils.BaseController;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import io.javalin.websocket.WsErrorContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,6 @@ import static io.javalin.core.security.SecurityUtil.roles;
 import java.util.List;
 
 
-import java.util.Map;
 
 public class MainController extends BaseController{
 
@@ -155,7 +155,7 @@ public class MainController extends BaseController{
           String nivelEscolar = ctx.formParam("schoolLevel");
           double latitude = ctx.formParam("latitude",Double.class).get();
           double longitude = ctx.formParam("longitude",Double.class).get();
-
+          String photoBase64 = ctx.formParam("photob64");
           //Looking for user
           String username = ctx.sessionAttribute("logged");
           User user = UserServices.getInstance().find(username);
@@ -164,7 +164,7 @@ public class MainController extends BaseController{
 
           Position position = new Position(latitude,longitude);
           PositionServices.getInstance().create(position);
-          Form form = new Form(name,lastName,area,nivelEscolar,user,position);
+          Form form = new Form(name,lastName,area,nivelEscolar,user,position, photoBase64);
           FormServices.getInstance().create(form);
           ctx.redirect("/inapp");
 
@@ -304,7 +304,7 @@ public class MainController extends BaseController{
             System.out.println("Session: "+ctx.getSessionId());
           });
 
-
+          
           ws.onMessage(ctx -> {
 
             Gson json = new Gson();
@@ -315,6 +315,7 @@ public class MainController extends BaseController{
             FormJson[] forms = json.fromJson(ctx.message(), FormJson[].class);
             for (FormJson form : forms) {
               System.out.println("FORMID:"+form.getId());
+              System.out.println("FORM PHOTO: "+form.getPhotoBase64());
               Position position = null;
               if (form.getLatitude() != null && form.getLongitude() != null) {
                 position = new Position(Double.parseDouble(form.getLatitude()), Double.parseDouble(form.getLongitude()));
@@ -325,7 +326,7 @@ public class MainController extends BaseController{
 
               User user = UserServices.getInstance().find(form.getUser());
 
-              Form formToSet = new Form(form.getName(), form.getLastName(), form.getArea(), form.getSchoolLevel(), user, position);
+              Form formToSet = new Form(form.getName(), form.getLastName(), form.getArea(), form.getSchoolLevel(), user, position, form.getPhotoBase64());
 
               FormServices.getInstance().create(formToSet);
             }
@@ -338,7 +339,7 @@ public class MainController extends BaseController{
             System.out.println("Closing: "+ctx.getSessionId());
           });
           ws.onError(ctx -> {
-            System.out.println("Error");
+            System.out.println("Error: "+ctx.error());
           });
         }, roles(MyRole.ADMIN,MyRole.POLLSTER));
           
