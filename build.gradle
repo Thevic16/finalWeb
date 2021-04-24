@@ -26,6 +26,12 @@ dependencies {
     implementation 'org.hibernate:hibernate-entitymanager:5.4.17.Final'
     implementation 'com.google.code.gson:gson:2.8.6'
 
+<<<<<<< HEAD
+||||||| 5d2c985
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
     //libreria para SOAP de Jetty https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-http-spi
     implementation group: 'org.eclipse.jetty', name: 'jetty-http-spi', version: '9.4.30.v20200611'
     //incluyendo las librerias de javax.ee en java 11.
@@ -34,9 +40,27 @@ dependencies {
     implementation "com.sun.xml.ws:jaxws-rt:2.3.1"
     implementation "com.sun.xml.ws:rt:2.3.1"
 
+<<<<<<< HEAD
+||||||| 5d2c985
+||||||| e1d0db2
+=======
+=======
+
+>>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
     //Procesamiento JSON.
     compile "com.fasterxml.jackson.core:jackson-databind:2.10.1"
 
+<<<<<<< HEAD
+||||||| 5d2c985
+>>>>>>> 40cd1bb458744fed6050fe714f07e8ce5dfdcc47
+=======
+
+    //Libreria para JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
+    
+>>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
 }
 
 test {

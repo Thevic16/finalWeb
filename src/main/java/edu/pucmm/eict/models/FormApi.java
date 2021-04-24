@@ -1,7 +1,10 @@
 package edu.pucmm.eict.models;
 
 import edu.pucmm.eict.services.FormServices;
+import edu.pucmm.eict.services.PositionServices;
+import edu.pucmm.eict.services.UserServices;
 
+import javax.xml.stream.Location;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +18,9 @@ public class FormApi {
     private double latitude;
     private double longitude;
 
-    private Photo photo;
+    private String photoBase64;
 
-    public FormApi(String name, String lastName, String area, String nivelEscolar, String userName,double latitude,double longitude, Photo photo) {
+    public FormApi(String name, String lastName, String area, String nivelEscolar, String userName,double latitude,double longitude, String photo) {
         this.name = name;
         this.lastName = lastName;
         this.area = area;
@@ -25,7 +28,7 @@ public class FormApi {
         this.userName = userName;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.photo = photo;
+        this.photoBase64 = photo;
     }
 
     public FormApi(){
@@ -87,17 +90,21 @@ public class FormApi {
         this.longitude = longitude;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public String getPhotoBase64() {
+        return photoBase64;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhotoBase64(String photoBase64) {
+        this.photoBase64 = photoBase64;
     }
 
     public static FormApi createForm(FormApi tmp){
         // I need to implement this later
         // We need to confirm that the form is not already in the database.
+        Position position = new Position(tmp.getLatitude(),tmp.getLongitude());
+        PositionServices.getInstance().create(position);
+        Form newForm = new Form(tmp.getName(),tmp.getLastName(),tmp.getArea(),tmp.getNivelEscolar(), UserServices.getInstance().find(tmp.getUserName()),position,tmp.getPhotoBase64());
+        FormServices.getInstance().create(newForm);
 
         return tmp;
     }
@@ -110,7 +117,7 @@ public class FormApi {
             if(form.getUser().getUserName().equals(userName)){
                 FormApi formApi = new FormApi(form.getName(),form.getLastName(),form.getArea(),
                         form.getNivelEscolar(),form.getUser().getUserName(),form.getPosition().getLatitude(),form.getPosition().getLongitude(),
-                        null);
+                        "foto");
                 filteredForms.add(formApi);
             }
         }
