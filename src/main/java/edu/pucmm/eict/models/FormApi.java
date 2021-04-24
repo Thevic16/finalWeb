@@ -1,7 +1,10 @@
 package edu.pucmm.eict.models;
 
 import edu.pucmm.eict.services.FormServices;
+import edu.pucmm.eict.services.PositionServices;
+import edu.pucmm.eict.services.UserServices;
 
+import javax.xml.stream.Location;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +101,10 @@ public class FormApi {
     public static FormApi createForm(FormApi tmp){
         // I need to implement this later
         // We need to confirm that the form is not already in the database.
+        Position position = new Position(tmp.getLatitude(),tmp.getLongitude());
+        PositionServices.getInstance().create(position);
+        Form newForm = new Form(tmp.getName(),tmp.getLastName(),tmp.getArea(),tmp.getNivelEscolar(), UserServices.getInstance().find(tmp.getUserName()),position,tmp.getPhotoBase64());
+        FormServices.getInstance().create(newForm);
 
         return tmp;
     }

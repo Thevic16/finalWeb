@@ -103,6 +103,8 @@ public class ApiRestController extends BaseController {
                             // parsing the POJO information must come in json format.
                             FormApi tmp = ctx.bodyAsClass(FormApi.class);
                             //create.
+                            FormApi.createForm(tmp);
+
                             ctx.json(tmp);
                         },roles(MyRole.DEFAULT));
 
