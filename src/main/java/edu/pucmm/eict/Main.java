@@ -19,26 +19,21 @@ public class Main {
         //Creando la instancia del servidor.
         Javalin app = Javalin.create(config ->{
             config.addStaticFiles("/publico"); //desde la carpeta de resources
-<<<<<<< HEAD
-            
             config.enableCorsForAllOrigins();
             config.wsFactoryConfig(factory -> {
                 factory.getPolicy().setMaxTextMessageSize(1024*1024);
             });
-
-||||||| 5d2c985
-            config.enableCorsForAllOrigins();
-
-=======
-            config.enableCorsForAllOrigins(); // permitting transfer information to all route
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
         });
+
+
 
 
         DatabaseSetupServices.startDb();
         new SoapController(app).applyRoutes();
-        
+
         app.start(7000);
+        
+
         //Filtro para enviar el header de validación
         app.after(ctx -> {
             //System.out.println("Enviando el header de seguridad para el Service Worker");

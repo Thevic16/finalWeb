@@ -1,23 +1,11 @@
-<<<<<<< HEAD
-edu/pucmm/eict/models/Photo.java
- edu.pucmm.eict.models.Photo
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-||||||| 5d2c985
-edu/pucmm/eict/models/Photo.java
- edu.pucmm.eict.models.Photo
-edu/pucmm/eict/services/DatabaseSetupServices.java
- edu.pucmm.eict.services.DatabaseSetupServices
-=======
 edu/pucmm/eict/models/FormApi.java
  edu.pucmm.eict.models.FormApi
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
 edu/pucmm/eict/services/PositionServices.java
  edu.pucmm.eict.services.PositionServices
 edu/pucmm/eict/models/Position.java
  edu.pucmm.eict.models.Position
-edu/pucmm/eict/services/DatabaseSetupServices.java
- edu.pucmm.eict.services.DatabaseSetupServices
+edu/pucmm/eict/controllers/SoapController.java
+ edu.pucmm.eict.controllers.SoapController
 edu/pucmm/eict/utils/BaseController.java
  edu.pucmm.eict.utils.BaseController
 edu/pucmm/eict/models/User.java
@@ -26,80 +14,25 @@ edu/pucmm/eict/models/MyRole.java
  edu.pucmm.eict.models.MyRole
 edu/pucmm/eict/models/FormJson.java
  edu.pucmm.eict.models.FormJson
-<<<<<<< HEAD
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
-edu/pucmm/eict/controllers/ApiRestController.java
- edu.pucmm.eict.controllers.ApiRestController
-||||||| 5d2c985
-<<<<<<< HEAD
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
-||||||| e1d0db2
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-=======
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
->>>>>>> 40cd1bb458744fed6050fe714f07e8ce5dfdcc47
-edu/pucmm/eict/models/Form.java
- edu.pucmm.eict.models.Form
-=======
 edu/pucmm/eict/controllers/MainController.java
  edu.pucmm.eict.controllers.MainController
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
 edu/pucmm/eict/services/UserServices.java
  edu.pucmm.eict.services.UserServices
-<<<<<<< HEAD
-edu/pucmm/eict/models/FormApi.java
- edu.pucmm.eict.models.FormApi
-||||||| 5d2c985
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-=======
 edu/pucmm/eict/controllers/ApiRestController.java
  edu.pucmm.eict.controllers.ApiRestController
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
 edu/pucmm/eict/services/FormServices.java
  edu.pucmm.eict.services.FormServices
 edu/pucmm/eict/services/soap/FormWebService.java
  edu.pucmm.eict.services.soap.FormWebService
-<<<<<<< HEAD
-edu/pucmm/eict/controllers/SoapController.java
- edu.pucmm.eict.controllers.SoapController
-||||||| 5d2c985
 edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-||||||| e1d0db2
-edu/pucmm/eict/services/DatabaseSetupServices.java
- edu.pucmm.eict.services.DatabaseSetupServices
-=======
-edu/pucmm/eict/models/FormApi.java
- edu.pucmm.eict.models.FormApi
-edu/pucmm/eict/controllers/ApiRestController.java
- edu.pucmm.eict.controllers.ApiRestController
->>>>>>> 40cd1bb458744fed6050fe714f07e8ce5dfdcc47
-=======
-edu/pucmm/eict/services/DatabaseSetupServices.java
- edu.pucmm.eict.services.DatabaseSetupServices
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
-edu/pucmm/eict/Main.java
- edu.pucmm.eict.Main
-<<<<<<< HEAD
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
-edu/pucmm/eict/models/Form.java
- edu.pucmm.eict.models.Form
-||||||| 5d2c985
-=======
+edu/pucmm/eict/encapsulation/LoginResponse.java
+ edu.pucmm.eict.encapsulation.LoginResponse
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
 edu/pucmm/eict/models/FormSoap.java
  edu.pucmm.eict.models.FormSoap
-edu/pucmm/eict/encapsulation/LoginResponse.java
- edu.pucmm.eict.encapsulation.LoginResponse
->>>>>>> 4090126fc1ddbe05f51a22fe144ca629b14de673
+edu/pucmm/eict/Main.java
+ edu.pucmm.eict.Main

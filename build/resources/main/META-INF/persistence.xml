@@ -8,7 +8,6 @@
         <class>edu.pucmm.eict.models.Form</class>
         <class>edu.pucmm.eict.models.Position</class>
         <class>edu.pucmm.eict.models.User</class>
-        <class>edu.pucmm.eict.models.Photo</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/dbparcial2" />
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
