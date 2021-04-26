@@ -91,7 +91,7 @@
             <a id="btnSync" href="" class="btn btn-sm btn-primary">Sincronizar con servidor</a>
             <br>
             <br>
-            <table class="table table-striped table-responsive">
+            <table class="table table-striped table-responsive" id="tableForms">
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>
@@ -217,8 +217,7 @@
 
                 const forms = await indexedDB.forms.toArray();
                 fillTable(forms);
-
-
+                disableFormServer();
             }
 
             async function deleteForm(id) {
@@ -241,12 +240,13 @@
                         <td>${form.user}</td>
                         <td><button id="btnPhoto-${form.id}" class="btn btn-success btn-sm">Foto</button></td>
                         <td><button id="btnMap-${form.id}" class="btn btn-primary btn-sm">Mapa</button></td>
-                        <td><a class="btn btn-warning btn-sm" href="/inapp/edit-form/${form.id}">Editar</a></td>
-                        <td><a id="btnDel-${form.id}" class="btn btn-danger btn-sm" data-id="${form.id}">Eliminar</a></td>
+                        <td><button class="btn btn-warning btn-sm" form="form-${form.id}">Editar</button></td>
+                        <td><button id="btnDel-${form.id}" class="btn btn-danger btn-sm" data-id="${form.id}">Eliminar</button></td>
                         <td>${(form.status ? "ENVIADO" : "NO ENVIADO")}</td>
                         <input type="hidden" value="${form.id}">
                         <input name=${form.id} type="hidden" value="${form.latitude}">
                         <input name=${form.id} type="hidden" value="${form.longitude}">\n
+                        <form action="/inapp/edit-form/${form.id}" method="get" id="form-${form.id}"></form>
                     `
                     tr.innerHTML = tds;
                     body.appendChild(tr);
@@ -268,7 +268,30 @@
                 });
             }
 
+            //Disable delete and edit for forms that are already saved in the server.
+            function disableFormServer(){
+                let rows = document.getElementById("tableForms").rows;
+                console.log("rows:"+rows);
+
+                for (let i = 0; i < rows.length; i++) {
+
+                    let status = rows[i].cells[9].innerHTML;
+                    console.log("status:"+status);
+
+                    if(status == "ENVIADO"){
+                        let btnEdit = rows[i].cells[7].firstChild;
+                        let btnDetele = rows[i].cells[8].firstChild;
+
+                        btnEdit.disabled = true;
+                        btnDetele.disabled = true;
+
+                    }
+                }
+
+            }
+
             listForms();
+
         }
     </script>
 
