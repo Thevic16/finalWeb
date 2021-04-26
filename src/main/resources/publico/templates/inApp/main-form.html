@@ -378,10 +378,8 @@
         ) {
 
           document.getElementById("sendButtonEdit").disabled = false;
-          console.log("WEYyyyyyyyyy");
         } else {
           document.getElementById("sendButtonEdit").disabled = true;
-          console.log("WEYyyyyyyyyy True");
 
         }
       }
@@ -546,8 +544,8 @@
         document.getElementById('savePic').style.display = 'none';
         document.getElementById('photob64').value = '';
         document.getElementById('photob64').value = picBase64;
-        checkButtonCreate();
         webcam.stop();
+        checkButtonCreate();
       });
 
       document.addEventListener('click', (e) => {
@@ -572,26 +570,6 @@
     miStorage = window.localStorage;
     localStorage.setItem('user', document.getElementById("user").value);
     console.log(localStorage.getItem('user'));
-
-
-    //Disable delete and edit for forms that are already saved in the server.
-    function disableFormServer(){
-        var table = document.getElementById("tableForms");
-        for (let i in table.rows) {
-            let row = table.rows[i]
-
-
-            let status = row.cells[9];
-
-            if(status == "ENVIADO"){
-                row.cells[7].getElementsByTagName("button").disabled = true;
-                row.cells[8].getElementsByTagName("button").disabled = true;
-            }
-
-        }
-    }
-
-    disableFormServer();
 
 
   </script>
