@@ -1,5 +1,6 @@
 package edu.pucmm.eict.controllers;
 
+import com.google.gson.Gson;
 import edu.pucmm.eict.encapsulation.LoginResponse;
 import edu.pucmm.eict.models.FormApi;
 import edu.pucmm.eict.models.MyRole;
@@ -22,7 +23,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.core.security.SecurityUtil.roles;
@@ -48,8 +52,15 @@ public class ApiRestController extends BaseController {
 
                         //verify if user correct
                         post("/", ctx -> {
-                            String userName = ctx.formParam("userName");
-                            String password = ctx.formParam("password");
+
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<Map<String, String>>(){}.getType();
+                            Map<String, String> map = gson.fromJson(ctx.body(), type);
+
+
+
+                            String userName = map.get("username");
+                            String password = map.get("password");
                             Boolean isCorrect = verifyUser(userName,password);
 
                             if(isCorrect){
@@ -67,7 +78,9 @@ public class ApiRestController extends BaseController {
                     //API REST
                     path("/form",() ->{
 
+
                         before(ctx -> {
+                            /*
                             //informacion para consultar en la trama.
                             String header = "Authorization";
                             String prefix = "Bearer";
@@ -89,6 +102,8 @@ public class ApiRestController extends BaseController {
                                 throw new ForbiddenResponse( e.getMessage());
                             }
 
+                             */
+
                         });
 
 
@@ -97,15 +112,19 @@ public class ApiRestController extends BaseController {
                             List<FormApi> filteredForms = FormApi.getFilteredForms(userName);
 
                             ctx.json(filteredForms);
+
                         },roles(MyRole.DEFAULT));
 
                         post("/", ctx -> {
                             // parsing the POJO information must come in json format.
+                            String body = ctx.body();
+                            
                             FormApi tmp = ctx.bodyAsClass(FormApi.class);
                             //create.
                             FormApi.createForm(tmp);
 
                             ctx.json(tmp);
+
                         },roles(MyRole.DEFAULT));
 
                         after(ctx -> {
