@@ -28,11 +28,11 @@ edu/pucmm/eict/services/soap/FormWebService.java
  edu.pucmm.eict.services.soap.FormWebService
 edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
-edu/pucmm/eict/encapsulation/LoginResponse.java
- edu.pucmm.eict.encapsulation.LoginResponse
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
 edu/pucmm/eict/Main.java
  edu.pucmm.eict.Main
+edu/pucmm/eict/models/FormSoap.java
+ edu.pucmm.eict.models.FormSoap
+edu/pucmm/eict/services/DatabaseOrmHandler.java
+ edu.pucmm.eict.services.DatabaseOrmHandler
+edu/pucmm/eict/encapsulation/LoginResponse.java
+ edu.pucmm.eict.encapsulation.LoginResponse
