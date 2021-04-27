@@ -4,12 +4,13 @@ const worker = new Worker("/js/webworker.js");
 
 worker.onmessage = (data) => {
   console.log(data.data);
-  ws.send(JSON.stringify(data.data));
-  /*
-    ws.onmessage = (data) => { //Telling the worker to delete the data in IndexDB and then create forms with the new information.
-      console.log("Received Data: " + data.data);
-      //worker.postMessage(['UPDATE',data.data]); //sending forms to worker for process
-    }*/
+  if(data.data == "syncDB complete"){
+    location.reload();
+  }
+  else {
+    ws.send(JSON.stringify(data.data));
+  }
+
 }
 
 function connectSocket() {
@@ -23,7 +24,7 @@ function connectSocket() {
   }
   ws.onmessage = (data) => { //Telling the worker to delete the data in IndexDB and then create forms with the new information.
     console.log("Received Data: " + data.data);
-    worker.postMessage(['UPDATE', data.data]); //sending forms to worker for process
+    worker.postMessage(['syncDB', data.data]); //sending forms to worker for process
   }
 }
 
@@ -41,4 +42,5 @@ setInterval(checkConnection, 3000);
 const btnSendToServer = document.getElementById("btnSync");
 btnSendToServer.addEventListener("click", () => {
   worker.postMessage(['GET']);
+
 });

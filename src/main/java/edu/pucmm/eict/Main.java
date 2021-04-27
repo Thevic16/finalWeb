@@ -21,7 +21,8 @@ public class Main {
             config.addStaticFiles("/publico"); //desde la carpeta de resources
             config.enableCorsForAllOrigins();
             config.wsFactoryConfig(factory -> {
-                factory.getPolicy().setMaxTextMessageSize(1024*1024);
+                factory.getPolicy().setMaxTextMessageSize(10240*10240);
+                factory.getPolicy().setIdleTimeout(3000000);
             });
         });
 

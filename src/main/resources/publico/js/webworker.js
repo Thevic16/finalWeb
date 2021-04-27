@@ -43,8 +43,8 @@ if ('undefined' === typeof window) {
         break;
 
         // Update the data relate to H2 DB.
-      case 'UPDATE':
-        console.log("Data receive UPDATE: " + e.data[1])
+      case 'syncDB':
+        console.log("Data receive syncDB: " + e.data[1])
         let updatedForms = JSON.parse(e.data[1]) //Receiving forms from websocket
         console.log("updatedForms: " + updatedForms)
         indexedDB.forms.clear()
@@ -55,7 +55,8 @@ if ('undefined' === typeof window) {
           const result = indexedDB.forms.add(newForm);
           console.log("form created: " + result);
         });
-        console.log("Udapte completed")
+        console.log("syncDB completed")
+        postMessage("syncDB complete");
         break;
 
     }
