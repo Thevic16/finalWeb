@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import java.lang.reflect.Type;
+import java.util.Set;
+
 import com.google.gson.reflect.TypeToken;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -65,6 +67,7 @@ public class ApiRestController extends BaseController {
 
                             if(isCorrect){
                                 ctx.sessionAttribute("userApi",userName);
+                                ctx.status(200);
                                 ctx.json(generationJsonWebToken(userName));
                             }
                             else {
@@ -80,10 +83,23 @@ public class ApiRestController extends BaseController {
 
 
                         before(ctx -> {
-                            /*
+
+                            //Si es por el metodo OPTIONS lo dejo pasar.
+                            if(ctx.method() == "OPTIONS"){
+                                return;
+                            }
+
                             //informacion para consultar en la trama.
                             String header = "Authorization";
                             String prefix = "Bearer";
+                            /*
+                            //mostrando todos los header recibidos.
+                            Set<String> listaHeader = ctx.headerMap().keySet();
+                            for(String key : listaHeader){
+                                System.out.println(String.format("header[%s] = %s", key, ctx.header(key)));
+                            }
+
+                             */
 
                             String headerAutentification = ctx.header(header);
                             if(headerAutentification ==null || !headerAutentification.startsWith(prefix)){
@@ -102,7 +118,7 @@ public class ApiRestController extends BaseController {
                                 throw new ForbiddenResponse( e.getMessage());
                             }
 
-                             */
+
 
                         });
 
@@ -118,7 +134,7 @@ public class ApiRestController extends BaseController {
                         post("/", ctx -> {
                             // parsing the POJO information must come in json format.
                             String body = ctx.body();
-                            
+
                             FormApi tmp = ctx.bodyAsClass(FormApi.class);
                             //create.
                             FormApi.createForm(tmp);
