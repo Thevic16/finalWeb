@@ -97,8 +97,6 @@
 
   <main id="main">
     <!-- Modal -->
-
-    <a href="#modal-one" class="btn btn-big">Modal!</a>
     <div class="modal" id="modal-one" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-header">
@@ -417,6 +415,7 @@
         // if (!edit) {
         const result = await indexedDB.forms.add(form);
         console.log("form created: " + result);
+        alert("La operación se ha realizado correctamente!")
         window.location.reload();
         // } else if (edit) {
         //   const id = parseInt(document.getElementById("formEdit").value);

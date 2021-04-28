@@ -117,7 +117,7 @@ public class FormApi {
             if(form.getUser().getUserName().equals(userName)){
                 FormApi formApi = new FormApi(form.getName(),form.getLastName(),form.getArea(),
                         form.getNivelEscolar(),form.getUser().getUserName(),form.getPosition().getLatitude(),form.getPosition().getLongitude(),
-                        "foto");
+                        form.getPhoto());
                 filteredForms.add(formApi);
             }
         }
