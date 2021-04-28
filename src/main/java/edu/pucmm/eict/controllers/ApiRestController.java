@@ -183,7 +183,7 @@ public class ApiRestController extends BaseController {
         //generando la llave.
         SecretKey secretKey = Keys.hmacShaKeyFor(LLAVE_SECRETA.getBytes());
         //Generando la fecha valida
-        LocalDateTime localDateTime = LocalDateTime.now().plusMinutes(10);
+        LocalDateTime localDateTime = LocalDateTime.now().plusMinutes(90);
         System.out.println("La fecha actual: "+localDateTime.toString());
 
         //
