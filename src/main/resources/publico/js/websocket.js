@@ -4,19 +4,18 @@ const worker = new Worker("/js/webworker.js");
 
 worker.onmessage = (data) => {
   console.log(data.data);
-  if(data.data == "syncDB complete"){
+  if (data.data == "syncDB complete") {
 
     alert("carga realizada exitosamente!");
     location.reload();
-  }
-  else {
+  } else {
     ws.send(JSON.stringify(data.data));
   }
 
 }
 
 function connectSocket() {
-  ws = new WebSocket(`ws://localhost:7000/inapp/push-forms`);
+  ws = new WebSocket("ws://127.0.0.1:7000/inapp/push-forms");
   console.log(ws.bufferedAmount);
   ws.onopen = (e) => {
     console.log("Conncted: " + this.readyState);
