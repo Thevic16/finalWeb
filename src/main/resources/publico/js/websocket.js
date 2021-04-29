@@ -5,6 +5,8 @@ const worker = new Worker("/js/webworker.js");
 worker.onmessage = (data) => {
   console.log(data.data);
   if(data.data == "syncDB complete"){
+
+    alert("carga realizada exitosamente!");
     location.reload();
   }
   else {

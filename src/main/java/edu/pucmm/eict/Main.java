@@ -27,8 +27,6 @@ public class Main {
         });
 
 
-
-
         DatabaseSetupServices.startDb();
         new SoapController(app).applyRoutes();
 

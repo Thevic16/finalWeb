@@ -14,21 +14,21 @@ public class FormApi {
     private String lastName;
     private String area;
     private String nivelEscolar;
-    private String userName;
+    private String user;
     private double latitude;
     private double longitude;
 
-    private String photoBase64;
+    private String photo;
 
-    public FormApi(String name, String lastName, String area, String nivelEscolar, String userName,double latitude,double longitude, String photo) {
+    public FormApi(String name, String lastName, String area, String nivelEscolar, String user,double latitude,double longitude, String photo) {
         this.name = name;
         this.lastName = lastName;
         this.area = area;
         this.nivelEscolar = nivelEscolar;
-        this.userName = userName;
+        this.user = user;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.photoBase64 = photo;
+        this.photo = photo;
     }
 
     public FormApi(){
@@ -66,14 +66,6 @@ public class FormApi {
         this.nivelEscolar = nivelEscolar;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public double getLatitude() {
         return latitude;
     }
@@ -90,12 +82,20 @@ public class FormApi {
         this.longitude = longitude;
     }
 
-    public String getPhotoBase64() {
-        return photoBase64;
+    public String getUser() {
+        return user;
     }
 
-    public void setPhotoBase64(String photoBase64) {
-        this.photoBase64 = photoBase64;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public static FormApi createForm(FormApi tmp){
@@ -103,7 +103,7 @@ public class FormApi {
         // We need to confirm that the form is not already in the database.
         Position position = new Position(tmp.getLatitude(),tmp.getLongitude());
         PositionServices.getInstance().create(position);
-        Form newForm = new Form(tmp.getName(),tmp.getLastName(),tmp.getArea(),tmp.getNivelEscolar(), UserServices.getInstance().find(tmp.getUserName()),position,tmp.getPhotoBase64());
+        Form newForm = new Form(tmp.getName(),tmp.getLastName(),tmp.getArea(),tmp.getNivelEscolar(), UserServices.getInstance().find(tmp.getUser()),position,tmp.getPhoto());
         FormServices.getInstance().create(newForm);
 
         return tmp;
@@ -117,7 +117,7 @@ public class FormApi {
             if(form.getUser().getUserName().equals(userName)){
                 FormApi formApi = new FormApi(form.getName(),form.getLastName(),form.getArea(),
                         form.getNivelEscolar(),form.getUser().getUserName(),form.getPosition().getLatitude(),form.getPosition().getLongitude(),
-                        "foto");
+                        form.getPhoto());
                 filteredForms.add(formApi);
             }
         }
