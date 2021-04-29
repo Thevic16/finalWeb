@@ -331,7 +331,6 @@ public class MainController extends BaseController{
             System.out.println(FormServices.getInstance().findAll().get(0).getPhoto());
             String formsJson = new Gson().toJson(FormServices.getInstance().findAll());
             ctx.send(formsJson);
-            //ctx.send("Prueba 2");
           });
           ws.onClose(ctx -> {
             System.out.println("Closing: "+ctx.getSessionId());
