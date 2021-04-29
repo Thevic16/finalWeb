@@ -1,5 +1,5 @@
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
+edu/pucmm/eict/models/FormApi.java
+ edu.pucmm.eict.models.FormApi
 edu/pucmm/eict/services/PositionServices.java
  edu.pucmm.eict.services.PositionServices
 edu/pucmm/eict/models/Position.java
@@ -14,46 +14,26 @@ edu/pucmm/eict/models/MyRole.java
  edu.pucmm.eict.models.MyRole
 edu/pucmm/eict/models/FormJson.java
  edu.pucmm.eict.models.FormJson
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
+edu/pucmm/eict/controllers/MainController.java
+ edu.pucmm.eict.controllers.MainController
 edu/pucmm/eict/models/Form.java
  edu.pucmm.eict.models.Form
 edu/pucmm/eict/services/UserServices.java
  edu.pucmm.eict.services.UserServices
-edu/pucmm/eict/encapsulation/LoginResponse.java
- edu.pucmm.eict.encapsulation.LoginResponse
+edu/pucmm/eict/controllers/ApiRestController.java
+ edu.pucmm.eict.controllers.ApiRestController
+ edu.pucmm.eict.controllers.ApiRestController$1
 edu/pucmm/eict/services/FormServices.java
  edu.pucmm.eict.services.FormServices
 edu/pucmm/eict/services/soap/FormWebService.java
  edu.pucmm.eict.services.soap.FormWebService
 edu/pucmm/eict/services/DatabaseSetupServices.java
  edu.pucmm.eict.services.DatabaseSetupServices
-<<<<<<< HEAD
-edu/pucmm/eict/encapsulation/LoginResponse.java
- edu.pucmm.eict.encapsulation.LoginResponse
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
-||||||| f859e7b
-edu/pucmm/eict/encapsulation/LoginResponse.java
- edu.pucmm.eict.encapsulation.LoginResponse
-edu/pucmm/eict/services/DatabaseOrmHandler.java
- edu.pucmm.eict.services.DatabaseOrmHandler
-edu/pucmm/eict/models/FormSoap.java
- edu.pucmm.eict.models.FormSoap
-=======
->>>>>>> ff17aa62913b5398e73211079a447e7a35e0861d
 edu/pucmm/eict/Main.java
  edu.pucmm.eict.Main
-<<<<<<< HEAD
-edu/pucmm/eict/controllers/MainController.java
- edu.pucmm.eict.controllers.MainController
-||||||| f859e7b
-=======
+edu/pucmm/eict/models/FormSoap.java
+ edu.pucmm.eict.models.FormSoap
 edu/pucmm/eict/services/DatabaseOrmHandler.java
  edu.pucmm.eict.services.DatabaseOrmHandler
-edu/pucmm/eict/controllers/ApiRestController.java
- edu.pucmm.eict.controllers.ApiRestController
- edu.pucmm.eict.controllers.ApiRestController$1
-edu/pucmm/eict/models/FormApi.java
- edu.pucmm.eict.models.FormApi
->>>>>>> ff17aa62913b5398e73211079a447e7a35e0861d
+edu/pucmm/eict/encapsulation/LoginResponse.java
+ edu.pucmm.eict.encapsulation.LoginResponse
