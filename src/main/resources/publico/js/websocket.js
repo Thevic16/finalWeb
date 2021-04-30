@@ -15,7 +15,7 @@ worker.onmessage = (data) => {
 }
 
 function connectSocket() {
-  ws = new WebSocket("wss://final.theitshop.ninja/inapp/push-forms");
+  ws = new WebSocket("ws://localhost:7000/inapp/push-forms");
   console.log(ws.bufferedAmount);
   ws.onopen = (e) => {
     console.log("Conncted: " + this.readyState);
