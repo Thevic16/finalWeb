@@ -15,7 +15,7 @@ worker.onmessage = (data) => {
 }
 
 function connectSocket() {
-  ws = new WebSocket(`wss://${location.href}:${location.port}/inapp/push-forms`);
+  ws = new WebSocket(`wss://${location.hostname}:${location.port}/inapp/push-forms`);
   console.log(ws.bufferedAmount);
   ws.onopen = (e) => {
     console.log("Conncted: " + this.readyState);
