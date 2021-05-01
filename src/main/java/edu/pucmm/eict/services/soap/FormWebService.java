@@ -23,9 +23,9 @@ public class FormWebService {
     for (Form rawForm : rawForms) {
       if (rawForm.getUser().getUserName().equalsIgnoreCase(user)) {
 
-        FormSoap formSoap = new FormSoap(rawForm.getName(), rawForm.getLastName(), rawForm.getArea(),
-            rawForm.getNivelEscolar(), Double.toString(rawForm.getPosition().getLongitude()),
-            Double.toString(rawForm.getPosition().getLatitude()), rawForm.getUser().getUserName(),
+        FormSoap formSoap = new FormSoap(Integer.toString(rawForm.getId()), rawForm.getName(), rawForm.getLastName(), rawForm.getArea(),
+            rawForm.getNivelEscolar(), Double.toString(rawForm.getPosition().getLatitude()),
+            Double.toString(rawForm.getPosition().getLongitude()), rawForm.getUser().getUserName(),
             rawForm.getPhoto());
         formsSoap.add(formSoap);
       }
